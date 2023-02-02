@@ -19,13 +19,13 @@ export default defineComponent({
 			{
 				icon: 'badge',
 				name: "Business information",
-				to: `/business/infomation`,
+				to: `/business-infomation`,
 			},
 			{
 				icon: 'list_alt',
 				name: "Business members",
 				to: `/business/members`,
-			},		
+			},
 		];
 
 

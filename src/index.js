@@ -1,19 +1,26 @@
-import InfomationComponent from './information.vue';
-import MemberComponent from './member.vue';
-import HomeComponent from './home.vue';
+import InfomationComponent from './components/infomation/index.vue';
+import InfomationlistComponent from './components/infomation/InformationList.vue';
+import InformationForm from './components/infomation/InformationForm.vue';
+import MemberComponent from './components/member/index.vue';
 
 export default {
-	id: 'flowbite-test',
-	name: 'Flowbite Test',
+	id: 'business-infomation',
+	name: 'Business Information',
 	icon: 'warning',
 	routes: [
 		{
 			path: '',
-			component: HomeComponent,
-		},
-		{
-			path: '/business/infomation',
 			component: InfomationComponent,
+			children: [
+				{
+					path: '/',
+					component:InfomationlistComponent ,
+				},
+				{
+					path: 'verify',
+					component: InformationForm,
+				}
+			]
 		},
 		{
 			path: '/business/members',
