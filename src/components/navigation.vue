@@ -18,7 +18,7 @@ export default defineComponent({
 		const navItems = [
 			{
 				icon: 'badge',
-				name: "Business information",
+				name: "Business",
 				to: `/business-infomation`,
 			},
 			{

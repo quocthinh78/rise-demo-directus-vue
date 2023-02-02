@@ -25,6 +25,9 @@
     padding: 0 var(--content-padding) var(--content-padding-bottom);
 }
 
+.header-bar {
+    border-bottom : 1px solid #D7D7D7;
+}
 .title-container {
     margin-left: 0 !important;
 }
