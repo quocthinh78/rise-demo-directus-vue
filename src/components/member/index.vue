@@ -1,5 +1,4 @@
 <template>
-    dffsdsf
     <private-view title="My Custom Module">
         <div>
             Member
@@ -11,7 +10,7 @@
 </template>
 
 <script setup>
-import SettingsNavigation from "./components/navigation.vue";
+import SettingsNavigation from "../navigation.vue";
 
 </script>
 
