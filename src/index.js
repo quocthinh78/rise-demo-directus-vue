@@ -13,7 +13,7 @@ export default {
 			component: InfomationComponent,
 			children: [
 				{
-					path: '/',
+					path: '',
 					component:InfomationlistComponent ,
 				},
 				{
