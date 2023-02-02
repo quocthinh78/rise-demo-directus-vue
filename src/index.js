@@ -14,6 +14,7 @@ export default {
 		{
 			path: '/business/infomation',
 			component: InfomationComponent,
+			
 		},
 		{
 			path: '/business/members',
