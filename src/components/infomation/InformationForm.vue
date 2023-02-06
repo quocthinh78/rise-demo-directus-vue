@@ -61,21 +61,25 @@
             <div class="mb-4 box-border">
                 <label for="contact-number" class="block mb-2 text-sm font-medium">Contact number</label>
                 <!-- dropdown -->
-                <div class="select-phone-contact border border-gray-300">
-                    <select class="appearance-none px-3 py-1.5 text-sm bg-transparent bg-clip-padding bg-no-repeat transition ease-in-out m-0
-                    z-10 divide-y divide-gray-100 rounded-lg shadow w-44">
-                        <template v-for="(item, index) in countryCodeList" :key="index">
-                            <option v-if="index === 0" :value="item.value" selected>
-                                <img alt="Flag" :src="item.img">
-                                <span>{{ item.value }}</span>
-                            </option>
-                            <option v-if="index !== 0" :value="item.value">
-                                <img alt="Flag" :src="item.img">
-                                <span>{{ item.value }}</span>
-                            </option>
-                        </template>
-                    </select>
-                    <input type="number" id="contact-number" class="border-none text-sm rounded-lg bg-transparent"/>
+                <div class="select-phone-contact border border-gray-300 relative w-full rounded-lg bg-transparent">
+                    <button id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 text-sm font-medium text-center border-none rounded-l-lg bg-transparent outline-0 focus:outline-0" type="button" @click="dropdownCountryCode">All categories</button>
+                    <div id="dropdown" class="bg-transparent rounded-lg shadow w-44 absolute top-2.5 left-4 z-10 bg-black" v-bind:class = "isCountryDropdownOpen ? 'block' : 'hidden'">
+                        <ul class="py-2 px-0 text-sm" aria-labelledby="dropdown-button">
+                            <li class="px-1 flex flex-grow flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2">
+                                <a class="sm:text-sm">Shopping</a>
+                            </li>
+                            <li class="px-1 flex flex-grow flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2">
+                                <a class="sm:text-sm">Images</a>
+                            </li>
+                            <li class="px-1 flex flex-grow flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2">
+                                <a class="sm:text-sm">News</a>
+                            </li>
+                            <li class="px-1 flex flex-grow flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2">
+                                <a class="sm:text-sm">Finance</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- <input type="number" id="contact-number" class="border-none text-sm rounded-lg bg-transparent"/> -->
                 </div>
             </div>
             <div class="mb-4">
@@ -126,6 +130,13 @@ const countryCodeList = ref([
     },
 ]);
 
+var isCountryDropdownOpen = ref(false);
+
+function dropdownCountryCode() {
+    isCountryDropdownOpen.value = !isCountryDropdownOpen.value;
+}
+
+
 </script>
 
 <style>
@@ -141,7 +152,7 @@ input {
     width: 100%;
 }
 
-.select-phone-contact {
-
+ul {
+    list-style-type: none;
 }
 </style>
