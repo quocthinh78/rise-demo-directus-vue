@@ -1268,10 +1268,10 @@
   dependencies:
     "flowbite" "^1.4.5"
 
-"flowbite@^1.4.5", "flowbite@^1.6.1":
-  "integrity" "sha512-043bg9bnDJf97yItNyH1kbs3+vWOqmGBQM9ia1cUpyOCRp9/IYrBXF7jjrQ0oedwW0Ws+ixJRK23iBsvRxzZYA=="
-  "resolved" "https://registry.npmjs.org/flowbite/-/flowbite-1.6.1.tgz"
-  "version" "1.6.1"
+"flowbite@^1.4.5", "flowbite@^1.6.3":
+  "integrity" "sha512-wTtAzZBLrUYqUBoTSNcMAeJrZNAcdx04EDgXWnkQ7gkKoAPFvLaq/H/Zw0JKZLVKFpKxqJ7PlvocfDApSHjhvw=="
+  "resolved" "https://registry.npmjs.org/flowbite/-/flowbite-1.6.3.tgz"
+  "version" "1.6.3"
   dependencies:
     "@popperjs/core" "^2.9.3"
     "mini-svg-data-uri" "^1.4.3"
