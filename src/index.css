@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .docs-content {
     padding: 0 var(--content-padding) var(--content-padding-bottom);
 }

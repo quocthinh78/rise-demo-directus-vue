@@ -23,9 +23,3 @@
 import SettingsNavigation from "../navigation.vue";
 
 </script>
-
-<style>
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-</style>

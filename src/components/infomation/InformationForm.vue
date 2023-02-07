@@ -4,40 +4,24 @@
         <div class="mb-4">
             <div class="text-lg font-bold mb-4">Business Information</div>
             <div class="mb-4">
-                <label for="company-name-text" class="block mb-2 text-sm font-medium ">Company name</label>
-                <input type="text" id="company-name-text"
-                    class="bg-transparent border border-gray-300 text-sm rounded-lg max-w-sm h-10"
-                    placeholder="Name of company" />
+                <InputForm type="text" :disabled="disabledForm" :id="company-name-text"  inputClass = "bg-transparent border border-gray-300 text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Name of company" label="Company name" />
             </div>
             <div class="mb-4">
-                <label for="business-registration-text" class="block mb-2 text-sm font-medium">Business Registration
-                    Number</label>
-                <input type="text" id="business-registration-text"
-                    class="border border-gray-300 text-sm rounded-lg max-w-sm bg-transparent h-10"
-                    placeholder="Business Registration Number" />
+                <InputForm type="number" :disabled="disabledForm" id="business-registration-text" inputClass = "bg-transparent border border-gray-300 text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Business Registration Number" label="Business Registration Number" />
             </div>
             <div class="mb-4">
-                <label for="incorporation-date" class="block mb-2 text-sm font-medium">Incorporation date</label>
-                <div class="relative max-w-sm">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg aria-hidden="true" class="w-5 h-5 bg-transparent" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </div>
-                    <input id="incorporation-date" ref="incorporation-date" datepicker type="text"
-                        class="block w-full rounded-lg border border-gray-300 p-2.5 pl-10 sm:text-sm bg-transparent h-10"
-                        placeholder="DD/MM/YYYY" />
-
-                </div>
+                <DatepickerForm 
+                    id="incorporation-date" label="Incorporation date" right
+                    labelClass="block mb-2 text-sm font-medium" :disabled="disabledForm"
+                    inputClass="block w-full rounded-lg border border-gray-300 p-2.5 pr-10 sm:text-sm bg-transparent h-10"
+                    placeholder="DD/MM/YYYY" > 
+                    <template #icon>
+                        <svg aria-hidden="true" class="w-5 h-5 bg-transparent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                    </template>
+                </DatepickerForm>
             </div>
             <div class="mb-4">
-                <label for="business-website" class="block mb-2 text-sm font-medium">Business website</label>
-                <input type="text" id="business-registration-text"
-                    class="border border-gray-300 text-sm rounded-lg max-w-sm bg-transparent h-10"
-                    placeholder="https://" />
+                <InputForm type="text" :disabled="disabledForm" id="business-website" inputClass = "bg-transparent border border-gray-300 text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="https://" label="Business website" />
             </div>
         </div>
 
@@ -45,32 +29,21 @@
         <div class="mb-4">
             <div class="text-lg font-bold mb-4">Business Address</div>
             <div class="mb-4">
-                <label for="postcode-text" class="block mb-2 text-sm font-medium ">Postcode</label>
-                <input type="text" id="postcode-text"
-                    class="bg-transparent border border-gray-300 text-sm rounded-lg max-w-sm h-10"
-                    placeholder="123456" />
+                <InputForm type="number" :disabled="disabledForm" id="postcode-text" inputClass = "bg-transparent border border-gray-300 text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="123456" label="Postcode" />
             </div>
             <div class="mb-4">
-                <label for="address-line-1-text" class="block mb-2 text-sm font-medium">Address line 1</label>
-                <input type="text" id="address-line-1-text"
-                    class="border border-gray-300 text-sm rounded-lg max-w-sm bg-transparent h-10"
-                    placeholder="Business Registration Number" />
+                <InputForm type="text" :disabled="disabledForm" id="address-line-1-text" inputClass = "border border-gray-300 text-sm rounded-lg max-w-sm bg-transparent h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Business Registration Number" label="Address line 1" />
             </div>
             <div class="mb-4">
-                <label for="address-line-2" class="block mb-2 text-sm font-medium">Address line 2</label>
-                <div class="relative max-w-sm">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg aria-hidden="true" class="w-5 h-5 bg-transparent" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </div>
-                    <input id="address-line-2" ref="address-line-2" datepicker type="text"
-                        class="block w-full rounded-lg border border-gray-300 p-2.5 pl-10 sm:text-sm bg-transparent h-10"
-                        placeholder="DD/MM/YYYY"  />
-                </div>
+                <DatepickerForm 
+                    id="address-line-2" label="Address line 2" right
+                    labelClass="block mb-2 text-sm font-medium" :disabled="disabledForm"
+                    inputClass="block w-full rounded-lg border border-gray-300 p-2.5 pr-10 sm:text-sm bg-transparent h-10"
+                    placeholder="DD/MM/YYYY" > 
+                    <template #icon>
+                        <svg aria-hidden="true" class="w-5 h-5 bg-transparent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                    </template>
+                </DatepickerForm>
             </div>
         </div>
 
@@ -80,106 +53,94 @@
             <div class="mb-4 box-border">
                 <label for="contact-number" class="block mb-2 text-sm font-medium">Contact number</label>
                 <!-- dropdown -->
-                <div class="select-phone-contact relative w-full rounded-lg bg-transparent flex flex-row border border-solid "
-                    :class="isPhoneFocus ? 'border-focus' : 'border-gray-300'">
-                    <button id="dropdown-button" data-dropdown-toggle="dropdown"
-                        class="flex flex-shrink items-center pl-2 py-2.5 text-sm font-medium text-center rounded-l-lg bg-transparent h-10 border-gray-300"
-                        type="button" @click="dropdownCountryCode">
-                        <img alt="Flag" :src="countrySelected.img" class="h-3.5 w-5 mr-2">
-                        <span class="text-sm leading-5">{{ countrySelected.value }}</span>
-                    </button>
-                    <div id="dropdown" class="rounded-lg shadow absolute inset-y-0 left-0 z-900"
-                        :class="isCountryDropdownOpen ? 'block' : 'hidden'">
-                        <ul class="py-2 px-0 text-sm bg-black" aria-labelledby="dropdown-button">
-                            <li v-for="item in countryCodeList" :key="item.value"
-                                class="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
-                                @click="countryCodeClicked(item)">
-                                <img alt="Flag" :src="item.img" class="h-3.5 w-5 mr-1">
-                                <span class="text-sm leading-5" v-html="item.value"></span>
-                            </li>
-                        </ul>
-                    </div>
-                    <input type="number" id="contact-number"
-                        class="text-sm rounded-lg bg-transparent h-10 border-transparent focus:border-transparent focus:ring-0"
-                        @focus="isPhoneFocus = true" @blur="isPhoneFocus = false" />
+                <div class="select-phone-contact relative w-full rounded-lg bg-transparent flex flex-row border border-solid" :class = "isPhoneFocus ? 'ring-1 ring-[#1C64F2] border-[#1C64F2]' : 'border-gray-300'">
+                    <SelectForm
+                        :id="dropdown-button"
+                        inputClass="flex items-center pl-2 py-2 text-sm font-medium rounded-l-lg bg-transparent h-10 border-gray-300"
+                        listContainerClass="rounded-lg shadow absolute inset-y-0 left-0 z-99"
+                        listClass="py-2 px-0 text-sm bg-black" :disabled="disabledForm"
+                        itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
+                        :listItem="countryCodeList"
+                        v-model:selected-value="countrySelected"
+                    >
+                        <template v-slot:button="{ selectedValue }">
+                            <img alt="Flag" :src="selectedValue.img" class="h-3.5 w-5 mr-2">
+                            <span class="text-sm leading-5" v-html="selectedValue.label"></span>
+                        </template>
+                        <template v-slot:item="{ item }" >
+                            <img alt="Flag" :src="item.img" class="h-3.5 w-5 mr-1">
+                            <span class="text-sm leading-5" v-html="item.label"></span>
+                        </template>
+                    </SelectForm>
+                    <input type="number" :disabled="disabledForm" id="contact-number" class="text-sm rounded-lg bg-transparent h-10 border-transparent focus:border-transparent focus:ring-0" @focus="isPhoneFocus = true" @blur="isPhoneFocus = false"/>
                 </div>
-
             </div>
             <div class="mb-4">
-                <label for="email" class="block mb-2 text-sm font-medium">Email</label>
-                <!-- <input type="email" id="email" class="bg-transparent border border-gray-300 text-sm rounded-lg h-10" placeholder="email" required> -->
-                <Input placeholder="enter your first name" label="First name">
-                <template #prefix>
-                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                </template>
-                </Input>
+                <InputForm type="text" :disabled="disabledForm" id="business-website" inputClass = "border border-gray-300 text-sm rounded-lg max-w-sm bg-transparent h-10" labelClass="block mb-2 text-sm font-medium" placeholder="email" label="Email" />
             </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="py-4">
+            <button type="button" class="bg-[#1C64F2]
+                focus:outline-none focus:ring-1 focus:ring-[#1C64F2] focus:border-[#1C64F2] 
+                font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-gray-500 disabled:cursor-default" :disabled="disabledForm" @click="submitForm">
+                Submit
+            </button>
         </div>
     </div>
 </template>
 
 <script setup>
-import Datepicker from 'flowbite-datepicker/Datepicker';
+import InputForm from '../common/InputForm.vue'
+import DatepickerForm from '../common/DatepickerForm.vue'
+import SelectForm from '../common/SelectForm.vue'
+import { ref } from 'vue'
 
-import { onMounted, ref } from 'vue'
-
-onMounted(() => {
-    const incorporationDatePicker = new Datepicker(document.getElementById('incorporation-date'));
-    const addressLine2 = new Datepicker(document.getElementById('address-line-2'));
-})
 
 const countryCodeList = ref([
     {
         img: 'https://staging.tagrise.com/static/media/singapore_flag.975f4084ca809a9eca2106dfab7caceb.svg',
-        value: '+65'
+        label: '+65'
     },
     {
         img: 'https://staging.tagrise.com/static/media/hongkong_flag.743d25c48b17eac6d1a966ed462bf7d0.svg',
-        value: '+852'
+        label: '+852'
     },
     {
         img: 'https://staging.tagrise.com/static/media/korea_flag.2b4d800b17bf5c624a185da1c2966854.svg',
-        value: '+82'
+        label: '+82'
     },
     {
         img: 'https://staging.tagrise.com/static/media/taiwan_flag.ac6bcad0ad5f7095204dc7fe96735c88.svg',
-        value: '+886'
+        label: '+886'
     },
     {
         img: 'https://staging.tagrise.com/static/media/malaysia_flag.35a24d1284212d5967522b353e15d7e3.svg',
-        value: '+60'
+        label: '+60'
     },
     {
         img: 'https://staging.tagrise.com/static/media/indo_flag.f624e2c8444a7794b35736c30dd82dda.svg',
-        value: '+62'
+        label: '+62'
     },
     {
         img: 'https://staging.tagrise.com/static/media/philipine_flag.e215bab6b405d1afeff4e809f488ec41.svg',
-        value: '+63'
+        label: '+63'
     },
 ]);
 
 var countrySelected = ref({
-    img: 'https://staging.tagrise.com/static/media/singapore_flag.975f4084ca809a9eca2106dfab7caceb.svg',
-    value: '+65'
-});
+        img: 'https://staging.tagrise.com/static/media/singapore_flag.975f4084ca809a9eca2106dfab7caceb.svg',
+        label: '+65'
+    });
 
-var isCountryDropdownOpen = ref(false);
+var isPhoneFocus = ref(false);                              //variable to get input focus event
 
-function dropdownCountryCode() {
-    isCountryDropdownOpen.value = !isCountryDropdownOpen.value;
+var disabledForm = ref(false);                               //disable form
+
+var submitForm = () => {
+    console.log("submit");
 }
-
-function countryCodeClicked(item) {
-    countrySelected.value = item;
-    isCountryDropdownOpen.value = !isCountryDropdownOpen.value;
-}
-
-var isPhoneFocus = ref(false);
 </script>
 
 <style>
@@ -188,7 +149,7 @@ var isPhoneFocus = ref(false);
 @tailwind utilities;
 
 .container {
-    width: 343px !important;
+    width: 350px !important;
 }
 
 input {
@@ -199,7 +160,4 @@ ul {
     list-style-type: none;
 }
 
-.border-focus {
-    border-color: #8866ff !important;
-}
 </style>

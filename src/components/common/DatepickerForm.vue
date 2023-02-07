@@ -4,7 +4,7 @@
         <div class="absolute inset-y-0 flex items-center pointer-events-none" :class = "iconSide">
             <slot name="icon" ></slot>
         </div>
-        <input :id="id" ref="id" datepicker type="text" :class="inputClass" :placeholder="placeholder" :disabled="disabled"/>
+        <input :id="id" :ref="id" datepicker-autohide type="text" :class="inputClass" :placeholder="placeholder" :disabled="disabled"/>
     </div>
 </template>
 
