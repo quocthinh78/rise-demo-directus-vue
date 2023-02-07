@@ -1,0 +1,11 @@
+.docs-content {
+    padding: 0 var(--content-padding) var(--content-padding-bottom);
+}
+
+.title-container {
+    margin-left: 0 !important;
+}
+
+.header-bar {
+    border-bottom : 1px solid;
+}

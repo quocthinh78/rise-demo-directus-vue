@@ -2,6 +2,7 @@ import InfomationComponent from './components/infomation/index.vue';
 import InfomationlistComponent from './components/infomation/InformationList.vue';
 import InformationForm from './components/infomation/InformationForm.vue';
 import MemberComponent from './components/member/index.vue';
+import './index.css'
 
 export default {
 	id: 'business-infomation',
