@@ -7,7 +7,7 @@ import './index.css'
 export default {
 	id: 'business-infomation',
 	name: 'Business Information',
-	icon: 'warning',
+	icon: 'box',
 	routes: [
 		{
 			path: '',
