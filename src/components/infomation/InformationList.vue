@@ -145,7 +145,7 @@
                 clip-rule="evenodd"></path>
         </svg>
     </Alert>
-
+    <img :src="Images" class="w-4 h-4" />
 </template>
 
 
@@ -166,6 +166,7 @@ import CardBusiness from '../common/BusinessCard.vue';
 import Badge from '../common/Badge.vue';
 import Modal from '../common/Modal.vue';
 import Alert from '../common/Alert.vue';
+import Images from "../../assets/icon/avatar.svg"
 export default {
     name: "InformationList",
     components: {
