@@ -4,7 +4,7 @@
         <div class="absolute inset-y-0 flex items-center pointer-events-none" :class = "iconSide">
             <slot name="icon" ></slot>
         </div>
-        <input :id="id" :ref="id" datepicker-autohide type="text" :class="inputClass" :placeholder="placeholder" :disabled="disabled"/>
+        <input :id="id" datepicker type="text" :class="inputClass" class="disabled:bg-gray-500" :placeholder="placeholder" :disabled="disabled" :value="modelValue" @changeDate="updateInput"/>
     </div>
 </template>
 
@@ -56,8 +56,13 @@ export default {
         disabled: {
             type: Boolean,
             default: false,
+        },
+        modelValue: {
+            type: String || Number,
+            default: null
         }
     },
+    emits: ['update:modelValue'],
     data() {
         return {
             datepicker: null
@@ -75,7 +80,16 @@ export default {
         }
     },
     mounted() {
-        this.datepicker = new Datepicker(document.getElementById(this.id));
+        this.datepicker = new Datepicker(document.getElementById(this.id), {
+            autohide: true,
+            weekStart: 1,
+            format: 'dd/mm/yyyy'
+        });
     },
+    methods: {
+        updateInput(evt) {
+            this.$emit('update:modelValue', evt.target.value)
+        }
+    }
 }
 </script>

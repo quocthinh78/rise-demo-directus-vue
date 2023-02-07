@@ -1,5 +1,5 @@
 <template>
-    <button :id="id" :class="inputClass" type="button" @click="openDropdownList" :disabled="disabled">
+    <button :id="id" :class="inputClass" class="disabled:bg-gray-500 disabled:cursor-default" type="button" @click="openDropdownList" :disabled="disabled">
         <slot name="button" v-bind:selectedValue="selectedValue"></slot>
     </button>
     <!-- list container -->
@@ -7,7 +7,7 @@
         <!-- list -->
         <ul :class="listClass" :aria-labelledby="id">
             <!-- item -->
-            <li v-for="item in listItem" :key="item.value" :class="itemClass" @click="itemClicked(item)" >
+            <li v-for="item in listItem" :key="item.value" :class="itemClass" class="cursor-default" @click="itemClicked(item)" >
                 <slot name="item" v-bind:item="item">
                     <span class="text-sm leading-5" v-html="item.label"></span>
                 </slot>
@@ -77,9 +77,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-button:disabled {
-    cursor: default;
-}
-</style>

@@ -4,14 +4,14 @@
         <div class="mb-4">
             <div class="text-lg font-bold mb-4">Business Information</div>
             <div class="mb-4">
-                <InputForm type="text" :disabled="disabledForm" :id="company-name-text"  inputClass = "bg-transparent border border-gray-300 text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Name of company" label="Company name" />
+                <InputForm type="text" v-model="companyName" :disabled="disabledForm" :id="company-name-text"  inputClass="bg-transparent border border-gray-300 text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Name of company" label="Company name" />
             </div>
             <div class="mb-4">
-                <InputForm type="number" :disabled="disabledForm" id="business-registration-text" inputClass = "bg-transparent border border-gray-300 text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Business Registration Number" label="Business Registration Number" />
+                <InputForm type="number" v-model="businessRegistrationNumber" :disabled="disabledForm" id="business-registration-text" inputClass="bg-transparent border border-gray-300 text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Business Registration Number" label="Business Registration Number" />
             </div>
             <div class="mb-4">
                 <DatepickerForm 
-                    id="incorporation-date" label="Incorporation date" right
+                    id="incorporation-date" label="Incorporation date" right v-model="incorporationDate"
                     labelClass="block mb-2 text-sm font-medium" :disabled="disabledForm"
                     inputClass="block w-full rounded-lg border border-gray-300 p-2.5 pr-10 sm:text-sm bg-transparent h-10"
                     placeholder="DD/MM/YYYY" > 
@@ -21,7 +21,7 @@
                 </DatepickerForm>
             </div>
             <div class="mb-4">
-                <InputForm type="text" :disabled="disabledForm" id="business-website" inputClass = "bg-transparent border border-gray-300 text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="https://" label="Business website" />
+                <InputForm type="text" :disabled="disabledForm" id="business-website" inputClass="bg-transparent border border-gray-300 text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="https://" label="Business website" />
             </div>
         </div>
 
@@ -29,10 +29,10 @@
         <div class="mb-4">
             <div class="text-lg font-bold mb-4">Business Address</div>
             <div class="mb-4">
-                <InputForm type="number" :disabled="disabledForm" id="postcode-text" inputClass = "bg-transparent border border-gray-300 text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="123456" label="Postcode" />
+                <InputForm type="number" :disabled="disabledForm" id="postcode-text" inputClass="bg-transparent border border-gray-300 text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="123456" label="Postcode" />
             </div>
             <div class="mb-4">
-                <InputForm type="text" :disabled="disabledForm" id="address-line-1-text" inputClass = "border border-gray-300 text-sm rounded-lg max-w-sm bg-transparent h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Business Registration Number" label="Address line 1" />
+                <InputForm type="text" :disabled="disabledForm" id="address-line-1-text" inputClass="border border-gray-300 text-sm rounded-lg max-w-sm bg-transparent h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Business Registration Number" label="Address line 1" />
             </div>
             <div class="mb-4">
                 <DatepickerForm 
@@ -72,11 +72,11 @@
                             <span class="text-sm leading-5" v-html="item.label"></span>
                         </template>
                     </SelectForm>
-                    <input type="number" :disabled="disabledForm" id="contact-number" class="text-sm rounded-lg bg-transparent h-10 border-transparent focus:border-transparent focus:ring-0" @focus="isPhoneFocus = true" @blur="isPhoneFocus = false"/>
+                    <input type="number" :disabled="disabledForm" id="contact-number" class="text-sm rounded-lg bg-transparent h-10 border-transparent focus:border-transparent focus:ring-0 disabled:bg-gray-500" @focus="isPhoneFocus = true" @blur="isPhoneFocus = false"/>
                 </div>
             </div>
             <div class="mb-4">
-                <InputForm type="text" :disabled="disabledForm" id="business-website" inputClass = "border border-gray-300 text-sm rounded-lg max-w-sm bg-transparent h-10" labelClass="block mb-2 text-sm font-medium" placeholder="email" label="Email" />
+                <InputForm type="text" :disabled="disabledForm" id="business-website" inputClass="border border-gray-300 text-sm rounded-lg max-w-sm bg-transparent h-10" labelClass="block mb-2 text-sm font-medium" placeholder="email" label="Email" />
             </div>
         </div>
 
@@ -138,8 +138,18 @@ var isPhoneFocus = ref(false);                              //variable to get in
 
 var disabledForm = ref(false);                               //disable form
 
+const companyName = ref('asdfasfd');
+
+const businessRegistrationNumber = ref(98237452);
+
+const incorporationDate = ref('23/03/2023')
+
 var submitForm = () => {
     console.log("submit");
+    console.log("companyName", companyName.value);
+    console.log("businessRegistrationNumber", businessRegistrationNumber.value);
+    console.log("incorporationDate", incorporationDate.value);
+    console.log("countrySelected", countrySelected.value);
 }
 </script>
 
