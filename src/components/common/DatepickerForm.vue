@@ -1,23 +1,18 @@
 <template>
     <label :for="id" :class="labelClass">{{ label }}</label>
     <div class="relative max-w-sm">
-        <div class="absolute inset-y-0 flex items-center pointer-events-none" :class="iconSide">
-            <slot name="icon"></slot>
+        <div class="absolute inset-y-0 flex items-center pointer-events-none" :class = "iconSide">
+            <slot name="icon" ></slot>
         </div>
-        <input :id="id" :ref="id" datepicker-autohide type="text" :class="inputClass" :placeholder="placeholder"
-            :disabled="disabled" v-model="datePickerValue" />
+        <input :id="id" datepicker type="text" :class="inputClass" class="disabled:bg-gray-500" :placeholder="placeholder" :disabled="disabled" :value="modelValue" @changeDate="updateInput"/>
     </div>
-    <button @click="changeValue">hi</button>
 </template>
 
 <style scoped>
-
 </style>
 
 <script>
-import { ref, onMounted, onUpdated ,watchEffect } from "vue";
 import Datepicker from 'flowbite-datepicker/Datepicker';
-
 export default {
     name: "DatepickerForm",
     props: {
@@ -59,37 +54,39 @@ export default {
             type: Boolean,
             default: false,
         },
-    },
-    setup(props) {
-        const datePickerValue = ref(null)
-        const datePicker = ref(null)
-        onMounted(() => {
-            datePicker.value = new Datepicker(document.getElementById(props.id));
-        })
-        onUpdated((a,b) => {
-        console.log("🚀 thinhvq ~ file: DatepickerForm.vue:75 ~ onUpdated ~ a", a)
-
-            console.log("🚀 thinhvq ~ file: DatepickerForm.vue:70 ~ onUpdated ~ b", b)
-            console.log("🚀 thinhvq ~ file: DatepickerForm.vue:65 ~ setup ~ datePickerValue", datePickerValue)
-            console.log("🚀 thinhvq ~ file: DatepickerForm.vue:67 ~ setup ~ datePicker", datePicker)
-
-
-        })
-
-        const changeValue = () => {
-            console.log("🚀 thinhvq ~ file: DatepickerForm.vue:65 ~ setup ~ datePickerValue", datePickerValue)
-            console.log("🚀 thinhvq ~ file: DatepickerForm.vue:67 ~ setup ~ datePicker", datePicker)
+        modelValue: {
+            type: String || Number,
+            default: null
         }
-
-        watchEffect(datePickerValue, () => {
-            console.log(datePickerValue)
-        })
+    },
+    emits: ['update:modelValue'],
+    data() {
         return {
-            datePicker, datePickerValue, changeValue
+            datepicker: null
+        }
+    },
+    computed: {
+        iconSide() {
+            if(this.left) {
+                return 'left-0 pl-3'
+            } 
+            if(this.right) {
+                return 'right-0 pr-3'
+            }
+            return ''
+        }
+    },
+    mounted() {
+        this.datepicker = new Datepicker(document.getElementById(this.id), {
+            autohide: true,
+            weekStart: 1,
+            format: 'dd/mm/yyyy'
+        });
+    },
+    methods: {
+        updateInput(evt) {
+            this.$emit('update:modelValue', evt.target.value)
         }
     }
-
-
-
 }
 </script>
