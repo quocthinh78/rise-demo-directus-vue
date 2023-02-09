@@ -1,6 +1,6 @@
 <template>
     <label :for="id" :class="labelClass">{{ label }}</label>
-    <input :type="type" class="disabled:bg-gray-500" :id="id" :class="inputClass" :placeholder="placeholder" :disabled="disabled" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"/>
+    <input :type="type" class="disabled:bg-[var(--background-subdued)] rounded-md" :id="id" :class="inputClass" :placeholder="placeholder" :disabled="disabled" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"/>
 </template>
 
 <style scoped>

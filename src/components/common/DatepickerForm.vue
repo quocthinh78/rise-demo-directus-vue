@@ -4,7 +4,7 @@
         <div class="absolute inset-y-0 flex items-center pointer-events-none" :class = "iconSide">
             <slot name="icon" ></slot>
         </div>
-        <input :id="id" datepicker type="text" :class="inputClass" class="disabled:bg-gray-500" :placeholder="placeholder" :disabled="disabled" :value="modelValue" @changeDate="updateInput"/>
+        <input :id="id" datepicker type="text" :class="inputClass" class="disabled:bg-[var(--background-subdued)] rounded-md" :placeholder="placeholder" :disabled="disabled" :value="modelValue" @changeDate="updateInput"/>
     </div>
 </template>
 

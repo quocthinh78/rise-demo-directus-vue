@@ -145,6 +145,23 @@
                 clip-rule="evenodd"></path>
         </svg>
     </Alert>
+
+    
+    <div class="max-w-[310px] max-h-[300px] p-6 flex flex-col items-center m-0" style="line-height: 34px;">
+        <div class="w-[100px] h-[100px] pointer-events-none bg-[var(--background-normal)] rounded-full mb-4" style="padding: 2.3rem 0 0 2.3rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="var(--v-icon-color)" width="36" height="36" viewBox="0 0 45 45" ><path d="m42 24-8.45 11.95q-.65.9-1.55 1.475-.9.575-2 .575H9q-1.25 0-2.125-.875T6 35V13q0-1.25.875-2.125T9 10h21q1.1 0 2 .575.9.575 1.55 1.475Zm-3.75 0-7.7-11H9v22h21.55ZM9 24v11-22Z"/></svg>
+        </div>
+        <h2 class="mb-2 text-2xl font-bold line" style="outline: none; box-sizing: border-box;">No Items</h2>
+        <p class="text-base mb-6 max-w-[310px] w-auto">There are no items in this collection yet.</p>
+        <button type="button" 
+                class="justify-center relative flex items-center min-w-[var(--v-button-min-width)] h-11 px-5 text-sm bg-[var(--v-button-background-color)] rounded-md w-auto
+                focus:outline-none hover:bg-[var(--v-button-background-color-hover)] hover:border-[var(--v-button-background-color-hover)] text-[var(--v-button-color)] no-underline border
+                font-semibold text-center disabled:bg-[var(--background-subdued)] disabled:cursor-default" 
+                style="border: var(--border-width) solid var(--v-button-background-color); transition: var(--fast) var(--transition);">
+                Submit
+        </button>
+    </div>
+
     <!-- <img :src="Images" class="w-4 h-4" /> -->
 </template>
 
@@ -186,6 +203,14 @@ export default {
         }
 
         return { showModal, toggleModal }
-    }
+    },
+    
 }
 </script>
+
+<style scoped>
+.svg-container {
+    background-color: var(--background-normal);
+}
+
+</style>
