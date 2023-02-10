@@ -80,11 +80,14 @@
                             <span class="text-sm leading-5" v-html="item.label"></span>
                         </template>
                     </SelectForm>
-                    <input type="number" :disabled="disabledForm" id="contact-number" class="bg-transparent text-sm rounded-lg h-10 border-transparent focus:border-transparent focus:ring-0 disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)]" @focus="isPhoneFocus = true" @blur="isPhoneFocus = false"/>
+                    <input type="number" :disabled="disabledForm" id="contact-number" class="bg-transparent text-sm rounded-lg h-10 border-none border-transparent focus:border-transparent focus:ring-0 disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)]" @focus="isPhoneFocus = true" @blur="isPhoneFocus = false"/>
                 </div>
             </div>
             <div class="mb-4">
                 <InputForm type="text" :disabled="disabledForm" id="business-website" inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="email" label="Email" />
+            </div>
+            <div class="mb-4">
+                <UploadFileForm v-model="fileUploaded" multiple :disabled="disabledForm" id="documents-upload" inputClass="bg-transparent text-sm border rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Upload files" label="Documents"/>
             </div>
         </div>
 
@@ -105,6 +108,7 @@
 
 <script setup>
 import InputForm from '../common/InputForm.vue'
+import UploadFileForm from '../common/UploadFileForm.vue'
 import DatepickerForm from '../common/DatepickerForm.vue'
 import SelectForm from '../common/SelectForm.vue'
 import { ref } from 'vue'
@@ -156,12 +160,15 @@ const businessRegistrationNumber = ref(98237452);
 
 const incorporationDate = ref('23/03/2023')
 
+var fileUploaded = ref(null)
+
 var submitForm = () => {
     console.log("submit");
     console.log("companyName", companyName.value);
     console.log("businessRegistrationNumber", businessRegistrationNumber.value);
     console.log("incorporationDate", incorporationDate.value);
     console.log("countrySelected", countrySelected.value);
+    console.log(fileUploaded.value);
 }
 </script>
 

@@ -19,12 +19,12 @@ export default defineComponent({
 			{
 				icon: 'badge',
 				name: "Business",
-				to: `/business-infomation`,
+				to: `/verification`,
 			},
 			{
 				icon: 'list_alt',
 				name: "Business members",
-				to: `/business/members`,
+				to: `/members`,
 			},
 		];
 

@@ -5,8 +5,8 @@ import MemberComponent from './components/member/index.vue';
 import './index.css'
 
 export default {
-	id: 'business-infomation',
-	name: 'Business Information',
+	id: 'verification',
+	name: 'Verification',
 	icon: 'box',
 	routes: [
 		{
@@ -24,7 +24,7 @@ export default {
 			]
 		},
 		{
-			path: '/business/members',
+			path: '/members',
 			component: MemberComponent,
 		},
 	],
