@@ -1,5 +1,5 @@
 <template>
-    <button :id="id" :class="inputClass" class="disabled:bg-[var(--background-subdued)] disabled:cursor-default" type="button" @click="openDropdownList" :disabled="disabled">
+    <button :id="id" :class="inputClass" class="disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] disabled:cursor-default" type="button" @click="openDropdownList" :disabled="disabled">
         <slot name="button" v-bind:selectedValue="selectedValue"></slot>
     </button>
     <!-- list container -->

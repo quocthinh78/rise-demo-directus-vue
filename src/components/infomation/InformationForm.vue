@@ -63,8 +63,8 @@
             <div class="mb-4 box-border">
                 <label for="contact-number" class="block mb-2 text-sm font-medium">Contact number</label>
                 <!-- dropdown -->
-                <div class="select-phone-contact relative w-full bg-transparent flex flex-row rounded-md border border-solid"
-                    :class="isPhoneFocus ? 'ring-1 ring-[#8866ff] border-[#8866ff]' : 'border-[var(--border-normal)]'">
+                <div class="select-phone-contact relative w-full bg-[var(--background-input)] flex flex-row rounded-md border border-solid"
+                    :class="isPhoneFocus ? 'ring-1 ring-[#1C64F2] border-[#1C64F2]' : 'border-[#6B7280]'">
                     <SelectForm :id="dropdown-button"
                         inputClass="flex items-center pl-2 py-2 text-sm font-medium rounded-l-lg bg-transparent h-10"
                         listContainerClass="rounded-lg shadow absolute inset-y-0 left-0 z-99"
@@ -80,7 +80,7 @@
                             <span class="text-sm leading-5" v-html="item.label"></span>
                         </template>
                     </SelectForm>
-                    <input type="number" :disabled="disabledForm" id="contact-number" class="bg-transparent text-sm rounded-lg h-10 border-transparent focus:border-transparent focus:ring-0 disabled:bg-[var(--background-subdued)]" @focus="isPhoneFocus = true" @blur="isPhoneFocus = false"/>
+                    <input type="number" :disabled="disabledForm" id="contact-number" class="bg-transparent text-sm rounded-lg h-10 border-transparent focus:border-transparent focus:ring-0 disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)]" @focus="isPhoneFocus = true" @blur="isPhoneFocus = false"/>
                 </div>
             </div>
             <div class="mb-4">
@@ -92,8 +92,8 @@
         <div class="py-4">
             <button type="button"
                 class="bg-[#1e74fd]
-                focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] 
-                font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--background-subdued)] disabled:cursor-default"
+                focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
+                font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 :disabled="disabledForm" @click="submitForm">
                 Submit
             </button>

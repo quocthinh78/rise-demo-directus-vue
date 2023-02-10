@@ -113,7 +113,7 @@
     </Badge>
 
     <div class="block mt-8 cursor-pointer">
-        <div class="inline text-white bg-blue-700 font-medium rounded-lg px-5 py-2.5 text-center mt-8"
+        <div class="inline text-[var(--v-button-color)] bg-blue-700 font-medium rounded-lg px-5 py-2.5 text-center mt-8"
             @click="toggleModal" type="button">
             Toggle modal Confirmation
         </div>
@@ -121,25 +121,24 @@
 
 
     <Modal v-if="showModal">
-        <div class="relative bg-white w-[280px] h-auto rounded-2xl leading-4 text-center">
+        <div class="relative bg-[var(--v-notice-background-color)] w-[280px] h-auto rounded-2xl leading-4 text-center">
             <div class=" py-6 px-7">
                 <div class="font-bold text-[17px]">Confirmation</div>
-                <div class="text-[15px] text-[#4F5050] mt-5">I confirm that there’s no business owners with over 25%
+                <div class="text-[15px] mt-5">I confirm that there’s no business owners with over 25%
                     ownership</div>
             </div>
-            <div class=" border-[#E1E1E1] py-5 px-7 border-solid border-y border-x-0" @click="onSubmit">
+            <div class=" border-[var(--border-normal)] py-5 px-7 border-solid border-y border-x-0" @click="onSubmit">
                 <div class="text-[15px] text-[#1E74FD] cursor-pointer">Submit</div>
             </div>
             <div class="py-5 px-7">
-                <div class="text-[15px] text-[#6C7C94] cursor-pointer" @click="toggleModal">Close</div>
+                <div class="text-[15px] text-[var(--v-button-color-disabled)] cursor-pointer" @click="toggleModal">Close</div>
             </div>
         </div>
     </Modal>
 
 
-    <Alert title=" Please click here if there's no business owners with over 25% ownership" bg="#5B4Ef8"
-        color="#5B4Ef8">
-        <svg class="flex-shrink-0 w-5 h-5" fill="#5B4Ef8" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <Alert title=" Please click here if there's no business owners with over 25% ownership" bg="var(--primary)">
+        <svg class="flex-shrink-0 w-5 h-5" fill="var(--v-icon-color)" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
                 d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
                 clip-rule="evenodd"></path>
@@ -156,8 +155,8 @@
         <button type="button" 
                 class="justify-center relative flex items-center min-w-[var(--v-button-min-width)] h-11 px-5 text-sm bg-[var(--v-button-background-color)] rounded-md w-auto
                 focus:outline-none hover:bg-[var(--v-button-background-color-hover)] hover:border-[var(--v-button-background-color-hover)] text-[var(--v-button-color)] no-underline border
-                font-semibold text-center disabled:bg-[var(--background-subdued)] disabled:cursor-default" 
-                style="border: var(--border-width) solid var(--v-button-background-color); transition: var(--fast) var(--transition);">
+                font-semibold text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]" 
+                style="transition: var(--fast) var(--transition);">
                 Submit
         </button>
     </div>
