@@ -1,5 +1,4 @@
 <template>
-    <div class="cursor-pointer">
         <div
             class="flex items-center justify-between gap-4 max-w-2xl p-4 font-normal mb-6 mt-2 bg-[#6C7C94]  rounded-lg shadow  text-white">
             <div class="flex items-center justify-between gap-4">
@@ -8,7 +7,7 @@
                     <slot name="icon"></slot>
                 </div>
                 <div class="max-w-md">
-                    <h5 class="mb-1 text-[16px]">{{ title }}</h5>
+                    <h5 class="mb-1 text-[16px] hover:text-red cursor-pointer" @click="riderectPage">{{ title }}</h5>
                     <p class="text-[11px]">{{ description }}</p>
                 </div>
             </div>
@@ -16,7 +15,6 @@
                 <div class="text-[10px] px-2 py-1 leading-[14px]" :style="{ color : statusObjectRef.color}" >{{ statusObjectRef.value }}</div>
             </div>
         </div>
-    </div>
 </template>
 
 <style scoped>
@@ -40,6 +38,11 @@ export default {
             type: Number,
             // required: true,
         },
+    },
+    methods : {
+        riderectPage () {
+            this.$router.push('/eKyc')
+        }
     },
     setup(props) {
         const statusRef = ref([

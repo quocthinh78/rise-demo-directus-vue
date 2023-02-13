@@ -6,7 +6,16 @@ module.exports = {
     "./node_modules/flowbite/**/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        light: "#e2f3f5",
+        teal: "#22d1ee",
+        dark: "#0e153a",
+        red: {
+          'DEFAULT': '#f00'
+        }
+      },
+    },
   },
   corePlugins: {
     preflight: false,
