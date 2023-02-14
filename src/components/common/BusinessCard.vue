@@ -8,7 +8,7 @@
                     <slot name="icon"></slot>
                 </div>
                 <div class="max-w-md">
-                    <h5 class="mb-1 text-[16px]">{{ title }}</h5>
+                    <h5 class="mb-1 text-[16px] hover:text-red cursor-pointer" @click="riderectPage">{{ title }}</h5>
                     <p class="text-[11px]">{{ description }}</p>
                 </div>
             </div>
@@ -44,6 +44,11 @@ export default {
             type: String,
             default: '#',
         },
+    },
+    methods : {
+        riderectPage () {
+            this.$router.push('/eKyc')
+        }
     },
     setup(props) {
         const statusRef = ref([
