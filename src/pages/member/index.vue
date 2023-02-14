@@ -20,6 +20,6 @@
 </template>
 
 <script setup>
-import SettingsNavigation from "../navigation.vue";
+import SettingsNavigation from "../../components/common/navigation.vue";
 
 </script>

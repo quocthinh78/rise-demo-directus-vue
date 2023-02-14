@@ -1,18 +1,8 @@
 <template>
 
-        <div
-            class="relative bg-[var(--background-input)] border-b border-t-0 border-x-0 border-solid p-4 text-center text-lg">
-            <div class="absolute top-4 left-8">
-                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
-                </svg>
-            </div>
-            <div>Identity Verification</div>
-        </div>
+    <Layout>
         <div class="flex justify-center w-full h-full">
-
-            <div class="text-center max-w-[800px] mt-12">
+            <div class="text-center max-w-[800px] mt-12 px-6">
                 <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="1" y="1" width="40" height="40" rx="8" fill="#FFE70C" stroke="#141515" stroke-width="1.8"
                         stroke-linecap="round" />
@@ -32,22 +22,30 @@
                 <div class="font-bold text-2xl mt-8">
                     Let’s verify your identity
                 </div>
-                <div class="mt-2">We are required by law to verify your identity before you can accept money
+                <div class="mt-4">We are required by law to verify your identity before you can accept money
                     in TagRise. Your information will be encrypted and stored securely.</div>
-                <div class="text-[#fff] bg-[#1e74fd] rounded-md hover:bg-[#0564fd] py-2 block mt-4 cursor-pointer"
+                <div class="text-[#fff] bg-[#1e74fd] rounded-md hover:bg-[#0564fd] py-2 block mt-8 cursor-pointer"
                     @click="ridereactStartLink">Start
                 </div>
-                <div class="bg-[#fff] text-[#1e74fd] py-2 block mt-2 cursor-pointer">Skip</div>
+                <div class="bg-[#fff] text-[#1e74fd] py-2 block mt-4 cursor-pointer">Skip</div>
             </div>
         </div>
+    </Layout>
+
 
 </template>
 
 <script>
-import AppApi from "./../../apiConfig.js"
+import { onMounted } from "vue"
 import axios from "axios"
+import AppApi from "./../../apiConfig.js"
+import Layout from "./../../components/common/layout.vue"
+
 export default {
     name: "page/ekyc",
+    components : {
+        Layout,
+    },
     setup() {
         const ridereactStartLink = async () => {
             const data = await AppApi("post", "/jumio/start", localStorage.getItem("rise_token"))
@@ -56,5 +54,6 @@ export default {
             ridereactStartLink
         }
     }
+
 }
 </script>
