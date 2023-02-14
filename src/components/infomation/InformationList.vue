@@ -1,6 +1,6 @@
 <template>
     <CardBusiness title="Upload business documents and information" description="Unlock all Rise features now"
-        :status="2">
+        :status="2" link="/admin/verification/verify">
         <template v-slot:icon>
             <!-- <img :src="require(`@/assets/icon/upload_business_blue.svg`)" alt="image" /> -->
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -11,7 +11,7 @@
         </template>
     </CardBusiness>
 
-    <CardBusiness title="Business directors information" description="Unlock all Rise features now">
+    <CardBusiness title="Business directors information" description="Unlock all Rise features now" >
         <template v-slot:icon>
             <!-- <img :src="require(`@/assets/icon/upload_business_blue.svg`)" alt="image" /> -->
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -26,7 +26,7 @@
             </svg>
         </template>
     </CardBusiness>
-    <CardBusiness title="Business directors information" description="Unlock all Rise features now" :status="1">
+    <CardBusiness title="Business directors information" description="Unlock all Rise features now" :status="1" >
         <template v-slot:icon>
             <!-- <img :src="require(`@/assets/icon/upload_business_blue.svg`)" alt="image" /> -->
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,7 +41,7 @@
             </svg>
         </template>
     </CardBusiness>
-    <CardBusiness title="Business directors information" description="Unlock all Rise features now" :status="3">
+    <CardBusiness title="Business directors information" description="Unlock all Rise features now" :status="3" >
         <template v-slot:icon>
             <!-- <img :src="require(`@/assets/icon/upload_business_blue.svg`)" alt="image" /> -->
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,7 +57,7 @@
         </template>
     </CardBusiness>
 
-    <CardBusiness title="Business directors information" description="Unlock all Rise features now" :status="4">
+    <CardBusiness title="Business directors information" description="Unlock all Rise features now" :status="4" >
         <template v-slot:icon>
             <!-- <img :src="require(`@/assets/icon/upload_business_blue.svg`)" alt="image" /> -->
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
