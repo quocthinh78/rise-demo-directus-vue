@@ -1,4 +1,5 @@
 <template>
+    <div class="cursor-pointer" @click="cardClicked">
         <div
             class="flex items-center justify-between gap-4 max-w-2xl p-4 font-normal mb-6 mt-2 bg-[#6C7C94]  rounded-lg shadow  text-white">
             <div class="flex items-center justify-between gap-4">
@@ -15,6 +16,7 @@
                 <div class="text-[10px] px-2 py-1 leading-[14px]" :style="{ color : statusObjectRef.color}" >{{ statusObjectRef.value }}</div>
             </div>
         </div>
+    </div>
 </template>
 
 <style scoped>
@@ -38,6 +40,10 @@ export default {
             type: Number,
             // required: true,
         },
+        link: {
+            type: String,
+            default: '#',
+        },
     },
     methods : {
         riderectPage () {
@@ -56,6 +62,11 @@ export default {
             statusObjectRef.value = statusRef.value.find((item) => item.id === props.status)
         })
         return { statusRef ,statusObjectRef };
+    },
+    methods:{
+        cardClicked() {
+            window.location.href = this.link;
+        }
     }
     
 }
