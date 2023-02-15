@@ -3,6 +3,7 @@ import InfomationlistComponent from './components/information/InformationList.vu
 import InformationForm from './components/information/InformationForm.vue';
 import MemberComponent from './pages/member/index.vue';
 import EkycComponent from './pages/ekyc/index.vue';
+import EkycStartComponent from './pages/ekyc-start/index.vue';
 import EkycFailComponent from './pages/ekyc-fail/index.vue';
 import EkycProcessComponent from './pages/ekyc-process/index.vue';
 import EkycSuccessComponent from './pages/ekyc-success/index.vue';
@@ -23,30 +24,39 @@ export default {
 					component: InfomationlistComponent,
 				},
 				{
-					path: '/members',
+					path: 'members',
 					component: MemberComponent,
-				},
-				{
-					path: '/eKyc',
-					component: EkycComponent,
-				},
-				{
-					path: '/eKyc-fail',
-					component: EkycFailComponent,
-				},
-				{
-					path: '/eKyc-process',
-					component: EkycProcessComponent,
-				},
-				{
-					path: '/eKyc-success',
-					component: EkycSuccessComponent,
 				},
 				{
 					path: 'verify',
 					component: InformationForm,
+				},
+				{
+					path: "ekyc",
+					components: EkycComponent,
+					children: [
+						{
+							path: 'eKyc-start',
+							component: EkycStartComponent,
+						},
+						{
+							path: 'eKyc-fail',
+							component: EkycFailComponent,
+						},
+						{
+							path: 'eKyc-process',
+							component: EkycProcessComponent,
+						},
+						{
+							path: 'eKyc-success',
+							component: EkycSuccessComponent,
+						},
+						
+					]
 				}
 			]
 		},
+	
+
 	],
 };

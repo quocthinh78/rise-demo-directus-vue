@@ -1,5 +1,5 @@
 <template>
-    <div class="pt-6 pl-10 container">
+    <div class="pt-8 px-8 container">
         <!-- Business Information -->
         <div class="mb-4">
             <div class="text-lg font-bold mb-4">Business Information</div>

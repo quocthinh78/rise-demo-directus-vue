@@ -16,7 +16,7 @@
         </template>
 
 
-        <div class="docs-content selectable">
+        <div>
             <router-view></router-view>
         </div>
 

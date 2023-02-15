@@ -13,9 +13,6 @@
             Member
         </div>
 
-        <template #navigation>
-            <settings-navigation />
-        </template>
     </private-view>
 </template>
 

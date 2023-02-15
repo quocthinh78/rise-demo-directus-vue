@@ -12,6 +12,7 @@
 
 .header-bar {
     border-bottom : 1px solid;
+    margin-bottom: 0 !important;
 }
 
 .bg-transparent {

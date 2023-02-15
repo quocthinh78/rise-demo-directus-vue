@@ -1,5 +1,5 @@
 <template>
-    <div class="py-8">
+    <div class="pt-8 px-8">
         <CardBusiness title="Upload business documents and information" description="Unlock all Rise features now"
             :status="2" link="/admin/verification/verify">
             <template v-slot:icon>

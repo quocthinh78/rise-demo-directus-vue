@@ -1,6 +1,4 @@
 <template>
-    <Layout>
-
         <div
             class="relative bg-[var(--background-input)] border-b border-t-0 border-x-0 border-solid p-4 text-center text-lg">
             <div class="absolute top-4 left-8">
@@ -32,7 +30,6 @@
                 <div class="bg-[#fff] text-[#1e74fd] py-2 block mt-4 cursor-pointer">Skip</div>
             </div>
         </div>
-    </Layout>
 
 
 
@@ -42,14 +39,10 @@
 
 <script>
 import AppApi from "./../../apiConfig.js"
-import axios from "axios"
-import Layout from "./../../components/common/layout.vue"
 
 export default {
     name: "page/ekyc-fail",
-    components: {
-        Layout,
-    },
+
     setup() {
         const ridereactUpdateLink = async () => {
             const data = await AppApi("post", "/jumio/update", localStorage.getItem("rise_token"))

@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div v-if="loading"
         class="relative bg-[var(--background-input)] border-b border-t-0 border-x-0 border-solid p-4 text-center text-lg">
         <div class="absolute top-4 left-8">
@@ -28,22 +28,22 @@ export default {
                 console.log("🚀 thinhvq ~ file: layout.vue:27 ~ onBeforeMount ~ data", data)
                 const { user_kyc_state } = data.data.data
                 if (user_kyc_state === "PASSED") {
-                    router.push("/eKyc-success")
+                    router.push("/ekyc/eKyc-success")
                 } else if (user_kyc_state === "PROCESSING") {
-                    router.push("/eKyc-process")
+                    router.push("/ekyc/eKyc-process")
                 } else if (user_kyc_state === "REJECTED" || user_kyc_state === "WARNING") {
-                    router.push("/eKyc-fail")
+                    router.push("/ekyc/eKyc-fail")
                 }
                 else {
-                    router.push("/eKyc")
+                    router.push("/ekyc/eKyc")
                 }
                 loading.value = false
             } catch (error) {
                 console.log("🚀 thinhvq ~ file: layout.vue:44 ~ onBeforeMount ~ error", error)
-                router.push("/eKyc")
+                router.push("/ekyc/eKyc-start")
                 loading.value = false
             }
         })
     }
 }
-</script>
+</script> -->
