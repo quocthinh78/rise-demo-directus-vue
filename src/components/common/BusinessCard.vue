@@ -1,5 +1,5 @@
 <template>
-    <div class="cursor-pointer" @click="cardClicked">
+    <div class="cursor-pointer">
         <div
             class="flex items-center justify-between gap-4 max-w-2xl p-4 font-normal mb-6 mt-2 bg-[#6C7C94]  rounded-lg shadow  text-white">
             <div class="flex items-center justify-between gap-4">
@@ -12,8 +12,10 @@
                     <p class="text-[11px]">{{ description }}</p>
                 </div>
             </div>
-            <div class="rounded-lg" :style="{ backgroundColor : statusObjectRef.bg}" v-if="statusObjectRef">
-                <div class="text-[10px] px-2 py-1 leading-[14px]" :style="{ color : statusObjectRef.color}" >{{ statusObjectRef.value }}</div>
+            <div class="rounded-lg" :style="{ backgroundColor: statusObjectRef.bg }" v-if="statusObjectRef">
+                <div class="text-[10px] px-2 py-1 leading-[14px]" :style="{ color: statusObjectRef.color }">{{
+                    statusObjectRef.value
+                }}</div>
             </div>
         </div>
     </div>
@@ -24,7 +26,8 @@
 </style>
 
 <script >
-import { ref ,onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { ref, onMounted } from "vue";
 export default {
     name: "BusinessCard",
     props: {
@@ -45,12 +48,11 @@ export default {
             default: '#',
         },
     },
-    methods : {
-        riderectPage () {
-            this.$router.push('/eKyc')
-        }
-    },
     setup(props) {
+        const router = useRouter()
+        const riderectPage = () => {
+            router.push(props.link)
+        }
         const statusRef = ref([
             { id: 1, value: "DRAFT", color: "#1E74FD", bg: "#E9F1FF" },
             { id: 2, value: "Verification in progress", color: "#1E74FD", bg: "#E9F1FF" },
@@ -61,13 +63,8 @@ export default {
         onMounted(() => {
             statusObjectRef.value = statusRef.value.find((item) => item.id === props.status)
         })
-        return { statusRef ,statusObjectRef };
+        return { statusRef, statusObjectRef, riderectPage };
     },
-    methods:{
-        cardClicked() {
-            window.location.href = this.link;
-        }
-    }
-    
+
 }
 </script>

@@ -1,15 +1,4 @@
 <template>
-
-    <div
-        class="relative bg-[var(--background-input)] border-b border-t-0 border-x-0 border-solid p-4 text-center text-lg">
-        <div class="absolute top-4 left-8">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
-            </svg>
-        </div>
-        <div>Identity Verification</div>
-    </div>
     <div class="flex justify-center w-full h-full">
 
         <div class="text-center max-w-[800px] mt-12  px-6">
@@ -30,7 +19,7 @@
             <div class="mt-4">The verification progress may takes up to 48 hours.</div>
             <div class="mt-4">We'll send you a notification via email as soon as this is done</div>
             <div class="text-[#fff] bg-[#1e74fd] rounded-md hover:bg-[#0564fd] py-2 block mt-8 cursor-pointer"
-                @click="ridereactUpdateLink">Ok
+                @click="backHome">Ok
             </div>
         </div>
     </div>
@@ -41,20 +30,18 @@
 </template>
 
 <script>
-import AppApi from "./../../apiConfig.js"
-import axios from "axios"
+import { useRouter } from "vue-router"
 export default {
     name: "page/ekyc-fail",
     setup() {
-        const ridereactUpdateLink = async () => {
-            const data = await AppApi("post", "/jumio/update", localStorage.getItem("rise_token"))
-            if (data.data.data) {
-                window.location.href = data.data.data.web.href;
-                return false;
-            }
+        const router = useRouter()
+
+        const backHome = () => {
+            router.push({ name: "homepage" })
         }
+
         return {
-            ridereactUpdateLink
+            backHome
         }
     }
 }

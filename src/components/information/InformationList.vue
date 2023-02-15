@@ -1,7 +1,7 @@
 <template>
     <div class="pt-8 px-8">
         <CardBusiness title="Upload business documents and information" description="Unlock all Rise features now"
-            :status="2" link="/admin/verification/verify">
+            :status="1" link="/verification/verify">
             <template v-slot:icon>
                 <!-- <img :src="require(`@/assets/icon/upload_business_blue.svg`)" alt="image" /> -->
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -12,62 +12,8 @@
             </template>
         </CardBusiness>
 
-        <CardBusiness title="Business directors information" description="Unlock all Rise features now">
-            <template v-slot:icon>
-                <!-- <img :src="require(`@/assets/icon/upload_business_blue.svg`)" alt="image" /> -->
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M5.27811 16H14.7219C15.1195 16 15.432 15.9159 15.6592 15.7478C15.8864 15.5841 16 15.354 16 15.0575C16 14.6372 15.8604 14.1903 15.5811 13.7168C15.3018 13.2434 14.8994 12.8031 14.374 12.396C13.8533 11.9845 13.2237 11.6504 12.4852 11.3938C11.7467 11.1327 10.916 11.0022 9.9929 11.0022C9.07456 11.0022 8.24615 11.1327 7.50769 11.3938C6.76923 11.6504 6.13728 11.9845 5.61183 12.396C5.09112 12.8031 4.69112 13.2434 4.41183 13.7168C4.13728 14.1903 4 14.6372 4 15.0575C4 15.354 4.11361 15.5841 4.34083 15.7478C4.56805 15.9159 4.88047 16 5.27811 16ZM10 9.82743C10.516 9.82743 10.9917 9.6969 11.4272 9.43584C11.8627 9.17478 12.2107 8.82301 12.471 8.38053C12.7361 7.93363 12.8686 7.43142 12.8686 6.87389C12.8686 6.33407 12.7361 5.84735 12.471 5.41372C12.2107 4.97566 11.8627 4.63053 11.4272 4.37832C10.9917 4.12611 10.516 4 10 4C9.48876 4 9.01538 4.12832 8.57988 4.38496C8.14438 4.64159 7.79408 4.98894 7.52899 5.42699C7.26864 5.86062 7.13846 6.34735 7.13846 6.88717C7.13846 7.44027 7.26864 7.93805 7.52899 8.38053C7.79408 8.82301 8.14201 9.17478 8.57278 9.43584C9.00828 9.6969 9.48402 9.82743 10 9.82743Z"
-                        fill="#1E74FD" />
-                    <path d="M1 6V1H6" stroke="#1E74FD" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M1 14V19H6" stroke="#1E74FD" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M19 7V1H14" stroke="#1E74FD" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M19 14V19H14" stroke="#1E74FD" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-            </template>
-        </CardBusiness>
-        <CardBusiness title="Business directors information" description="Unlock all Rise features now" :status="1">
-            <template v-slot:icon>
-                <!-- <img :src="require(`@/assets/icon/upload_business_blue.svg`)" alt="image" /> -->
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M5.27811 16H14.7219C15.1195 16 15.432 15.9159 15.6592 15.7478C15.8864 15.5841 16 15.354 16 15.0575C16 14.6372 15.8604 14.1903 15.5811 13.7168C15.3018 13.2434 14.8994 12.8031 14.374 12.396C13.8533 11.9845 13.2237 11.6504 12.4852 11.3938C11.7467 11.1327 10.916 11.0022 9.9929 11.0022C9.07456 11.0022 8.24615 11.1327 7.50769 11.3938C6.76923 11.6504 6.13728 11.9845 5.61183 12.396C5.09112 12.8031 4.69112 13.2434 4.41183 13.7168C4.13728 14.1903 4 14.6372 4 15.0575C4 15.354 4.11361 15.5841 4.34083 15.7478C4.56805 15.9159 4.88047 16 5.27811 16ZM10 9.82743C10.516 9.82743 10.9917 9.6969 11.4272 9.43584C11.8627 9.17478 12.2107 8.82301 12.471 8.38053C12.7361 7.93363 12.8686 7.43142 12.8686 6.87389C12.8686 6.33407 12.7361 5.84735 12.471 5.41372C12.2107 4.97566 11.8627 4.63053 11.4272 4.37832C10.9917 4.12611 10.516 4 10 4C9.48876 4 9.01538 4.12832 8.57988 4.38496C8.14438 4.64159 7.79408 4.98894 7.52899 5.42699C7.26864 5.86062 7.13846 6.34735 7.13846 6.88717C7.13846 7.44027 7.26864 7.93805 7.52899 8.38053C7.79408 8.82301 8.14201 9.17478 8.57278 9.43584C9.00828 9.6969 9.48402 9.82743 10 9.82743Z"
-                        fill="#1E74FD" />
-                    <path d="M1 6V1H6" stroke="#1E74FD" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M1 14V19H6" stroke="#1E74FD" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M19 7V1H14" stroke="#1E74FD" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M19 14V19H14" stroke="#1E74FD" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-            </template>
-        </CardBusiness>
-        <CardBusiness title="Business directors information" description="Unlock all Rise features now" :status="3">
-            <template v-slot:icon>
-                <!-- <img :src="require(`@/assets/icon/upload_business_blue.svg`)" alt="image" /> -->
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M5.27811 16H14.7219C15.1195 16 15.432 15.9159 15.6592 15.7478C15.8864 15.5841 16 15.354 16 15.0575C16 14.6372 15.8604 14.1903 15.5811 13.7168C15.3018 13.2434 14.8994 12.8031 14.374 12.396C13.8533 11.9845 13.2237 11.6504 12.4852 11.3938C11.7467 11.1327 10.916 11.0022 9.9929 11.0022C9.07456 11.0022 8.24615 11.1327 7.50769 11.3938C6.76923 11.6504 6.13728 11.9845 5.61183 12.396C5.09112 12.8031 4.69112 13.2434 4.41183 13.7168C4.13728 14.1903 4 14.6372 4 15.0575C4 15.354 4.11361 15.5841 4.34083 15.7478C4.56805 15.9159 4.88047 16 5.27811 16ZM10 9.82743C10.516 9.82743 10.9917 9.6969 11.4272 9.43584C11.8627 9.17478 12.2107 8.82301 12.471 8.38053C12.7361 7.93363 12.8686 7.43142 12.8686 6.87389C12.8686 6.33407 12.7361 5.84735 12.471 5.41372C12.2107 4.97566 11.8627 4.63053 11.4272 4.37832C10.9917 4.12611 10.516 4 10 4C9.48876 4 9.01538 4.12832 8.57988 4.38496C8.14438 4.64159 7.79408 4.98894 7.52899 5.42699C7.26864 5.86062 7.13846 6.34735 7.13846 6.88717C7.13846 7.44027 7.26864 7.93805 7.52899 8.38053C7.79408 8.82301 8.14201 9.17478 8.57278 9.43584C9.00828 9.6969 9.48402 9.82743 10 9.82743Z"
-                        fill="#1E74FD" />
-                    <path d="M1 6V1H6" stroke="#1E74FD" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M1 14V19H6" stroke="#1E74FD" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M19 7V1H14" stroke="#1E74FD" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M19 14V19H14" stroke="#1E74FD" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-            </template>
-        </CardBusiness>
-
-        <CardBusiness title="Business directors information" description="Unlock all Rise features now" :status="4">
+        <CardBusiness title="Business directors information" description="Unlock all Rise features now" :status="1"
+            link="/verification/ekyc/eKyc-start">
             <template v-slot:icon>
                 <!-- <img :src="require(`@/assets/icon/upload_business_blue.svg`)" alt="image" /> -->
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

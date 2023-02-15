@@ -1,40 +1,52 @@
-<template>
-    <div>
-        <router-view></router-view>
+<template v-if="loading">
+    <div
+        class="relative bg-[var(--background-input)] border-b border-t-0 border-x-0 border-solid p-4 text-center text-lg">
+        <div class="absolute top-4 left-8 cursor-pointer" @click="backHome">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"></path>
+            </svg>
+        </div>
+        <div>Identity Verification</div>
     </div>
+    <router-view :loading="loading"></router-view>
 </template>
 
 <script>
 import { ref } from "vue"
-import AppApi from "./../../apiConfig.js"
+import { useRouter } from "vue-router"
+// import AppApi from "./../../apiConfig.js"
 
 export default {
     name: "ekyc",
     setup() {
-        const loading = ref(true)
-        // const router = useRouter()
+        const loading = ref(false)
+        const router = useRouter()
+
+        const backHome = () => {
+            router.push({ name: "homepage" })
+        }
         // onBeforeMount(async () => {
         //     try {
         //         const data = await AppApi("get", "/business-auth/kyc/jumio", localStorage.getItem("rise_token"))
-        //         console.log("🚀 thinhvq ~ file: layout.vue:27 ~ onBeforeMount ~ data", data)
         //         const { user_kyc_state } = data.data.data
         //         if (user_kyc_state === "PASSED") {
-        //             router.push("/ekyc/eKyc-success")
+        //             router.replace("/verification/ekyc/eKyc-success")
         //         } else if (user_kyc_state === "PROCESSING") {
-        //             router.push("/ekyc/eKyc-process")
+        //             router.replace("/verification/ekyc/eKyc-process")
         //         } else if (user_kyc_state === "REJECTED" || user_kyc_state === "WARNING") {
-        //             router.push("/ekyc/eKyc-fail")
+        //             router.replace("/verification/ekyc/eKyc-fail")
         //         }
         //         else {
-        //             router.push("/eKyc")
+        //             router.replace("/verification/eKyc")
         //         }
-        //         loading.value = false
+        //         loading.value = true
         //     } catch (error) {
-        //         console.log("🚀 thinhvq ~ file: layout.vue:44 ~ onBeforeMount ~ error", error)
-        //         router.push("/ekyc/eKyc-start")
-        //         loading.value = false
+        //         router.replace("/verification/ekyc/eKyc-start")
+        //         loading.value = true
         //     }
         // })
+        return { backHome, loading }
     }
 }
 </script>

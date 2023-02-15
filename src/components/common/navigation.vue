@@ -1,6 +1,6 @@
 <template>
 	<v-list nav>
-		<v-list-item v-for="item in navItems" :key="item.to" :to="item.to">
+		<v-list-item v-for="item in navItems" :key="item.to" :to="item.to" :active="item.active" :exact="item.exact">
 			<v-list-item-content>
 				<v-text-overflow :text="item.name" />
 			</v-list-item-content>
@@ -20,11 +20,13 @@ export default defineComponent({
 				icon: 'badge',
 				name: "Business",
 				to: `/verification`,
+				active : true,
+				exact : true,
 			},
 			{
 				icon: 'list_alt',
 				name: "Business members",
-				to: `/members`,
+				to: `/verification/members`,
 			},
 		];
 

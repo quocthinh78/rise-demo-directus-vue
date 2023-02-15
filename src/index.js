@@ -8,6 +8,7 @@ import EkycFailComponent from './pages/ekyc-fail/index.vue';
 import EkycProcessComponent from './pages/ekyc-process/index.vue';
 import EkycSuccessComponent from './pages/ekyc-success/index.vue';
 
+import { fetchStatusEkycStart, fetchStatusEkycFail, fetchStatusEkycSuccess, fetchStatusEkycProcess } from './hoc/GuardEkyc.js'
 import './index.css'
 
 export default {
@@ -18,9 +19,11 @@ export default {
 		{
 			path: '',
 			component: InfomationComponent,
+
 			children: [
 				{
 					path: '',
+					name: 'homepage',
 					component: InfomationlistComponent,
 				},
 				{
@@ -33,30 +36,32 @@ export default {
 				},
 				{
 					path: "ekyc",
-					components: EkycComponent,
+					component: EkycComponent,
 					children: [
 						{
 							path: 'eKyc-start',
 							component: EkycStartComponent,
+							beforeEnter: [fetchStatusEkycStart],
 						},
 						{
 							path: 'eKyc-fail',
 							component: EkycFailComponent,
+							beforeEnter: [fetchStatusEkycFail],
 						},
 						{
 							path: 'eKyc-process',
 							component: EkycProcessComponent,
+							beforeEnter: [fetchStatusEkycProcess],
 						},
 						{
 							path: 'eKyc-success',
 							component: EkycSuccessComponent,
+							beforeEnter: [fetchStatusEkycSuccess],
 						},
-						
+
 					]
 				}
 			]
 		},
-	
-
 	],
 };
