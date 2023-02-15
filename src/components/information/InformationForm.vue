@@ -63,7 +63,7 @@
             <div class="mb-4 box-border">
                 <label for="contact-number" class="block mb-2 text-sm font-medium">Contact number</label>
                 <!-- dropdown -->
-                <div class="select-phone-contact relative w-full bg-[var(--background-input)] flex flex-row rounded-md border border-solid"
+                <div class="relative w-full bg-[var(--background-input)] flex flex-row rounded-md border border-solid"
                     :class="isPhoneFocus ? 'ring-1 ring-[#1C64F2] border-[#1C64F2]' : 'border-[#6B7280]'">
                     <SelectForm :id="dropdown-button"
                         inputClass="flex items-center pl-2 py-2 text-sm font-medium rounded-l-lg bg-transparent h-10"
