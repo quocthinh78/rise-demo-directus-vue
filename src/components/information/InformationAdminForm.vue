@@ -2,7 +2,7 @@
     <div class="pt-8 px-8 container">
         <!-- Business Information -->
         <div class="mb-4">
-            <div class="text-lg font-bold mb-4">Business Information</div>
+            <div class="text-lg font-bold mb-4">Business Admin Information</div>
             <div class="mb-4">
                 <InputForm type="text" v-model="companyName" :disabled="disabledForm" :id="company-name-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Name of company" label="Company name" />
             </div>
@@ -111,7 +111,8 @@ import InputForm from '../common/InputForm.vue'
 import UploadFileForm from '../common/UploadFileForm.vue'
 import DatepickerForm from '../common/DatepickerForm.vue'
 import SelectForm from '../common/SelectForm.vue'
-import { ref } from 'vue'
+import AppApi from "../../apiConfig"
+import { ref, onMounted } from 'vue'
 
 
 const countryCodeList = ref([
@@ -161,6 +162,13 @@ const businessRegistrationNumber = ref(98237452);
 const incorporationDate = ref('23/03/2023')
 
 var fileUploaded = ref(null)
+
+onMounted(async () => {
+    const data = await AppApi("get", "/business-auth/business-role", localStorage.getItem("rise_token"))
+    if (data) {
+        console.log(data);
+    }
+})
 
 var submitForm = () => {
     console.log("submit");

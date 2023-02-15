@@ -1,6 +1,7 @@
 import InfomationComponent from './pages/information/index.vue';
 import InfomationlistComponent from './components/information/InformationList.vue';
-import InformationForm from './components/information/InformationForm.vue';
+import InformationCompanyForm from './components/information/InformationCompanyForm.vue';
+import InformationAdminForm from './components/information/InformationAdminForm.vue';
 import SignUpForm from './components/information/SignUpForm.vue';
 import MemberComponent from './pages/member/index.vue';
 import EkycComponent from './pages/ekyc/index.vue';
@@ -36,8 +37,12 @@ export default {
 					component: SignUpForm,
 				},
 				{
-					path: 'verify',
-					component: InformationForm,
+					path: 'verify-admin',
+					component: InformationAdminForm,
+				},
+				{
+					path: 'verify-company',
+					component: InformationCompanyForm,
 				},
 				{
 					path: "ekyc",

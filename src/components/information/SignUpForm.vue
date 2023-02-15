@@ -107,7 +107,7 @@ var submitForm = async () => {
 
     const res = await AppApi("post", "/wallex-business/signup", localStorage.getItem("rise_token"), data)
     if (res.data) {
-        router.push("/verification/verify");
+        router.push("/verification/verify-admin");
     }
 }
 </script>
