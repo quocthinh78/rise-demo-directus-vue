@@ -14,7 +14,7 @@
                 <!-- dropdown -->
                 <SelectForm id="country-code"
                     inputClass="flex items-center px-2 py-2 text-sm font-medium rounded-lg bg-[var(--background-input)] w-full h-10 border border-solid"
-                    listContainerClass="rounded-lg shadow rounded-lg shadow absolute left-0 z-99 w-full"
+                    listContainerClass="rounded-lg shadow absolute left-0 z-99 w-full"
                     listClass="py-2 px-0 text-sm bg-black" :disabled="disabledForm"
                     itemClass="px-1 py-2 overflow-hidden justify-start" dropdownIcon
                     :listItem="countryCodeList" v-model:selected-value="countrySelected">
