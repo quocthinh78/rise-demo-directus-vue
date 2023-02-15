@@ -1,7 +1,7 @@
 <template>
     <div class="pt-8 px-8">
         <CardBusiness title="Upload business documents and information" description="Unlock all Rise features now"
-            :status="2" link="/admin/verification/sign-up">
+            :status="2" link="/verification/sign-up">
             <template v-slot:icon>
                 <!-- <img :src="require(`@/assets/icon/upload_business_blue.svg`)" alt="image" /> -->
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">

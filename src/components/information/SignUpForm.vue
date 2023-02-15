@@ -46,7 +46,9 @@
 <script setup>
 import InputForm from '../common/InputForm.vue'
 import SelectForm from '../common/SelectForm.vue'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import AppApi from "../../apiConfig"
+import { useRouter } from "vue-router"
 
 
 const countryCodeList = ref([
@@ -78,19 +80,35 @@ var countrySelected = ref({
     value: 'SG'
 });
 
-var isPhoneFocus = ref(false);                              //variable to get input focus event
-
 var disabledForm = ref(false);                               //disable form
 
 const firstName = ref('');
-const lastName = ref('asdfasfd');
+const lastName = ref('');
+const businessId = ref(null);
+const router = useRouter();
 
-var submitForm = () => {
+onMounted(async () => {
+    const res = await AppApi("get", "/business-auth/business-role", localStorage.getItem("rise_token"))
+    if (res.data) {
+        businessId.value = res.data.busUser.business_id;
+    }
+})
+
+var submitForm = async () => {
     console.log("submit");
-    console.log("firstName", firstName.value);
-    console.log("lastName", lastName.value);
-    console.log("countrySelected", countrySelected.value);
-    window.location.href = "/admin/verification/verify";
+
+    const data = {
+        businessId: businessId.value,
+        firstName: firstName.value,
+        lastName: lastName.value,
+        countryCode: countrySelected.value.value,
+    }
+    console.log(data);
+
+    const res = await AppApi("post", "/wallex-business/signup", localStorage.getItem("rise_token"), data)
+    if (res.data) {
+        router.push("/verification/verify");
+    }
 }
 </script>
 
