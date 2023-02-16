@@ -10,12 +10,12 @@
                 <InputForm type="text" v-model="lastName" :disabled="disabledForm" id="last-name" inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Last name" label="Last name" />
             </div>
             <div class="mb-4 box-border relative">
-                <label for="country-code" class="block mb-2 text-sm font-medium">Contact number</label>
+                <label for="country-code" class="block mb-2 text-sm font-medium">Country</label>
                 <!-- dropdown -->
                 <SelectForm id="country-code"
                     inputClass="flex items-center px-2 py-2 text-sm font-medium rounded-lg bg-[var(--background-input)] w-full h-10 border border-solid"
                     listContainerClass="rounded-lg shadow absolute left-0 z-99 w-full"
-                    listClass="py-2 px-0 text-sm bg-black" :disabled="disabledForm"
+                    listClass="py-2 px-0 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
                     itemClass="px-1 py-2 overflow-hidden justify-start" dropdownIcon
                     :listItem="countryCodeList" v-model:selected-value="countrySelected">
                     <template v-slot:button="{ selectedValue }">
@@ -49,7 +49,6 @@ import SelectForm from '../common/SelectForm.vue'
 import { ref, onMounted } from 'vue'
 import AppApi from "../../apiConfig"
 import { useRouter } from "vue-router"
-
 
 const countryCodeList = ref([
     {
@@ -95,7 +94,6 @@ onMounted(async () => {
 })
 
 var submitForm = async () => {
-    console.log("submit");
 
     const data = {
         businessId: businessId.value,
@@ -103,11 +101,14 @@ var submitForm = async () => {
         lastName: lastName.value,
         countryCode: countrySelected.value.value,
     }
-    console.log(data);
 
     const res = await AppApi("post", "/wallex-business/signup", localStorage.getItem("rise_token"), data)
     if (res.data) {
         router.push("/verification/verify-admin");
+        router.push({
+            name: "VerifyAdmin",
+            query: { ...data },
+        })
     }
 }
 </script>

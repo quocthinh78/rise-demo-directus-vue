@@ -34,14 +34,17 @@ export default {
 				},
 				{
 					path: 'sign-up',
+					name: 'SignUp',
 					component: SignUpForm,
 				},
 				{
 					path: 'verify-admin',
+					name: 'VerifyAdmin',
 					component: InformationAdminForm,
 				},
 				{
 					path: 'verify-company',
+					name: 'VerifyCompany',
 					component: InformationCompanyForm,
 				},
 				{
