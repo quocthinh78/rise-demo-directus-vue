@@ -26,9 +26,9 @@
                             <span class="text-sm leading-5" v-html="item.label"></span>
                         </template>
                     </SelectForm>
-                    <input type="number" :disabled="disabledForm" id="contact-number" placeholder="Your phone"
+                    <input type="text" :disabled="disabledForm" id="contact-number" placeholder="Your phone"
                     class="bg-transparent p-2 text-sm rounded-lg h-10 outline-none border-none focus:border-transparent focus:ring-transparent
-                    disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number"
+                    disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" 
                     @focus="isPhoneFocus = true" @blur="isPhoneFocus = false" v-model="phoneNumber"/>
                 </div>
             </div>
@@ -66,14 +66,14 @@
                 <InputForm type="text" v-model="residentialAddress" :disabled="disabledForm" id="residential-address-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your residential address" label="Residential Address" />
             </div>
             <div class="mb-4">
-                <InputForm type="number" v-model="postalCode" :disabled="disabledForm" id="postal-code-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your postal code" label="Postal Code" />
+                <InputForm type="text" v-model="postalCode" :disabled="disabledForm" id="postal-code-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your postal code" label="Postal Code" />
             </div>
             <div class="mb-4">
                 <DatepickerForm 
                     id="date-of-birth" label="Date of birth" right v-model="dateOfBirth"
                     labelClass="block mb-2 text-sm font-medium" :disabled="disabledForm"
                     inputClass="bg-transparent block w-full rounded-lg p-2.5 pr-10 h-full"
-                    placeholder="DD/MM/YYYY">
+                    placeholder="DD-MM-YYYY" formatDate="dd-mm-yyyy">
                     <template #icon>
                         <svg aria-hidden="true" class="w-5 h-5 bg-transparent" fill="var(--v-icon-color)" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -95,14 +95,14 @@
                 </SelectForm>
             </div>
             <div class="mb-4">
-                <InputForm type="number" v-model="identificationNumber" :disabled="disabledForm" id="identification-number-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your identification number" label="Identification Number" />
+                <InputForm type="text" v-model="identificationNumber" :disabled="disabledForm" id="identification-number-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your identification number" label="Identification Number" />
             </div>
             <div class="mb-4">
                 <DatepickerForm 
                     id="issue-date" label="Issue Date" right v-model="issueDate"
                     labelClass="block mb-2 text-sm font-medium" :disabled="disabledForm"
                     inputClass="bg-transparent block w-full rounded-lg p-2.5 pr-10 h-full"
-                    placeholder="DD/MM/YYYY">
+                    placeholder="DD-MM-YYYY" formatDate="dd-mm-yyyy">
                     <template #icon>
                         <svg aria-hidden="true" class="w-5 h-5 bg-transparent" fill="var(--v-icon-color)" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -118,7 +118,7 @@
                     id="expiry-date" label="Expiry Date" right v-model="expiryDate"
                     labelClass="block mb-2 text-sm font-medium" :disabled="disabledForm"
                     inputClass="bg-transparent block w-full rounded-lg p-2.5 pr-10 h-full"
-                    placeholder="DD/MM/YYYY">
+                    placeholder="DD-MM-YYYY" formatDate="dd-mm-yyyy">
                     <template #icon>
                         <svg aria-hidden="true" class="w-5 h-5 bg-transparent" fill="var(--v-icon-color)" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -140,6 +140,16 @@
                     listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
                     itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
                     :listItem="employmentStatusList" v-model:selected-value="employmentStatusSelected">
+                </SelectForm>
+            </div>
+            <div class="mb-4">
+                <label for="dropdown-employment-industry-button" class="block mb-2 text-sm font-medium">Employment Industry</label>
+                <SelectForm id="dropdown-employment-industry-button" class="w-full" placeholder="Select your employment industry" dropdownIcon
+                    inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
+                    listContainerClass="rounded-lg shadow absolute z-10 w-full"
+                    listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
+                    itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
+                    :listItem="employmentIndustryList" v-model:selected-value="employmentIndustrySelected">
                 </SelectForm>
             </div>
             <div class="mb-4">
@@ -431,33 +441,11 @@ export default {
 
         onMounted(async () => {
             const data = await AppApi("get", "/business-auth/business-role", localStorage.getItem("rise_token"))
-            if (data) {
-                console.log(data);
-            }
             signupData.value = router.currentRoute.value.query
         })
 
         var submitForm = async () => {
             console.log("submit");
-            console.log("title", title.value);
-            console.log("firstName", signupData.value.firstName);
-            console.log("lastName", signupData.value.lastName);
-            console.log("countryCodeSelected", countryCodeSelected.value);
-            console.log("phoneNumber", phoneNumber.value);
-            console.log("genderSelected", genderSelected.value);
-            console.log("countryBirthSelected", countryBirthSelected.value);
-            console.log("nationalitySelected", nationalitySelected.value);
-            console.log("residentialAddress", residentialAddress.value);
-            console.log("postalCode", postalCode.value);
-            console.log("dateOfBirth", dateOfBirth.value);
-            console.log("identificationTypeSelected", identificationTypeSelected.value);
-            console.log("identificationNumber", identificationNumber.value);
-            console.log("issueDate", issueDate.value);
-            console.log("expiryDate", expiryDate.value);
-            console.log("occupation", occupation.value);
-            console.log("employmentStatusSelected", employmentStatusSelected.value);
-            console.log("employmentIndustrySelected", employmentIndustrySelected.value);
-            console.log("employmentPositionSelected", employmentPositionSelected.value);
 
             const data = {
                 title: title.value,
@@ -465,25 +453,34 @@ export default {
                 lastName: signupData.value.lastName,
                 mobileCountryCode: countryCodeSelected.value.value,
                 mobileNumber: phoneNumber.value,
-                gender: genderSelected.value,
-                countryOfBirth: countryBirthSelected.value,
-                nationality: nationalitySelected.value,
+                gender: genderSelected.value.value,
+                countryOfBirth: countryBirthSelected.value.value,
+                nationality: nationalitySelected.value.value,
                 residentialAddress: residentialAddress.value,
                 countryCode: signupData.value.countryCode,
-                
+                postalCode: postalCode.value,
+                dateOfBirth: dateOfBirth.value,
+                identificationType: identificationTypeSelected.value.value,
+                identificationNumber: identificationNumber.value,
+                issueDate: issueDate.value,
+                expiryDate: expiryDate.value,
+                occupation: occupation.value,
+                employmentStatus: employmentStatusSelected.value.value,
+                employmentIndustry: employmentIndustrySelected.value.value,
+                employmentPosition: employmentPositionSelected.value.value
             }
-            console.log(data);
 
-            const res = await AppApi("post", "/wallex-business/signup", localStorage.getItem("rise_token"), data)
+            const res = await AppApi("patch", "/wallex-business/update-info", localStorage.getItem("rise_token"), data)
             if (res.data) {
-                router.push("/verification/verify-admin");
+                console.log(res.data);
+                router.push("/verification/verify-company");
             }
         }
 
         return {
             isPhoneFocus, disabledForm, title, countryCodeList, countryCodeSelected, phoneNumber, genderList, genderSelected, countryList, countryBirthSelected, nationalitySelected, residentialAddress,
             postalCode, dateOfBirth, identificationTypeList, identificationTypeSelected, identificationNumber, issueDate, expiryDate, occupation, employmentStatusList, employmentStatusSelected, 
-            employmentIndustryList, employmentIndustrySelected, employmentPositionList, employmentPositionSelected
+            employmentIndustryList, employmentIndustrySelected, employmentPositionList, employmentPositionSelected, submitForm
         }
     }
 }
