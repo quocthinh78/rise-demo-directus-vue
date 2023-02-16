@@ -27,7 +27,7 @@
 
 <script >
 import { useRouter } from "vue-router";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 export default {
     name: "BusinessCard",
     props: {
@@ -35,13 +35,16 @@ export default {
             type: String,
             required: true,
         },
+        loading : {
+            required: true,
+            type: Boolean,
+        },
         description: {
             type: String,
             required: true,
         },
         status: {
             type: Number,
-            // required: true,
         },
         link: {
             type: String,
@@ -62,6 +65,10 @@ export default {
         const statusObjectRef = ref(null)
         onMounted(() => {
             statusObjectRef.value = statusRef.value.find((item) => item.id === props.status)
+        })
+        watch(props , () => {
+            statusObjectRef.value = statusRef.value.find((item) => item.id === props.status)
+            
         })
         return { statusRef, statusObjectRef, riderectPage };
     },

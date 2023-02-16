@@ -1,6 +1,8 @@
 
 import { ref } from "vue"
 import { useRouter } from "vue-router"
+import { UseFetchEkycStatus } from "../hocs/UseFetchEkycStatus"
+// console.log("🚀 thinhvq ~ file: GuardEkyc.js:5 ~ UseFetchEkycStatus", UseFetchEkycStatus("business-auth/kyc/jumio", { method: "get" }))
 import AppApi from "../apiConfig"
 export const fetchStatusEkycStart = async (to, from, next) => {
     const router = useRouter()

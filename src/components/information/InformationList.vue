@@ -1,7 +1,7 @@
 <template>
     <div class="pt-8 px-8">
         <CardBusiness title="Upload business documents and information" description="Unlock all Rise features now"
-            :status="2" link="/admin/verification/sign-up">
+            link="/admin/verification/sign-up" :loading="loading">
             <template v-slot:icon>
                 <!-- <img :src="require(`@/assets/icon/upload_business_blue.svg`)" alt="image" /> -->
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -12,7 +12,7 @@
             </template>
         </CardBusiness>
 
-        <CardBusiness title="Business directors information" description="Unlock all Rise features now" :status="1"
+        <CardBusiness title="Business directors information" description="Unlock all Rise features now" :status="status"
             link="/verification/ekyc/eKyc-start">
             <template v-slot:icon>
                 <!-- <img :src="require(`@/assets/icon/upload_business_blue.svg`)" alt="image" /> -->
@@ -20,12 +20,9 @@
                     <path
                         d="M5.27811 16H14.7219C15.1195 16 15.432 15.9159 15.6592 15.7478C15.8864 15.5841 16 15.354 16 15.0575C16 14.6372 15.8604 14.1903 15.5811 13.7168C15.3018 13.2434 14.8994 12.8031 14.374 12.396C13.8533 11.9845 13.2237 11.6504 12.4852 11.3938C11.7467 11.1327 10.916 11.0022 9.9929 11.0022C9.07456 11.0022 8.24615 11.1327 7.50769 11.3938C6.76923 11.6504 6.13728 11.9845 5.61183 12.396C5.09112 12.8031 4.69112 13.2434 4.41183 13.7168C4.13728 14.1903 4 14.6372 4 15.0575C4 15.354 4.11361 15.5841 4.34083 15.7478C4.56805 15.9159 4.88047 16 5.27811 16ZM10 9.82743C10.516 9.82743 10.9917 9.6969 11.4272 9.43584C11.8627 9.17478 12.2107 8.82301 12.471 8.38053C12.7361 7.93363 12.8686 7.43142 12.8686 6.87389C12.8686 6.33407 12.7361 5.84735 12.471 5.41372C12.2107 4.97566 11.8627 4.63053 11.4272 4.37832C10.9917 4.12611 10.516 4 10 4C9.48876 4 9.01538 4.12832 8.57988 4.38496C8.14438 4.64159 7.79408 4.98894 7.52899 5.42699C7.26864 5.86062 7.13846 6.34735 7.13846 6.88717C7.13846 7.44027 7.26864 7.93805 7.52899 8.38053C7.79408 8.82301 8.14201 9.17478 8.57278 9.43584C9.00828 9.6969 9.48402 9.82743 10 9.82743Z"
                         fill="#1E74FD" />
-                    <path d="M1 6V1H6" stroke="#1E74FD" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M1 14V19H6" stroke="#1E74FD" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M19 7V1H14" stroke="#1E74FD" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
+                    <path d="M1 6V1H6" stroke="#1E74FD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M1 14V19H6" stroke="#1E74FD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M19 7V1H14" stroke="#1E74FD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     <path d="M19 14V19H14" stroke="#1E74FD" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" />
                 </svg>
@@ -71,24 +68,22 @@
             </template>
         </Badge>
 
-        <div class="block mt-8 cursor-pointer">
-            <div class="inline text-[var(--v-button-color)] bg-blue-700 font-medium rounded-lg px-5 py-2.5 text-center mt-8"
-                @click="toggleModal" type="button">
-                Toggle modal Confirmation
-            </div>
-        </div>
+        <!-- <div class="block mt-8 cursor-pointer">
+                                                <div class="inline text-[var(--v-button-color)] bg-blue-700 font-medium rounded-lg px-5 py-2.5 text-center mt-8"
+                                                    @click="toggleModal" type="button">
+                                                    Toggle modal Confirmation
+                                                </div>
+                                            </div> -->
 
 
         <Modal v-if="showModal">
-            <div
-                class="relative bg-[var(--v-notice-background-color)] w-[280px] h-auto rounded-2xl leading-4 text-center">
+            <div class="relative bg-[var(--v-notice-background-color)] w-[280px] h-auto rounded-2xl leading-4 text-center">
                 <div class=" py-6 px-7">
                     <div class="font-bold text-[17px]">Confirmation</div>
                     <div class="text-[15px] mt-5">I confirm that there’s no business owners with over 25%
                         ownership</div>
                 </div>
-                <div class=" border-[var(--border-normal)] py-5 px-7 border-solid border-y border-x-0"
-                    @click="onSubmit">
+                <div class=" border-[var(--border-normal)] py-5 px-7 border-solid border-y border-x-0" @click="onSubmit">
                     <div class="text-[15px] text-[#1E74FD] cursor-pointer">Submit</div>
                 </div>
                 <div class="py-5 px-7">
@@ -98,15 +93,17 @@
             </div>
         </Modal>
 
+        <div @click="toggleModal" class="cursor-pointer">
+            <Alert title="Please click here if there's no business owners with over 25% ownership" bg="var(--primary)">
+                <svg class="flex-shrink-0 w-5 h-5" fill="var(--primary)" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clip-rule="evenodd"></path>
+                </svg>
+            </Alert>
+        </div>
 
-        <Alert title=" Please click here if there's no business owners with over 25% ownership" bg="var(--primary)">
-            <svg class="flex-shrink-0 w-5 h-5" fill="var(--primary)" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                    clip-rule="evenodd"></path>
-            </svg>
-        </Alert>
 
 
         <div class="max-w-[310px] max-h-[300px] p-6 flex flex-col items-center m-0" style="line-height: 34px;">
@@ -122,29 +119,30 @@
             <p class="text-base mb-6 max-w-[310px] w-auto">There are no items in this collection yet.</p>
             <button type="button"
                 class="justify-center relative flex items-center min-w-[var(--v-button-min-width)] h-11 px-5 text-sm bg-[var(--v-button-background-color)] rounded-md w-auto
-                focus:outline-none hover:bg-[var(--v-button-background-color-hover)] hover:border-[var(--v-button-background-color-hover)] text-[var(--v-button-color)] no-underline border
-                font-semibold text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                                                            focus:outline-none hover:bg-[var(--v-button-background-color-hover)] hover:border-[var(--v-button-background-color-hover)] text-[var(--v-button-color)] no-underline border
+                                                            font-semibold text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 style="transition: var(--fast) var(--transition);">
                 Submit
             </button>
         </div>
 
         <!-- <img :src="Images" class="w-4 h-4" /> -->
-    </div>
+</div>
 </template>
 
 
-<style lang="css">
-
-</style>
+<style lang="css"></style>
 
 <script>
+
 import { ref } from "vue"
 import CardBusiness from '../common/BusinessCard.vue';
 import Badge from '../common/Badge.vue';
 import Modal from '../common/Modal.vue';
 import Alert from '../common/Alert.vue';
 // import Images from "../../assets/icon/avatar.svg"
+import { UseFetchEkycStatus } from "../../hocs/UseFetchEkycStatus"
+
 export default {
     name: "InformationList",
     components: {
@@ -155,7 +153,7 @@ export default {
     },
     setup() {
         const showModal = ref(false)
-
+        const { error, loading, status, statusString } = UseFetchEkycStatus("/business-auth/kyc/jumio", { method: "get" })
         const toggleModal = () => {
             showModal.value = !showModal.value
         }
@@ -163,7 +161,7 @@ export default {
             // showModal.value = !showModal.value
         }
 
-        return { showModal, toggleModal }
+        return { showModal, toggleModal, status, statusString, error, loading }
     },
 
 }

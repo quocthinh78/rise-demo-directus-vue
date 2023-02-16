@@ -9,7 +9,7 @@ import EkycFailComponent from './pages/ekyc-fail/index.vue';
 import EkycProcessComponent from './pages/ekyc-process/index.vue';
 import EkycSuccessComponent from './pages/ekyc-success/index.vue';
 
-import { fetchStatusEkycStart, fetchStatusEkycFail, fetchStatusEkycSuccess, fetchStatusEkycProcess } from './hoc/GuardEkyc.js'
+import { fetchStatusEkycStart, fetchStatusEkycFail, fetchStatusEkycSuccess, fetchStatusEkycProcess } from './utils/GuardEkyc.js'
 import './index.css'
 
 export default {
