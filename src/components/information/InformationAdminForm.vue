@@ -66,6 +66,12 @@
                 <InputForm type="text" v-model="residentialAddress" :disabled="disabledForm" id="residential-address-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your residential address" label="Residential Address" />
             </div>
             <div class="mb-4">
+                <InputForm type="text" v-model="residentialState" :disabled="disabledForm" id="residential-state-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your state or province" label="State or Province" />
+            </div>
+            <div class="mb-4">
+                <InputForm type="text" v-model="residentialCity" :disabled="disabledForm" id="residential-city-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your city of residence" label="City of Residence" />
+            </div>
+            <div class="mb-4">
                 <InputForm type="text" v-model="postalCode" :disabled="disabledForm" id="postal-code-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your postal code" label="Postal Code" />
             </div>
             <div class="mb-4">
@@ -184,6 +190,8 @@ import SelectForm from '../common/SelectForm.vue'
 import AppApi from "../../apiConfig"
 import { ref, onMounted } from 'vue'
 import { useRouter } from "vue-router"
+import kycData from "../../utils/kyc"
+
 
 export default {
     components: {
@@ -281,6 +289,8 @@ export default {
         const countryBirthSelected = ref(null);
         const nationalitySelected = ref(null);
         const residentialAddress = ref(null);
+        const residentialState = ref(null);
+        const residentialCity = ref(null);
         const postalCode = ref(null);
         const dateOfBirth = ref(null);
 
@@ -445,7 +455,6 @@ export default {
         })
 
         var submitForm = async () => {
-            console.log("submit");
 
             const data = {
                 title: title.value,
@@ -457,6 +466,8 @@ export default {
                 countryOfBirth: countryBirthSelected.value.value,
                 nationality: nationalitySelected.value.value,
                 residentialAddress: residentialAddress.value,
+                state: residentialState.value,
+                city: residentialCity.value,
                 countryCode: signupData.value.countryCode,
                 postalCode: postalCode.value,
                 dateOfBirth: dateOfBirth.value,
@@ -467,7 +478,8 @@ export default {
                 occupation: occupation.value,
                 employmentStatus: employmentStatusSelected.value.value,
                 employmentIndustry: employmentIndustrySelected.value.value,
-                employmentPosition: employmentPositionSelected.value.value
+                employmentPosition: employmentPositionSelected.value.value,
+                kycRawData: kycData,
             }
 
             const res = await AppApi("patch", "/wallex-business/update-info", localStorage.getItem("rise_token"), data)
@@ -478,8 +490,9 @@ export default {
         }
 
         return {
-            isPhoneFocus, disabledForm, title, countryCodeList, countryCodeSelected, phoneNumber, genderList, genderSelected, countryList, countryBirthSelected, nationalitySelected, residentialAddress,
-            postalCode, dateOfBirth, identificationTypeList, identificationTypeSelected, identificationNumber, issueDate, expiryDate, occupation, employmentStatusList, employmentStatusSelected, 
+            isPhoneFocus, disabledForm, title, countryCodeList, countryCodeSelected, phoneNumber, genderList, genderSelected, countryList, countryBirthSelected, 
+            nationalitySelected, residentialAddress, residentialState, residentialCity, postalCode, dateOfBirth, identificationTypeList, identificationTypeSelected, 
+            identificationNumber, issueDate, expiryDate, occupation, employmentStatusList, employmentStatusSelected, 
             employmentIndustryList, employmentIndustrySelected, employmentPositionList, employmentPositionSelected, submitForm
         }
     }

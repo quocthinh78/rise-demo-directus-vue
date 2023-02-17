@@ -40,7 +40,7 @@
                 <InputForm type="text" v-model="companyAddress" :disabled="disabledForm" id="company-address-text" inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your company address" label="Company Address" />
             </div>
             <div class="mb-4">
-                <InputForm type="text" v-model="postalCode" :disabled="disabledForm" id="postal-code-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your postal code" label="Postal Code" />
+                <InputForm type="text" v-model="postalCode" :disabled="disabledForm" id="postal-code-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Company's postal code" label="Postal Code" />
             </div>
             <div class="mb-4">
                 <InputForm type="text" v-model="companyState" :disabled="disabledForm" id="company-state-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Company state" label="Company State" />
@@ -481,6 +481,7 @@ var submitForm = async () => {
                 console.log(`File "${imageData.documentName}" uploaded successfully`);
                 fileFlag = true;
             } else {
+
                 console.log(`File "${imageData.documentName}" uploaded failed`);
                 fileFlag = false;
             }
@@ -500,8 +501,8 @@ var submitForm = async () => {
         companyName: companyName.value
     }
 
-    const res = await AppApi("patch", "/wallex-business/update-company-details", localStorage.getItem("rise_token"), data)
-    if (res.data.status.value === 'completed') {
+    const resCompanyDetails = await AppApi("patch", "/wallex-business/update-company-details", localStorage.getItem("rise_token"), data)
+    if (resCompanyDetails.data.status.value === 'completed') {
         console.log("Update company details successfully");
         dataFlag = true;
 
@@ -512,7 +513,12 @@ var submitForm = async () => {
 
 
     if(fileFlag && dataFlag) {
-        console.log("Done");
+        const res = await AppApi("post", "/wallex-business/submit-doc", localStorage.getItem("rise_token"))
+        if(res.data) {
+            console.log(res.data);
+        } else {
+            console.log(res.msg.message);
+        }
     }
 
 }
