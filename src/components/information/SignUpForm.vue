@@ -118,7 +118,7 @@ const submitForm = async () => {
     if (hasKeyObject(errors.value)) {
         return false;
     }
-    const res = await AppApi("post", "/wallex-business/signup", localStorage.getItem("rise_token"), data)
+    const res = await AppApi("post", "/wallex-business/signup", localStorage.getItem("rise_token"), payload)
     if (res.data) {
         router.push({
             name: "VerifyAdmin",

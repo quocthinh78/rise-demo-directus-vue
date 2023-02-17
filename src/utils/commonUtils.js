@@ -1,6 +1,6 @@
 
 export const convertProxytoObject = (proxy) => {
-    return JSON.parse(JSON.stringify(object))
+    return JSON.parse(JSON.stringify(proxy))
 }
 
 export const hasKeyObject = (object) => {
