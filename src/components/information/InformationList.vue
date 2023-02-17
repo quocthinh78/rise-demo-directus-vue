@@ -1,6 +1,7 @@
 <template>
     <div class="pt-8 px-8">
-        <CardBusiness title="Upload business documents and information" description="Unlock all Rise features now" link="/verification/sign-up">
+        <CardBusiness title="Upload business documents and information" description="Unlock all Rise features now"
+            link="/verification/sign-up">
             <template v-slot:icon>
                 <!-- <img :src="require(`@/assets/icon/upload_business_blue.svg`)" alt="image" /> -->
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -68,11 +69,11 @@
         </Badge>
 
         <!-- <div class="block mt-8 cursor-pointer">
-                                                <div class="inline text-[var(--v-button-color)] bg-blue-700 font-medium rounded-lg px-5 py-2.5 text-center mt-8"
-                                                    @click="toggleModal" type="button">
-                                                    Toggle modal Confirmation
-                                                </div>
-                                            </div> -->
+                                                    <div class="inline text-[var(--v-button-color)] bg-blue-700 font-medium rounded-lg px-5 py-2.5 text-center mt-8"
+                                                        @click="toggleModal" type="button">
+                                                        Toggle modal Confirmation
+                                                    </div>
+                                                </div> -->
 
 
         <Modal v-if="showModal">
@@ -118,15 +119,13 @@
             <p class="text-base mb-6 max-w-[310px] w-auto">There are no items in this collection yet.</p>
             <button type="button"
                 class="justify-center relative flex items-center min-w-[var(--v-button-min-width)] h-11 px-5 text-sm bg-[var(--v-button-background-color)] rounded-md w-auto
-                                                            focus:outline-none hover:bg-[var(--v-button-background-color-hover)] hover:border-[var(--v-button-background-color-hover)] text-[var(--v-button-color)] no-underline border
-                                                            font-semibold text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                                                                focus:outline-none hover:bg-[var(--v-button-background-color-hover)] hover:border-[var(--v-button-background-color-hover)] text-[var(--v-button-color)] no-underline border
+                                                                font-semibold text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 style="transition: var(--fast) var(--transition);">
                 Submit
             </button>
         </div>
-
-        <!-- <img :src="Images" class="w-4 h-4" /> -->
-</div>
+    </div>
 </template>
 
 
@@ -139,7 +138,6 @@ import CardBusiness from '../common/BusinessCard.vue';
 import Badge from '../common/Badge.vue';
 import Modal from '../common/Modal.vue';
 import Alert from '../common/Alert.vue';
-// import Images from "../../assets/icon/avatar.svg"
 import { UseFetchEkycStatus } from "../../hocs/UseFetchEkycStatus"
 
 export default {

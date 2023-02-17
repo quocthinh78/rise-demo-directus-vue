@@ -1,6 +1,6 @@
 <template>
-	<v-list nav>
-		<v-list-item v-for="item in navItems" :key="item.to" :to="item.to" :active="item.active" :exact="item.exact">
+	<v-list nav :mandatory="false" >
+		<v-list-item v-for="item in navItems" :key="item.to" router :to="item.to">
 			<v-list-item-content>
 				<v-text-overflow :text="item.name" />
 			</v-list-item-content>

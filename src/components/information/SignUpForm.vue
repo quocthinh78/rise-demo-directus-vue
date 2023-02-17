@@ -40,12 +40,13 @@
         <div class="py-4">
             <button type="button"
                 class="bg-[#1e74fd]
-                                                                                        focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                                                                                        font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                                                                                            focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
+                                                                                            font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 :disabled="disabledForm" @click="submitForm">
                 Submit
             </button>
         </div>
+        <Loading v-if="loading" />
     </div>
 </template>
 
@@ -56,9 +57,10 @@ import { useRouter } from "vue-router"
 import AppApi from "../../apiConfig"
 import InputForm from '../common/InputForm.vue'
 import SelectForm from '../common/SelectForm.vue'
+import Loading from "../common/Loading.vue"
 import { hasKeyObject } from "./../../utils/commonUtils"
-const router = useRouter();
 
+const router = useRouter();
 const countryCodeList = ref([
     {
         img: 'https://staging.tagrise.com/static/media/singapore_flag.975f4084ca809a9eca2106dfab7caceb.svg',
@@ -93,6 +95,7 @@ var disabledForm = ref(false);                               //disable form
 const firstName = ref('');
 const lastName = ref('');
 const businessId = ref(null);
+const loading = ref(false)
 const errors = ref({})
 
 onMounted(async () => {
@@ -119,17 +122,23 @@ const submitForm = async () => {
     if (hasKeyObject(errors.value)) {
         return false;
     }
-    const res = await AppApi("post", "/wallex-business/signup", localStorage.getItem("rise_token"), payload)
-    if (res.data) {
-        const data = {
-            firstName: firstName.value,
-            lastName: lastName.value,
-            countryCode: countrySelected.value.value,
+    try {
+        loading.value = true;
+        const res = await AppApi("post", "/wallex-business/signup", localStorage.getItem("rise_token"), payload)
+        if (res.data) {
+            const data = {
+                firstName: firstName.value,
+                lastName: lastName.value,
+                countryCode: countrySelected.value.value,
+            }
+            loading.value = false
+            router.push({
+                name: "VerifyAdmin",
+                query: { ...data },
+            })
         }
-        router.push({
-            name: "VerifyAdmin",
-            query: { ...data },
-        })
+    } catch (error) {
+        loading.value = false
     }
 }
 </script>
