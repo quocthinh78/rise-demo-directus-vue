@@ -1,6 +1,8 @@
 <template>
     <label :for="id" :class="labelClass">{{ label }}</label>
-    <input type="file" ref="files" :multiple="multiple" class="disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] rounded-lg" :id="id" :class="inputClass" :placeholder="placeholder" :disabled="disabled" @change="handleFiles"/>
+    <input type="file" ref="files" :multiple="multiple" :accept="typeAccepted"
+    class="disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] rounded-lg" 
+    :id="id" :class="inputClass" :placeholder="placeholder" :disabled="disabled" @change="handleFiles"/>
 </template>
 
 <style scoped>
@@ -38,12 +40,16 @@ export default {
             default: false,
         },
         modelValue: {
-
+            type: Object,
         },
         multiple: {
             type: Boolean,
             default: false,
         },
+        typeAccepted: {
+            type: String,
+            default: 'image/*,.pdf,.csv',
+        }
     },
     emits: ['update:modelValue'],
     data() {
@@ -67,5 +73,6 @@ export default {
 <style scoped>
 input::file-selector-button {
     background-color: var(--fc-button-bg-color) !important;
+    border-radius: 0.5rem;
 }
 </style>
