@@ -40,8 +40,8 @@
         <div class="py-4">
             <button type="button"
                 class="bg-[#1e74fd]
-                                                                                focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                                                                                font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                                                                                        focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
+                                                                                        font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 :disabled="disabledForm" @click="submitForm">
                 Submit
             </button>
@@ -104,6 +104,7 @@ onMounted(async () => {
 
 const submitForm = async () => {
     const payload = {
+        businessId: businessId.value,
         firstName: firstName.value,
         lastName: lastName.value,
         countryCode: countrySelected.value.value,
@@ -120,9 +121,14 @@ const submitForm = async () => {
     }
     const res = await AppApi("post", "/wallex-business/signup", localStorage.getItem("rise_token"), payload)
     if (res.data) {
+        const data = {
+            firstName: firstName.value,
+            lastName: lastName.value,
+            countryCode: countrySelected.value.value,
+        }
         router.push({
             name: "VerifyAdmin",
-            query: { ...payload },
+            query: { ...data },
         })
     }
 }
