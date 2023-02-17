@@ -103,17 +103,16 @@ onMounted(async () => {
 })
 
 const submitForm = async () => {
-    const data = {
-        businessId: businessId.value,
+    const payload = {
         firstName: firstName.value,
         lastName: lastName.value,
         countryCode: countrySelected.value.value,
     }
     errors.value = {}
-    if (!data.firstName) {
+    if (!payload.firstName) {
         errors.value = { ...errors.value, firstName: "First name is required" }
     }
-    if (!data.lastName) {
+    if (!payload.lastName) {
         errors.value = { ...errors.value, lastName: "Last name is required" }
     }
     if (hasKeyObject(errors.value)) {
@@ -123,7 +122,7 @@ const submitForm = async () => {
     if (res.data) {
         router.push({
             name: "VerifyAdmin",
-            query: { ...data },
+            query: { ...payload },
         })
     }
 }

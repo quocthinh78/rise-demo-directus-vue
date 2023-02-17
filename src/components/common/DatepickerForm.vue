@@ -57,6 +57,10 @@ export default {
         modelValue: {
             type: String || Number,
             default: null
+        }, 
+        formatDate: {
+            type: String,
+            default: 'dd/mm/yyyy'
         }
     },
     emits: ['update:modelValue'],
@@ -80,7 +84,7 @@ export default {
         this.datepicker = new Datepicker(document.getElementById(this.id), {
             autohide: true,
             weekStart: 1,
-            format: 'dd/mm/yyyy'
+            format: this.formatDate
         });
     },
     methods: {

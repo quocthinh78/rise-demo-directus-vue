@@ -4,17 +4,59 @@
         <div class="mb-4">
             <div class="text-lg font-bold mb-4">Business Company Information</div>
             <div class="mb-4">
-                <InputForm type="text" v-model="companyName" :disabled="disabledForm" :id="company-name-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Name of company" label="Company name" />
+                <InputForm type="text" v-model="companyName" :disabled="disabledForm" id="company-name-text" inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your company name" label="Company Name" />
             </div>
             <div class="mb-4">
-                <InputForm type="number" v-model="businessRegistrationNumber" :disabled="disabledForm" id="business-registration-text" inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Business Registration Number" label="Business Registration Number" />
+                <label for="dropdown-country-of-incorporation-button" class="block mb-2 text-sm font-medium">Country of Incorporation</label>
+                <SelectForm id="dropdown-country-of-incorporation-button" class="w-full" placeholder="Select country of incorporation" dropdownIcon
+                    inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
+                    listContainerClass="rounded-lg shadow absolute z-10 w-full"
+                    listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
+                    itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
+                    :listItem="countryList" v-model:selected-value="countryOfIncorporationSelected">
+                </SelectForm>
+            </div>
+            <div class="mb-4">
+                <label for="dropdown-country-of-operations-button" class="block mb-2 text-sm font-medium">Country of Operations</label>
+                <SelectForm id="dropdown-country-of-operations-button" class="w-full" placeholder="Select country of operations" dropdownIcon
+                    inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
+                    listContainerClass="rounded-lg shadow absolute z-10 w-full"
+                    listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
+                    itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
+                    :listItem="countryList" v-model:selected-value="countryOfOperationsSelected">
+                </SelectForm>
+            </div>
+            <div class="mb-4">
+                <label for="dropdown-business-type-button" class="block mb-2 text-sm font-medium">Business Type</label>
+                <SelectForm id="dropdown-business-type-button" class="w-full" placeholder="Select business type" dropdownIcon
+                    inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
+                    listContainerClass="rounded-lg shadow absolute z-10 w-full"
+                    listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
+                    itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
+                    :listItem="businessTypeList" v-model:selected-value="businessTypeSelected">
+                </SelectForm>
+            </div>
+            <div class="mb-4">
+                <InputForm type="text" v-model="companyAddress" :disabled="disabledForm" id="company-address-text" inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your company address" label="Company Address" />
+            </div>
+            <div class="mb-4">
+                <InputForm type="text" v-model="postalCode" :disabled="disabledForm" id="postal-code-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your postal code" label="Postal Code" />
+            </div>
+            <div class="mb-4">
+                <InputForm type="text" v-model="companyState" :disabled="disabledForm" id="company-state-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Company state" label="Company State" />
+            </div>
+            <div class="mb-4">
+                <InputForm type="text" v-model="companyCity" :disabled="disabledForm" id="company-city-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Company city" label="Company City" />
+            </div>            
+            <div class="mb-4">
+                <InputForm type="text" v-model="registrationNumber" :disabled="disabledForm" id="registration-number-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Company registration number" label="Company Registration Number" />
             </div>
             <div class="mb-4">
                 <DatepickerForm 
                     id="incorporation-date" label="Incorporation date" right v-model="incorporationDate"
                     labelClass="block mb-2 text-sm font-medium" :disabled="disabledForm"
                     inputClass="bg-transparent block w-full rounded-lg p-2.5 pr-10 sm:text-sm h-10"
-                    placeholder="DD/MM/YYYY">
+                    placeholder="DD-MM-YYYY" formatDate="dd-mm-yyyy">
                     <template #icon>
                         <svg aria-hidden="true" class="w-5 h-5 bg-transparent" fill="var(--v-icon-color)" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -25,67 +67,10 @@
                     </template>
                 </DatepickerForm>
             </div>
-            <div class="mb-4">
-                <InputForm type="text" :disabled="disabledForm" id="business-website" inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="https://" label="Business website" />
-            </div>
+
         </div>
 
-        <!-- Business Address -->
         <div class="mb-4">
-            <div class="text-lg font-bold mb-4">Business Address</div>
-            <div class="mb-4">
-                <InputForm type="number" :disabled="disabledForm" id="postcode-text" inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="123456" label="Postcode" />
-            </div>
-            <div class="mb-4">
-                <InputForm type="text" :disabled="disabledForm" id="address-line-1-text" inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Business Registration Number" label="Address line 1" />
-            </div>
-            <div class="mb-4">
-                <DatepickerForm id="address-line-2" label="Address line 2" right :value="text"
-                    labelClass="block mb-2 text-sm font-medium"
-                    :disabled="disabledForm"
-                    inputClass="bg-transparent  block w-full rounded-lg p-2.5 pr-10 sm:text-sm h-10"
-                    placeholder="DD/MM/YYYY">
-                    <template #icon>
-                        <svg aria-hidden="true" class="w-5 h-5 bg-transparent" fill="var(--v-icon-color)" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </template>
-                </DatepickerForm>
-            </div>
-        </div>
-
-        <!-- Business contact person -->
-        <div class="mb-4">
-            <div class="text-lg font-bold mb-4">Business contact person</div>
-            <div class="mb-4 box-border">
-                <label for="contact-number" class="block mb-2 text-sm font-medium">Contact number</label>
-                <!-- dropdown -->
-                <div class="relative w-full bg-[var(--background-input)] flex flex-row rounded-md border border-solid"
-                    :class="isPhoneFocus ? 'ring-1 ring-[#1C64F2] border-[#1C64F2]' : 'border-[#6B7280]'">
-                    <SelectForm :id="dropdown-button"
-                        inputClass="flex items-center pl-2 py-2 text-sm font-medium rounded-l-lg bg-transparent h-10"
-                        listContainerClass="rounded-lg shadow absolute inset-y-0 left-0 z-99"
-                        listClass="py-2 px-0 text-sm  bg-black" :disabled="disabledForm"
-                        itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
-                        :listItem="countryCodeList" v-model:selected-value="countrySelected">
-                        <template v-slot:button="{ selectedValue }">
-                            <img alt="Flag" :src="selectedValue.img" class="h-3.5 w-5 mr-2">
-                            <span class="text-sm leading-5" v-html="selectedValue.label"></span>
-                        </template>
-                        <template v-slot:item="{ item }">
-                            <img alt="Flag" :src="item.img" class="h-3.5 w-5 mr-1">
-                            <span class="text-sm leading-5" v-html="item.label"></span>
-                        </template>
-                    </SelectForm>
-                    <input type="number" :disabled="disabledForm" id="contact-number" class="bg-transparent text-sm rounded-lg h-10 border-none border-transparent focus:border-transparent focus:ring-0 disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)]" @focus="isPhoneFocus = true" @blur="isPhoneFocus = false"/>
-                </div>
-            </div>
-            <div class="mb-4">
-                <InputForm type="text" :disabled="disabledForm" id="business-website" inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="email" label="Email" />
-            </div>
             <div class="mb-4">
                 <UploadFileForm v-model="fileUploaded" multiple :disabled="disabledForm" id="documents-upload" inputClass="bg-transparent text-sm border rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Upload files" label="Documents"/>
             </div>
@@ -114,69 +99,255 @@ import SelectForm from '../common/SelectForm.vue'
 import AppApi from "../../apiConfig"
 import { ref, onMounted } from 'vue'
 
-
-const countryCodeList = ref([
+const companyName = ref(null);
+const countryList = ref([
     {
         img: 'https://staging.tagrise.com/static/media/singapore_flag.975f4084ca809a9eca2106dfab7caceb.svg',
-        label: '+65'
+        label: 'Singapore',
+        value: 'SG'
     },
     {
         img: 'https://staging.tagrise.com/static/media/hongkong_flag.743d25c48b17eac6d1a966ed462bf7d0.svg',
-        label: '+852'
+        label: 'Hong Kong',
+        value: 'HK'
     },
     {
         img: 'https://staging.tagrise.com/static/media/korea_flag.2b4d800b17bf5c624a185da1c2966854.svg',
-        label: '+82'
+        label: 'Korean',
+        value: 'KR'
     },
     {
         img: 'https://staging.tagrise.com/static/media/taiwan_flag.ac6bcad0ad5f7095204dc7fe96735c88.svg',
-        label: '+886'
-    },
-    {
-        img: 'https://staging.tagrise.com/static/media/malaysia_flag.35a24d1284212d5967522b353e15d7e3.svg',
-        label: '+60'
-    },
-    {
-        img: 'https://staging.tagrise.com/static/media/indo_flag.f624e2c8444a7794b35736c30dd82dda.svg',
-        label: '+62'
-    },
-    {
-        img: 'https://staging.tagrise.com/static/media/philipine_flag.e215bab6b405d1afeff4e809f488ec41.svg',
-        label: '+63'
+        label: 'Taiwan',
+        value: 'TW'
     },
 ]);
 
-var countrySelected = ref({
-    img: 'https://staging.tagrise.com/static/media/singapore_flag.975f4084ca809a9eca2106dfab7caceb.svg',
-    label: '+65'
-});
+const countryOfIncorporationSelected = ref(null);
+const countryOfOperationsSelected = ref(null);
 
-var isPhoneFocus = ref(false);                              //variable to get input focus event
+const businessTypeList = ref([
+    {
+        label: 'Accommodation and Food Service',
+        value: 'Accommodation and Food Service',
+    },
+    {
+        label: 'Accounting/Audit/Consulting',
+        value: 'Accounting/Audit/Consulting',
+    },
+    {
+        label: 'Administrative and Support Service',
+        value: 'Administrative and Support Service',
+    },
+    {
+        label: 'Agriculture',
+        value: 'Agriculture',
+    },
+    {
+        label: 'Agriculture and Fishing',
+        value: 'Agriculture and Fishing',
+    },
+    {
+        label: 'Antiques & Art piece',
+        value: 'Antiques & Art piece',
+    },
+    {
+        label: 'Arts, Entertainment and Recreation',
+        value: 'Arts, Entertainment and Recreation',
+    },
+    {
+        label: 'Banking/Financial/Insurance',
+        value: 'Banking/Financial/Insurance',
+    },
+    {
+        label: 'Construction & Development',
+        value: 'Construction & Development',
+    },
+    {
+        label: 'Domestic Personnel Employment',
+        value: 'Domestic Personnel Employment',
+    },
+    {
+        label: 'Education',
+        value: 'Education',
+    },
+    {
+        label: 'Electricity, Gas and Steam',
+        value: 'Electricity, Gas and Steam',
+    },
+    {
+        label: 'Engineering',
+        value: 'Engineering',
+    },
+    {
+        label: 'Entertainment & Recreation',
+        value: 'Entertainment & Recreation',
+    },
+    {
+        label: 'Extra-Territorial Organizations',
+        value: 'Extra-Territorial Organizations',
+    },
+    {
+        label: 'Financial and Insurance',
+        value: 'Financial and Insurance',
+    },
+    {
+        label: 'Food & Beverages',
+        value: 'Food & Beverages',
+    },
+    {
+        label: 'Forestry & Logging',
+        value: 'Forestry & Logging',
+    },
+    {
+        label: 'Government Bodies',
+        value: 'Government Bodies',
+    },
+    {
+        label: 'Health and Social Services',
+        value: 'Health and Social Services',
+    },
+    {
+        label: 'Hotel & Lodging',
+        value: 'Hotel & Lodging',
+    },
+    {
+        label: 'Information Technology',
+        value: 'Information Technology',
+    },
+    {
+        label: 'Information and Communications',
+        value: 'Information and Communications',
+    },
+    {
+        label: 'Legal & Judiciary',
+        value: 'Legal & Judiciary',
+    },
+    {
+        label: 'Logistics',
+        value: 'Logistics',
+    },
+    {
+        label: 'Manufacturing',
+        value: 'Manufacturing',
+    },
+    {
+        label: 'Media & Communications',
+        value: 'Media & Communications',
+    },
+    {
+        label: 'Medical & Healthcare',
+        value: 'Medical & Healthcare',
+    },
+    {
+        label: 'Mining & Quarrying',
+        value: 'Mining & Quarrying',
+    },
+    {
+        label: 'Money Lending',
+        value: 'Money Lending',
+    },
+    {
+        label: 'Non-Profit Organization',
+        value: 'Non-Profit Organization',
+    },
+    {
+        label: 'Oil & Gas',
+        value: 'Oil & Gas',
+    },
+    {
+        label: 'Other Service Activities',
+        value: 'Other Service Activities',
+    },
+    {
+        label: 'Others',
+        value: 'Others',
+    },
+    {
+        label: 'Pawnshop',
+        value: 'Pawnshop',
+    },
+    {
+        label: 'Professional Services Firm',
+        value: 'Professional Services Firm',
+    },
+    {
+        label: 'Professional, Scientific and Technical',
+        value: 'Professional, Scientific and Technical',
+    },
+    {
+        label: 'Public Administration and Defence',
+        value: 'Public Administration and Defence',
+    },
+    {
+        label: 'Real Estate',
+        value: 'Real Estate',
+    },
+    {
+        label: 'Trading/Retail/Wholesale',
+        value: 'Trading/Retail/Wholesale',
+    },
+    {
+        label: 'Transportation and Storage',
+        value: 'Transportation and Storage',
+    },
+    {
+        label: 'Travel/Tourism',
+        value: 'Travel/Tourism',
+    },
+    {
+        label: 'Unknown - Unknown',
+        value: 'Unknown - Unknown',
+    },
+    {
+        label: 'Utilities',
+        value: 'Utilities',
+    },
+    {
+        label: 'Water Supply',
+        value: 'Water Supply',
+    },
+    {
+        label: 'Wholesale and Retail Trade',
+        value: 'Wholesale and Retail Trade',
+    },
+]);
+
+const businessTypeSelected = ref(null);
+
+const companyAddress = ref(null);
+const postalCode = ref(null);
+const companyState = ref(null);
+const companyCity = ref(null);
+const registrationNumber = ref(null);
+const incorporationDate = ref(null);
 
 var disabledForm = ref(false);                               //disable form
 
-const companyName = ref('asdfasfd');
-
-const businessRegistrationNumber = ref(98237452);
-
-const incorporationDate = ref('23/03/2023')
-
 var fileUploaded = ref(null)
 
-onMounted(async () => {
-    const data = await AppApi("get", "/business-auth/business-role", localStorage.getItem("rise_token"))
-    if (data) {
-        console.log(data);
-    }
-})
-
-var submitForm = () => {
+var submitForm = async () => {
     console.log("submit");
-    console.log("companyName", companyName.value);
-    console.log("businessRegistrationNumber", businessRegistrationNumber.value);
-    console.log("incorporationDate", incorporationDate.value);
-    console.log("countrySelected", countrySelected.value);
-    console.log(fileUploaded.value);
+
+    const data = {
+        countryOfIncorporation: countryOfIncorporationSelected.value.value,
+        countryOfOperations: countryOfOperationsSelected.value.value,
+        businessType: businessTypeSelected.value.value,
+        companyAddress: companyAddress.value,
+        postalCode: postalCode.value,
+        companyState: companyState.value,
+        companyCity: companyCity.value,
+        registrationNumber: registrationNumber.value,
+        incorporationDate: incorporationDate.value,
+        companyName: companyName.value
+    }
+    console.log(data);
+
+    const res = await AppApi("patch", "/wallex-business/update-company-details", localStorage.getItem("rise_token"), data)
+    if (res.data) {
+        console.log(res.data);
+    }
+
 }
 </script>
 
