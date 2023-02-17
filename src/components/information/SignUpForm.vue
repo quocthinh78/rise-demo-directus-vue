@@ -4,10 +4,16 @@
         <div class="mb-4">
             <div class="text-lg font-bold mb-4">Sign Up Virtual Account</div>
             <div class="mb-4">
-                <InputForm type="text" v-model="firstName" :disabled="disabledForm" id="first-name" inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="First name" label="First name" />
+                <InputForm type="text" v-model="firstName" :disabled="disabledForm" id="first-name"
+                    inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
+                    placeholder="First name" label="First name" />
+                <div class="text-red-600 text-xs mt-2"> {{ errors.firstName }}</div>
             </div>
             <div class="mb-4">
-                <InputForm type="text" v-model="lastName" :disabled="disabledForm" id="last-name" inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Last name" label="Last name" />
+                <InputForm type="text" v-model="lastName" :disabled="disabledForm" id="last-name"
+                    inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
+                    placeholder="Last name" label="Last name" />
+                <div class="text-red-600 text-xs mt-2"> {{ errors.lastName }}</div>
             </div>
             <div class="mb-4 box-border relative">
                 <label for="country-code" class="block mb-2 text-sm font-medium">Country</label>
@@ -16,8 +22,8 @@
                     inputClass="flex items-center px-2 py-2 text-sm font-medium rounded-lg bg-[var(--background-input)] w-full h-10 border border-solid"
                     listContainerClass="rounded-lg shadow absolute left-0 z-99 w-full"
                     listClass="py-2 px-0 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
-                    itemClass="px-1 py-2 overflow-hidden justify-start" dropdownIcon
-                    :listItem="countryCodeList" v-model:selected-value="countrySelected">
+                    itemClass="px-1 py-2 overflow-hidden justify-start" dropdownIcon :listItem="countryCodeList"
+                    v-model:selected-value="countrySelected">
                     <template v-slot:button="{ selectedValue }">
                         <img alt="Flag" :src="selectedValue.img" class="h-3.5 w-5 mr-2">
                         <span class="text-sm leading-5">{{ selectedValue.label }}</span>
@@ -34,8 +40,8 @@
         <div class="py-4">
             <button type="button"
                 class="bg-[#1e74fd]
-                focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                                                                                focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
+                                                                                font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 :disabled="disabledForm" @click="submitForm">
                 Submit
             </button>
@@ -44,11 +50,14 @@
 </template>
 
 <script setup>
+
+import { ref, onMounted, reactive } from 'vue'
+import { useRouter } from "vue-router"
+import AppApi from "../../apiConfig"
 import InputForm from '../common/InputForm.vue'
 import SelectForm from '../common/SelectForm.vue'
-import { ref, onMounted } from 'vue'
-import AppApi from "../../apiConfig"
-import { useRouter } from "vue-router"
+import { hasKeyObject } from "./../../utils/commonUtils"
+const router = useRouter();
 
 const countryCodeList = ref([
     {
@@ -84,7 +93,7 @@ var disabledForm = ref(false);                               //disable form
 const firstName = ref('');
 const lastName = ref('');
 const businessId = ref(null);
-const router = useRouter();
+const errors = ref({})
 
 onMounted(async () => {
     const res = await AppApi("get", "/business-auth/business-role", localStorage.getItem("rise_token"))
@@ -93,18 +102,25 @@ onMounted(async () => {
     }
 })
 
-var submitForm = async () => {
-
+const submitForm = async () => {
     const data = {
         businessId: businessId.value,
         firstName: firstName.value,
         lastName: lastName.value,
         countryCode: countrySelected.value.value,
     }
-
+    errors.value = {}
+    if (!data.firstName) {
+        errors.value = { ...errors.value, firstName: "First name is required" }
+    }
+    if (!data.lastName) {
+        errors.value = { ...errors.value, lastName: "Last name is required" }
+    }
+    if (hasKeyObject(errors.value)) {
+        return false;
+    }
     const res = await AppApi("post", "/wallex-business/signup", localStorage.getItem("rise_token"), data)
     if (res.data) {
-        router.push("/verification/verify-admin");
         router.push({
             name: "VerifyAdmin",
             query: { ...data },
