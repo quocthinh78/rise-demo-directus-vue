@@ -67,12 +67,30 @@
                     </template>
                 </DatepickerForm>
             </div>
-
-        </div>
-
-        <div class="mb-4">
             <div class="mb-4">
-                <UploadFileForm v-model="fileUploaded" multiple :disabled="disabledForm" id="documents-upload" inputClass="bg-transparent text-sm border rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Upload files" label="Documents"/>
+                <label for="dropdown-document-type-button" class="block mb-2 text-sm font-medium">Document Type</label>
+                <SelectForm id="dropdown-document-type-button" class="w-full" placeholder="Select document type" dropdownIcon
+                    inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
+                    listContainerClass="rounded-lg shadow absolute z-10 w-full"
+                    listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
+                    itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
+                    :listItem="documentTypeList" v-model:selected-value="documentTypeSelected">
+                </SelectForm>
+            </div>
+            <div class="mb-4">
+                <label for="dropdown-content-type-button" class="block mb-2 text-sm font-medium">Content Type</label>
+                <SelectForm id="dropdown-content-type-button" class="w-full" placeholder="Select content type" dropdownIcon
+                    inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
+                    listContainerClass="rounded-lg shadow absolute z-10 w-full"
+                    listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
+                    itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
+                    :listItem="contentTypeList" v-model:selected-value="contentTypeSelected">
+                </SelectForm>
+            </div>
+            <div class="mb-4">
+                <UploadFileForm v-model="fileUploaded" multiple :disabled="disabledForm" 
+                id="documents-upload" inputClass="bg-transparent text-sm border rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
+                placeholder="Upload files" label="Documents" typeAccepted="image/*, .pdf"/>
             </div>
         </div>
 
@@ -98,6 +116,7 @@ import DatepickerForm from '../common/DatepickerForm.vue'
 import SelectForm from '../common/SelectForm.vue'
 import AppApi from "../../apiConfig"
 import { ref, onMounted } from 'vue'
+import axios from 'axios'
 
 const companyName = ref(null);
 const countryList = ref([
@@ -322,12 +341,151 @@ const companyCity = ref(null);
 const registrationNumber = ref(null);
 const incorporationDate = ref(null);
 
+const documentTypeList = ref([
+    {
+        label: 'National Identity',
+        value: 'national_identity'
+    },
+    {
+        label: 'Company Proof',
+        value: 'company_proof'
+    },
+    {
+        label: 'Company Address Proof',
+        value: 'company_address_proof'
+    },
+    {
+        label: 'National Registration Identity Card',
+        value: 'nric'
+    },
+    {
+        label: 'Passport',
+        value: 'passport'
+    },
+    {
+        label: 'KTP',
+        value: 'ktp'
+    },
+    {
+        label: 'Employment Pass',
+        value: 'employment_pass'
+    },
+    {
+        label: 'S-Pass',
+        value: 's_pass'
+    },
+    {
+        label: 'Work Permit',
+        value: 'work_permit'
+    },
+    {
+        label: 'Photo',
+        value: 'photo'
+    },
+    {
+        label: 'Bank Statement',
+        value: 'bank_statement'
+    },
+    {
+        label: 'Utility Bill',
+        value: 'utility_bill'
+    },
+    {
+        label: 'Phone Bill',
+        value: 'phone_bill'
+    },
+    {
+        label: 'Tax Bill',
+        value: 'tax_bill'
+    },
+    {
+        label: 'Family Card',
+        value: 'family_card'
+    },
+    {
+        label: 'Identity Report',
+        value: 'identity_report'
+    },
+    {
+        label: 'FDW',
+        value: 'fdw'
+    },
+]);
+
+const documentTypeSelected = ref(null);
+
+const contentTypeList = ref([
+    {
+        label: 'Image (JPG)',
+        value: 'image/jpg'
+    },
+    {
+        label: 'Image (JPEG)',
+        value: 'image/jpeg'
+    },
+    {
+        label: 'Image (PNG)',
+        value: 'image/png'
+    },
+    {
+        label: 'Image (SVG)',
+        value: 'image/svg'
+    },
+    {
+        label: 'Application (PDF)',
+        value: 'application/pdf'
+    },
+
+]);
+
+const contentTypeSelected = ref(null);
+
 var disabledForm = ref(false);                               //disable form
 
 var fileUploaded = ref(null)
 
+const get_file_array = (file) => {
+    return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        resolve(event.target.result);
+    };
+    reader.onerror = (err) => {
+        reject(err);
+    };
+    reader.readAsArrayBuffer(file);
+    });
+};
+
 var submitForm = async () => {
     console.log("submit");
+    var fileFlag = false;
+    var dataFlag = false;
+    for(let i = 0; i < fileUploaded.value.length; i++) {
+        const imageData = {
+            documentType: documentTypeSelected.value.value,
+            documentName: fileUploaded.value[i].name,
+            contentType: contentTypeSelected.value.value,
+            contentLength: fileUploaded.value[i].size
+        }
+        const res = await AppApi("post", "/wallex-business/generate-upload-url", localStorage.getItem("rise_token"), imageData)
+        if (res.data) {
+            const fileBuffer = get_file_array(fileUploaded.value[i]);
+            const resUploaded = await axios.put(res.data.uploadURL, fileBuffer, {
+                            headers: {
+                                "x-amz-storage-class": "STANDARD",
+                                "Content-Type": imageData.contentType,
+                            },
+                        });
+            if(resUploaded.statusText === 'OK') {
+                console.log(`File "${imageData.documentName}" uploaded successfully`);
+                fileFlag = true;
+            } else {
+                console.log(`File "${imageData.documentName}" uploaded failed`);
+                fileFlag = false;
+            }
+        }
+    }
 
     const data = {
         countryOfIncorporation: countryOfIncorporationSelected.value.value,
@@ -335,17 +493,26 @@ var submitForm = async () => {
         businessType: businessTypeSelected.value.value,
         companyAddress: companyAddress.value,
         postalCode: postalCode.value,
-        companyState: companyState.value,
-        companyCity: companyCity.value,
+        state: companyState.value,
+        city: companyCity.value,
         registrationNumber: registrationNumber.value,
         incorporationDate: incorporationDate.value,
         companyName: companyName.value
     }
-    console.log(data);
 
     const res = await AppApi("patch", "/wallex-business/update-company-details", localStorage.getItem("rise_token"), data)
-    if (res.data) {
-        console.log(res.data);
+    if (res.data.status.value === 'completed') {
+        console.log("Update company details successfully");
+        dataFlag = true;
+
+    } else {
+        console.log("Update company details failed");
+        dataFlag = false;
+    }
+
+
+    if(fileFlag && dataFlag) {
+        console.log("Done");
     }
 
 }
