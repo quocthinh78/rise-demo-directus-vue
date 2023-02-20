@@ -135,7 +135,6 @@ const doEKYC = () => {
 }
 
 const submitForm = async () => {
-<<<<<<< HEAD
     const payload = {
         businessId: businessId.value,
         firstName: firstName.value,
@@ -153,11 +152,9 @@ const submitForm = async () => {
     if (hasKeyObject(errors.value)) {
         return false;
     }
-=======
     //check ekyc
     var resEKYC = null
     loading.value = true;
->>>>>>> ff5068f489a995bb8da903f1d2edc7d2aacd35ba
     try {
         resEKYC = await AppApi("get", "/wallex-business/kyc-raw-data", localStorage.getItem("rise_token"))
         if(resEKYC.data) {
