@@ -149,7 +149,10 @@ import SelectForm from '../common/SelectForm.vue'
 import ErrorMessage from "../common/ErrorMessage.vue"
 import AppApi from "../../apiConfig"
 import { ref, onMounted } from 'vue'
+import { useRouter } from "vue-router"
 import axios from 'axios'
+
+const router = useRouter();
 
 const companyName = ref(null);
 const errors = ref({})
@@ -589,6 +592,7 @@ var submitForm = async () => {
 
     } else {
         console.log("Update company details failed");
+        console.log(resCompanyDetails.data.status);
         dataFlag = false;
     }
 
@@ -597,6 +601,8 @@ var submitForm = async () => {
         const res = await AppApi("post", "/wallex-business/submit-doc", localStorage.getItem("rise_token"))
         if (res.data) {
             console.log(res.data);
+            router.push("/verification");
+
         } else {
             console.log(res.msg.message);
         }
