@@ -10,7 +10,8 @@ module.exports = {
       colors: {
         light: "#e2f3f5",
         teal: "#22d1ee",
-        dark: "#636363",
+        modal: "rgb(255,255,255,0.2)",
+        dark: "#0a0810",
         red: {
           DEFAULT: "#f00",
         },

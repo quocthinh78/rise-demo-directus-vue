@@ -7,13 +7,14 @@
                 <InputForm type="text" v-model="firstName" :disabled="disabledForm" id="first-name"
                     inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
                     placeholder="First name" label="First name" />
-                <div class="text-red-600 text-xs mt-2"> {{ errors.firstName }}</div>
+                <ErrorMessage :message="errors.firstName" v-if="errors.firstName" />
+
             </div>
             <div class="mb-4">
                 <InputForm type="text" v-model="lastName" :disabled="disabledForm" id="last-name"
                     inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
                     placeholder="Last name" label="Last name" />
-                <div class="text-red-600 text-xs mt-2"> {{ errors.lastName }}</div>
+                <ErrorMessage :message="errors.lastName" v-if="errors.lastName" />
             </div>
             <div class="mb-4 box-border relative">
                 <label for="country-code" class="block mb-2 text-sm font-medium">Country</label>
@@ -80,6 +81,7 @@ import InputForm from '../common/InputForm.vue'
 import SelectForm from '../common/SelectForm.vue'
 import Modal from '../common/Modal.vue'
 import Loading from "../common/Loading.vue"
+import ErrorMessage from "../common/ErrorMessage.vue"
 import { hasKeyObject } from "./../../utils/commonUtils"
 
 const router = useRouter();
@@ -133,6 +135,23 @@ const doEKYC = () => {
 }
 
 const submitForm = async () => {
+    const payload = {
+        businessId: businessId.value,
+        firstName: firstName.value,
+        lastName: lastName.value,
+        countryCode: countrySelected.value.value,
+    }
+    console.log("🚀 thinhvq ~ file: SignUpForm.vue:117 ~ submitForm ~ payload", payload)
+    errors.value = {}
+    if (!payload.firstName) {
+        errors.value = { ...errors.value, firstName: "First name is required" }
+    }
+    if (!payload.lastName) {
+        errors.value = { ...errors.value, lastName: "Last name is required" }
+    }
+    if (hasKeyObject(errors.value)) {
+        return false;
+    }
     //check ekyc
     var resEKYC = null
     loading.value = true;
