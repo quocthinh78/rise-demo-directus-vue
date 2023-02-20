@@ -139,6 +139,7 @@ import Badge from '../common/Badge.vue';
 import Modal from '../common/Modal.vue';
 import Alert from '../common/Alert.vue';
 import { UseFetchEkycStatus } from "../../hocs/UseFetchEkycStatus"
+import { useRouter } from "vue-router"
 
 export default {
     name: "InformationList",
@@ -149,13 +150,11 @@ export default {
         Alert,
     },
     setup() {
+        const router = useRouter()
         const showModal = ref(false)
         const { error, loading, status, statusString } = UseFetchEkycStatus("/business-auth/kyc/jumio", { method: "get" })
         const toggleModal = () => {
             showModal.value = !showModal.value
-        }
-        const onSubmit = () => {
-            // showModal.value = !showModal.value
         }
 
         return { showModal, toggleModal, status, statusString, error, loading }

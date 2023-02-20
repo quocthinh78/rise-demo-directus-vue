@@ -4,78 +4,107 @@
         <div class="mb-4">
             <div class="text-lg font-bold mb-4">Business Company Information</div>
             <div class="mb-4">
-                <InputForm type="text" v-model="companyName" :disabled="disabledForm" id="company-name-text" inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your company name" label="Company Name" />
+                <InputForm type="text" v-model="companyName" :disabled="disabledForm" id="company-name-text"
+                    inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
+                    placeholder="Your company name" label="Company Name" />
+                <ErrorMessage :message="errors.companyName" v-if="errors.companyName" />
             </div>
             <div class="mb-4">
-                <label for="dropdown-country-of-incorporation-button" class="block mb-2 text-sm font-medium">Country of Incorporation</label>
-                <SelectForm id="dropdown-country-of-incorporation-button" class="w-full" placeholder="Select country of incorporation" dropdownIcon
+                <label for="dropdown-country-of-incorporation-button" class="block mb-2 text-sm font-medium">Country of
+                    Incorporation</label>
+                <SelectForm id="dropdown-country-of-incorporation-button" class="w-full"
+                    placeholder="Select country of incorporation" dropdownIcon
                     inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
                     listContainerClass="rounded-lg shadow absolute z-10 w-full"
                     listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
                     itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
                     :listItem="countryList" v-model:selected-value="countryOfIncorporationSelected">
                 </SelectForm>
+                <ErrorMessage :message="errors.countryOfIncorporation" v-if="errors.countryOfIncorporation" />
             </div>
             <div class="mb-4">
-                <label for="dropdown-country-of-operations-button" class="block mb-2 text-sm font-medium">Country of Operations</label>
-                <SelectForm id="dropdown-country-of-operations-button" class="w-full" placeholder="Select country of operations" dropdownIcon
+                <label for="dropdown-country-of-operations-button" class="block mb-2 text-sm font-medium">Country of
+                    Operations</label>
+                <SelectForm id="dropdown-country-of-operations-button" class="w-full"
+                    placeholder="Select country of operations" dropdownIcon
                     inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
                     listContainerClass="rounded-lg shadow absolute z-10 w-full"
                     listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
                     itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
                     :listItem="countryList" v-model:selected-value="countryOfOperationsSelected">
                 </SelectForm>
+                <ErrorMessage :message="errors.countryOfOperations" v-if="errors.countryOfOperations" />
             </div>
             <div class="mb-4">
                 <label for="dropdown-business-type-button" class="block mb-2 text-sm font-medium">Business Type</label>
-                <SelectForm id="dropdown-business-type-button" class="w-full" placeholder="Select business type" dropdownIcon
+                <SelectForm id="dropdown-business-type-button" class="w-full" placeholder="Select business type"
+                    dropdownIcon
                     inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
                     listContainerClass="rounded-lg shadow absolute z-10 w-full"
                     listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
                     itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
                     :listItem="businessTypeList" v-model:selected-value="businessTypeSelected">
                 </SelectForm>
+                <ErrorMessage :message="errors.businessType" v-if="errors.businessType" />
             </div>
             <div class="mb-4">
-                <InputForm type="text" v-model="companyAddress" :disabled="disabledForm" id="company-address-text" inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your company address" label="Company Address" />
+                <InputForm type="text" v-model="companyAddress" :disabled="disabledForm" id="company-address-text"
+                    inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
+                    placeholder="Your company address" label="Company Address" />
+                <ErrorMessage :message="errors.companyAddress" v-if="errors.companyAddress" />
+            </div>
+
+            <div class="mb-4">
+                <InputForm type="text" v-model="postalCode" :disabled="disabledForm" id="postal-code-text"
+                    inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
+                    placeholder="Company's postal code" label="Postal Code" />
+                <ErrorMessage :message="errors.postalCode" v-if="errors.postalCode" />
             </div>
             <div class="mb-4">
-                <InputForm type="text" v-model="postalCode" :disabled="disabledForm" id="postal-code-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Company's postal code" label="Postal Code" />
+                <InputForm type="text" v-model="companyState" :disabled="disabledForm" id="company-state-text"
+                    inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
+                    placeholder="Company state" label="Company State" />
+                <ErrorMessage :message="errors.state" v-if="errors.state" />
             </div>
             <div class="mb-4">
-                <InputForm type="text" v-model="companyState" :disabled="disabledForm" id="company-state-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Company state" label="Company State" />
+                <InputForm type="text" v-model="companyCity" :disabled="disabledForm" id="company-city-text"
+                    inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
+                    placeholder="Company city" label="Company City" />
+                <ErrorMessage :message="errors.city" v-if="errors.city" />
             </div>
             <div class="mb-4">
-                <InputForm type="text" v-model="companyCity" :disabled="disabledForm" id="company-city-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Company city" label="Company City" />
-            </div>            
-            <div class="mb-4">
-                <InputForm type="text" v-model="registrationNumber" :disabled="disabledForm" id="registration-number-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Company registration number" label="Company Registration Number" />
+                <InputForm type="text" v-model="registrationNumber" :disabled="disabledForm" id="registration-number-text"
+                    inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
+                    placeholder="Company registration number" label="Company Registration Number" />
+                <ErrorMessage :message="errors.registrationNumber" v-if="errors.registrationNumber" />
             </div>
             <div class="mb-4">
-                <DatepickerForm 
-                    id="incorporation-date" label="Incorporation date" right v-model="incorporationDate"
+                <DatepickerForm id="incorporation-date" label="Incorporation date" right v-model="incorporationDate"
                     labelClass="block mb-2 text-sm font-medium" :disabled="disabledForm"
-                    inputClass="bg-transparent block w-full rounded-lg p-2.5 pr-10 sm:text-sm h-10"
-                    placeholder="DD-MM-YYYY" formatDate="dd-mm-yyyy">
+                    inputClass="bg-transparent block w-full rounded-lg p-2.5 pr-10 sm:text-sm h-10" placeholder="DD-MM-YYYY"
+                    formatDate="dd-mm-yyyy">
                     <template #icon>
-                        <svg aria-hidden="true" class="w-5 h-5 bg-transparent" fill="var(--v-icon-color)" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
+                        <svg aria-hidden="true" class="w-5 h-5 bg-transparent" fill="var(--v-icon-color)"
+                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
                                 d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
                                 clip-rule="evenodd"></path>
                         </svg>
                     </template>
                 </DatepickerForm>
+                <ErrorMessage :message="errors.incorporationDate" v-if="errors.incorporationDate" />
             </div>
             <div class="mb-4">
                 <label for="dropdown-document-type-button" class="block mb-2 text-sm font-medium">Document Type</label>
-                <SelectForm id="dropdown-document-type-button" class="w-full" placeholder="Select document type" dropdownIcon
+                <SelectForm id="dropdown-document-type-button" class="w-full" placeholder="Select document type"
+                    dropdownIcon
                     inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
                     listContainerClass="rounded-lg shadow absolute z-10 w-full"
                     listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
                     itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
                     :listItem="documentTypeList" v-model:selected-value="documentTypeSelected">
                 </SelectForm>
+                <ErrorMessage :message="errors.documentType" v-if="errors.documentType" />
             </div>
             <div class="mb-4">
                 <label for="dropdown-content-type-button" class="block mb-2 text-sm font-medium">Content Type</label>
@@ -86,11 +115,14 @@
                     itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
                     :listItem="contentTypeList" v-model:selected-value="contentTypeSelected">
                 </SelectForm>
+                <ErrorMessage :message="errors.contentType" v-if="errors.contentType" />
             </div>
             <div class="mb-4">
-                <UploadFileForm v-model="fileUploaded" multiple :disabled="disabledForm" 
-                id="documents-upload" inputClass="bg-transparent text-sm border rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
-                placeholder="Upload files" label="Documents" typeAccepted="image/*, .pdf"/>
+                <UploadFileForm v-model="fileUploaded" multiple :disabled="!documentTypeSelected?.value || !contentTypeSelected?.value" id="documents-upload"
+                    inputClass="bg-transparent text-sm border rounded-lg max-w-sm h-10"
+                    labelClass="block mb-2 text-sm font-medium" placeholder="Upload files" label="Documents"
+                    typeAccepted="image/*, .pdf" />
+                <ErrorMessage :message="errors.fileUploaded" v-if="errors.fileUploaded" />
             </div>
         </div>
 
@@ -114,11 +146,14 @@ import InputForm from '../common/InputForm.vue'
 import UploadFileForm from '../common/UploadFileForm.vue'
 import DatepickerForm from '../common/DatepickerForm.vue'
 import SelectForm from '../common/SelectForm.vue'
+import ErrorMessage from "../common/ErrorMessage.vue"
 import AppApi from "../../apiConfig"
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
 const companyName = ref(null);
+const errors = ref({})
+const loading = ref(false)
 const countryList = ref([
     {
         img: 'https://staging.tagrise.com/static/media/singapore_flag.975f4084ca809a9eca2106dfab7caceb.svg',
@@ -446,52 +481,59 @@ var fileUploaded = ref(null)
 
 const get_file_array = (file) => {
     return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-        resolve(event.target.result);
-    };
-    reader.onerror = (err) => {
-        reject(err);
-    };
-    reader.readAsArrayBuffer(file);
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            resolve(event.target.result);
+        };
+        reader.onerror = (err) => {
+            reject(err);
+        };
+        reader.readAsArrayBuffer(file);
     });
 };
 
 var submitForm = async () => {
-    console.log("submit");
     var fileFlag = false;
     var dataFlag = false;
-    for(let i = 0; i < fileUploaded.value.length; i++) {
-        const imageData = {
-            documentType: documentTypeSelected.value.value,
-            documentName: fileUploaded.value[i].name,
-            contentType: contentTypeSelected.value.value,
-            contentLength: fileUploaded.value[i].size
-        }
-        const res = await AppApi("post", "/wallex-business/generate-upload-url", localStorage.getItem("rise_token"), imageData)
-        if (res.data) {
-            const fileBuffer = get_file_array(fileUploaded.value[i]);
-            const resUploaded = await axios.put(res.data.uploadURL, fileBuffer, {
-                            headers: {
-                                "x-amz-storage-class": "STANDARD",
-                                "Content-Type": imageData.contentType,
-                            },
-                        });
-            if(resUploaded.statusText === 'OK') {
-                console.log(`File "${imageData.documentName}" uploaded successfully`);
-                fileFlag = true;
-            } else {
 
-                console.log(`File "${imageData.documentName}" uploaded failed`);
-                fileFlag = false;
+    errors.value = {}
+
+    if (fileUploaded.value) {
+
+        for (let i = 0; i < fileUploaded.value.length; i++) {
+            const imageData = {
+                documentType: documentTypeSelected.value.value,
+                documentName: fileUploaded.value[i].name,
+                contentType: contentTypeSelected.value.value,
+                contentLength: fileUploaded.value[i].size
+            }
+            const res = await AppApi("post", "/wallex-business/generate-upload-url", localStorage.getItem("rise_token"), imageData)
+            if (res.data) {
+                const fileBuffer = get_file_array(fileUploaded.value[i]);
+                const resUploaded = await axios.put(res.data.uploadURL, fileBuffer, {
+                    headers: {
+                        "x-amz-storage-class": "STANDARD",
+                        "Content-Type": imageData.contentType,
+                    },
+                });
+                if (resUploaded.statusText === 'OK') {
+                    console.log(`File "${imageData.documentName}" uploaded successfully`);
+                    fileFlag = true;
+                } else {
+
+                    console.log(`File "${imageData.documentName}" uploaded failed`);
+                    fileFlag = false;
+                }
             }
         }
     }
 
+
+
     const data = {
-        countryOfIncorporation: countryOfIncorporationSelected.value.value,
-        countryOfOperations: countryOfOperationsSelected.value.value,
-        businessType: businessTypeSelected.value.value,
+        countryOfIncorporation: countryOfIncorporationSelected.value?.value || "",
+        countryOfOperations: countryOfOperationsSelected.value?.value || "",
+        businessType: businessTypeSelected.value?.value || "",
         companyAddress: companyAddress.value,
         postalCode: postalCode.value,
         state: companyState.value,
@@ -500,6 +542,45 @@ var submitForm = async () => {
         incorporationDate: incorporationDate.value,
         companyName: companyName.value
     }
+
+
+    if (!data.countryOfIncorporation) {
+        errors.value = { ...errors.value, countryOfIncorporation: "Country of Incorporation is required" }
+    }
+    if (!data.countryOfOperations) {
+        errors.value = { ...errors.value, countryOfOperations: "Country of Operations is required" }
+    }
+    if (!data.businessType) {
+        errors.value = { ...errors.value, businessType: "Business is required" }
+    }
+    if (!data.companyAddress) {
+        errors.value = { ...errors.value, companyAddress: "Company address is required" }
+    }
+    if (!data.postalCode) {
+        errors.value = { ...errors.value, postalCode: "Postal code is required" }
+    }
+    if (!data.state) {
+        errors.value = { ...errors.value, state: "Company State is required" }
+    }
+    if (!data.city) {
+        errors.value = { ...errors.value, city: "Company City is required" }
+    }
+    if (!data.registrationNumber) {
+        errors.value = { ...errors.value, registrationNumber: "Company Registration Number is required" }
+    }
+    if (!data.incorporationDate) {
+        errors.value = { ...errors.value, incorporationDate: "Incorporation date is required" }
+    }
+    if (!data.companyName) {
+        errors.value = { ...errors.value, companyName: "Company name is required" }
+    }
+
+    console.log("🚀 thinhvq ~ file: InformationAdminForm.vue:585 ~ submitForm ~ errors", errors.value)
+
+    if (hasKeyObject(errors.value)) {
+        return false;
+    }
+
 
     const resCompanyDetails = await AppApi("patch", "/wallex-business/update-company-details", localStorage.getItem("rise_token"), data)
     if (resCompanyDetails.data.status.value === 'completed') {
@@ -512,14 +593,16 @@ var submitForm = async () => {
     }
 
 
-    if(fileFlag && dataFlag) {
+    if (fileFlag && dataFlag) {
         const res = await AppApi("post", "/wallex-business/submit-doc", localStorage.getItem("rise_token"))
-        if(res.data) {
+        if (res.data) {
             console.log(res.data);
         } else {
             console.log(res.msg.message);
         }
     }
+
+
 
 }
 </script>

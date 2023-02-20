@@ -4,7 +4,10 @@
         <div class="mb-4">
             <div class="text-lg font-bold mb-4">Business Admin Information</div>
             <div class="mb-4">
-                <InputForm type="text" v-model="title" :disabled="disabledForm" id="title-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your title" label="Title" />
+                <InputForm type="text" v-model="title" :disabled="disabledForm" id="title-text"
+                    inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
+                    placeholder="Your title" label="Title" />
+                <ErrorMessage :message="errors.title" v-if="errors.title" />
             </div>
             <div class="mb-4 box-border">
                 <label for="contact-number" class="block mb-2 text-sm font-medium">Contact number</label>
@@ -27,10 +30,11 @@
                         </template>
                     </SelectForm>
                     <input type="text" :disabled="disabledForm" id="contact-number" placeholder="Your phone"
-                    class="bg-transparent p-2 text-sm rounded-lg h-10 outline-none border-none focus:border-transparent focus:ring-transparent
-                    disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" 
-                    @focus="isPhoneFocus = true" @blur="isPhoneFocus = false" v-model="phoneNumber"/>
+                        class="bg-transparent p-2 text-sm rounded-lg h-10 outline-none border-none focus:border-transparent focus:ring-transparent
+                                                disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" @focus="isPhoneFocus = true" @blur="isPhoneFocus = false"
+                        v-model="phoneNumber" />
                 </div>
+                <ErrorMessage :message="errors.mobileNumber" v-if="errors.mobileNumber" />
             </div>
             <div class="mb-4">
                 <label for="dropdown-gender-button" class="block mb-2 text-sm font-medium">Gender</label>
@@ -41,132 +45,168 @@
                     itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
                     :listItem="genderList" v-model:selected-value="genderSelected">
                 </SelectForm>
+                <ErrorMessage :message="errors.gender" v-if="errors.gender" />
             </div>
             <div class="mb-4">
                 <label for="dropdown-country-birth-button" class="block mb-2 text-sm font-medium">Country birth</label>
-                <SelectForm id="dropdown-country-birth-button" class="w-full" placeholder="Select your country birth" dropdownIcon
+                <SelectForm id="dropdown-country-birth-button" class="w-full" placeholder="Select your country birth"
+                    dropdownIcon
                     inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
                     listContainerClass="rounded-lg shadow absolute z-10 w-full"
                     listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
                     itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
                     :listItem="countryList" v-model:selected-value="countryBirthSelected">
                 </SelectForm>
+                <ErrorMessage :message="errors.countryOfBirth" v-if="errors.countryOfBirth" />
             </div>
             <div class="mb-4">
                 <label for="dropdown-nationality-button" class="block mb-2 text-sm font-medium">Nationality</label>
-                <SelectForm id="dropdown-country-birth-button" class="w-full" placeholder="Select your nationality" dropdownIcon
+                <SelectForm id="dropdown-country-birth-button" class="w-full" placeholder="Select your nationality"
+                    dropdownIcon
                     inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
                     listContainerClass="rounded-lg shadow absolute z-10 w-full"
                     listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
                     itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
                     :listItem="countryList" v-model:selected-value="nationalitySelected">
                 </SelectForm>
+                <ErrorMessage :message="errors.nationality" v-if="errors.nationality" />
             </div>
             <div class="mb-4">
-                <InputForm type="text" v-model="residentialAddress" :disabled="disabledForm" id="residential-address-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your residential address" label="Residential Address" />
+                <InputForm type="text" v-model="residentialAddress" :disabled="disabledForm" id="residential-address-text"
+                    inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
+                    placeholder="Your residential address" label="Residential Address" />
+                <ErrorMessage :message="errors.residentialAddress" v-if="errors.residentialAddress" />
             </div>
             <div class="mb-4">
-                <InputForm type="text" v-model="residentialState" :disabled="disabledForm" id="residential-state-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your state or province" label="State or Province" />
+                <InputForm type="text" v-model="residentialState" :disabled="disabledForm" id="residential-state-text"
+                    inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
+                    placeholder="Your state or province" label="State or Province" />
+                <ErrorMessage :message="errors.state" v-if="errors.state" />
             </div>
             <div class="mb-4">
-                <InputForm type="text" v-model="residentialCity" :disabled="disabledForm" id="residential-city-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your city of residence" label="City of Residence" />
+                <InputForm type="text" v-model="residentialCity" :disabled="disabledForm" id="residential-city-text"
+                    inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
+                    placeholder="Your city of residence" label="City of Residence" />
+                <ErrorMessage :message="errors.city" v-if="errors.city" />
             </div>
             <div class="mb-4">
-                <InputForm type="text" v-model="postalCode" :disabled="disabledForm" id="postal-code-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your postal code" label="Postal Code" />
+                <InputForm type="text" v-model="postalCode" :disabled="disabledForm" id="postal-code-text"
+                    inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
+                    placeholder="Your postal code" label="Postal Code" />
+                <ErrorMessage :message="errors.postalCode" v-if="errors.postalCode" />
             </div>
             <div class="mb-4">
-                <DatepickerForm 
-                    id="date-of-birth" label="Date of birth" right v-model="dateOfBirth"
+                <DatepickerForm id="date-of-birth" label="Date of birth" right v-model="dateOfBirth"
                     labelClass="block mb-2 text-sm font-medium" :disabled="disabledForm"
-                    inputClass="bg-transparent block w-full rounded-lg p-2.5 pr-10 h-full"
-                    placeholder="DD-MM-YYYY" formatDate="dd-mm-yyyy">
+                    inputClass="bg-transparent block w-full rounded-lg p-2.5 pr-10 h-full" placeholder="DD-MM-YYYY"
+                    formatDate="dd-mm-yyyy">
                     <template #icon>
-                        <svg aria-hidden="true" class="w-5 h-5 bg-transparent" fill="var(--v-icon-color)" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
+                        <svg aria-hidden="true" class="w-5 h-5 bg-transparent" fill="var(--v-icon-color)"
+                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
                                 d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
                                 clip-rule="evenodd"></path>
                         </svg>
                     </template>
                 </DatepickerForm>
+                <ErrorMessage :message="errors.dateOfBirth" v-if="errors.dateOfBirth" />
             </div>
             <div class="mb-4">
-                <label for="dropdown-identification-type-button" class="block mb-2 text-sm font-medium">Identification Type</label>
-                <SelectForm id="dropdown-identification-type-button" class="w-full" placeholder="Select your identification type" dropdownIcon
+                <label for="dropdown-identification-type-button" class="block mb-2 text-sm font-medium">Identification
+                    Type</label>
+                <SelectForm id="dropdown-identification-type-button" class="w-full"
+                    placeholder="Select your identification type" dropdownIcon
                     inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
                     listContainerClass="rounded-lg shadow absolute z-10 w-full"
                     listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
                     itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
                     :listItem="identificationTypeList" v-model:selected-value="identificationTypeSelected">
                 </SelectForm>
+                <ErrorMessage :message="errors.identificationType" v-if="errors.identificationType" />
             </div>
             <div class="mb-4">
-                <InputForm type="text" v-model="identificationNumber" :disabled="disabledForm" id="identification-number-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your identification number" label="Identification Number" />
+                <InputForm type="text" v-model="identificationNumber" :disabled="disabledForm"
+                    id="identification-number-text" inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10"
+                    labelClass="block mb-2 text-sm font-medium" placeholder="Your identification number"
+                    label="Identification Number" />
+                    <ErrorMessage :message="errors.identificationNumber" v-if="errors.identificationNumber" />
             </div>
             <div class="mb-4">
-                <DatepickerForm 
-                    id="issue-date" label="Issue Date" right v-model="issueDate"
+                <DatepickerForm id="issue-date" label="Issue Date" right v-model="issueDate"
                     labelClass="block mb-2 text-sm font-medium" :disabled="disabledForm"
-                    inputClass="bg-transparent block w-full rounded-lg p-2.5 pr-10 h-full"
-                    placeholder="DD-MM-YYYY" formatDate="dd-mm-yyyy">
+                    inputClass="bg-transparent block w-full rounded-lg p-2.5 pr-10 h-full" placeholder="DD-MM-YYYY"
+                    formatDate="dd-mm-yyyy">
                     <template #icon>
-                        <svg aria-hidden="true" class="w-5 h-5 bg-transparent" fill="var(--v-icon-color)" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
+                        <svg aria-hidden="true" class="w-5 h-5 bg-transparent" fill="var(--v-icon-color)"
+                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
                                 d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
                                 clip-rule="evenodd"></path>
                         </svg>
                     </template>
                 </DatepickerForm>
+                 <ErrorMessage :message="errors.issueDate" v-if="errors.issueDate" />
             </div>
             <div class="mb-4">
-                <DatepickerForm 
-                    id="expiry-date" label="Expiry Date" right v-model="expiryDate"
+                <DatepickerForm id="expiry-date" label="Expiry Date" right v-model="expiryDate"
                     labelClass="block mb-2 text-sm font-medium" :disabled="disabledForm"
-                    inputClass="bg-transparent block w-full rounded-lg p-2.5 pr-10 h-full"
-                    placeholder="DD-MM-YYYY" formatDate="dd-mm-yyyy">
+                    inputClass="bg-transparent block w-full rounded-lg p-2.5 pr-10 h-full" placeholder="DD-MM-YYYY"
+                    formatDate="dd-mm-yyyy">
                     <template #icon>
-                        <svg aria-hidden="true" class="w-5 h-5 bg-transparent" fill="var(--v-icon-color)" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
+                        <svg aria-hidden="true" class="w-5 h-5 bg-transparent" fill="var(--v-icon-color)"
+                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
                                 d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
                                 clip-rule="evenodd"></path>
                         </svg>
                     </template>
                 </DatepickerForm>
+                <ErrorMessage :message="errors.expiryDate" v-if="errors.expiryDate" />
             </div>
             <div class="mb-4">
-                <InputForm type="text" v-model="occupation" :disabled="disabledForm" id="occupation-text"  inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium" placeholder="Your occupation" label="Occupation" />
+                <InputForm type="text" v-model="occupation" :disabled="disabledForm" id="occupation-text"
+                    inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
+                    placeholder="Your occupation" label="Occupation" />
+                    <ErrorMessage :message="errors.occupation" v-if="errors.occupation" />
             </div>
             <div class="mb-4">
-                <label for="dropdown-employment-status-button" class="block mb-2 text-sm font-medium">Employment Status</label>
-                <SelectForm id="dropdown-employment-status-button" class="w-full" placeholder="Select your employment status" dropdownIcon
+                <label for="dropdown-employment-status-button" class="block mb-2 text-sm font-medium">Employment
+                    Status</label>
+                <SelectForm id="dropdown-employment-status-button" class="w-full"
+                    placeholder="Select your employment status" dropdownIcon
                     inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
                     listContainerClass="rounded-lg shadow absolute z-10 w-full"
                     listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
                     itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
                     :listItem="employmentStatusList" v-model:selected-value="employmentStatusSelected">
                 </SelectForm>
+                <ErrorMessage :message="errors.employmentStatus" v-if="errors.employmentStatus" />
             </div>
             <div class="mb-4">
-                <label for="dropdown-employment-industry-button" class="block mb-2 text-sm font-medium">Employment Industry</label>
-                <SelectForm id="dropdown-employment-industry-button" class="w-full" placeholder="Select your employment industry" dropdownIcon
+                <label for="dropdown-employment-industry-button" class="block mb-2 text-sm font-medium">Employment
+                    Industry</label>
+                <SelectForm id="dropdown-employment-industry-button" class="w-full"
+                    placeholder="Select your employment industry" dropdownIcon
                     inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
                     listContainerClass="rounded-lg shadow absolute z-10 w-full"
                     listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
                     itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
                     :listItem="employmentIndustryList" v-model:selected-value="employmentIndustrySelected">
                 </SelectForm>
+                <ErrorMessage :message="errors.employmentIndustry" v-if="errors.employmentIndustry" />
             </div>
             <div class="mb-4">
-                <label for="dropdown-employment-position-button" class="block mb-2 text-sm font-medium">Employment Position</label>
-                <SelectForm id="dropdown-employment-position-button" class="w-full" placeholder="Select your employment position" dropdownIcon
+                <label for="dropdown-employment-position-button" class="block mb-2 text-sm font-medium">Employment
+                    Position</label>
+                <SelectForm id="dropdown-employment-position-button" class="w-full"
+                    placeholder="Select your employment position" dropdownIcon
                     inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
                     listContainerClass="rounded-lg shadow absolute z-10 w-full"
                     listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
                     itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
                     :listItem="employmentPositionList" v-model:selected-value="employmentPositionSelected">
                 </SelectForm>
+                <ErrorMessage :message="errors.employmentPosition" v-if="errors.employmentPosition" />
             </div>
         </div>
 
@@ -174,8 +214,8 @@
         <div class="py-4">
             <button type="button"
                 class="bg-[#1e74fd]
-                focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                                            focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
+                                            font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 :disabled="disabledForm" @click="submitForm">
                 Submit
             </button>
@@ -191,11 +231,12 @@ import AppApi from "../../apiConfig"
 import { ref, onMounted } from 'vue'
 import { useRouter } from "vue-router"
 import kycData from "../../utils/kyc"
-
+import ErrorMessage from "../common/ErrorMessage.vue"
+import { hasKeyObject } from "./../../utils/commonUtils"
 
 export default {
     components: {
-        InputForm, DatepickerForm, SelectForm
+        InputForm, DatepickerForm, SelectForm, ErrorMessage
     },
     setup() {
         var isPhoneFocus = ref(false);                              //variable to get input focus event
@@ -206,6 +247,8 @@ export default {
 
         const title = ref('');
 
+        const errors = ref({})
+        const loading = ref(false)
         const countryCodeList = ref([
             {
                 img: 'https://staging.tagrise.com/static/media/singapore_flag.975f4084ca809a9eca2106dfab7caceb.svg',
@@ -243,7 +286,7 @@ export default {
             },
         ]);
 
-        const countryCodeSelected = ref({    
+        const countryCodeSelected = ref({
             img: 'https://staging.tagrise.com/static/media/singapore_flag.975f4084ca809a9eca2106dfab7caceb.svg',
             label: '+65',
             value: '+65',
@@ -261,7 +304,7 @@ export default {
             },
         ]);
 
-        const genderSelected = ref(null)    
+        const genderSelected = ref(null)
 
         const countryList = ref([
             {
@@ -462,24 +505,96 @@ export default {
                 lastName: signupData.value.lastName,
                 mobileCountryCode: countryCodeSelected.value.value,
                 mobileNumber: phoneNumber.value,
-                gender: genderSelected.value.value,
-                countryOfBirth: countryBirthSelected.value.value,
-                nationality: nationalitySelected.value.value,
+                gender: genderSelected.value?.value || '',
+                countryOfBirth: countryBirthSelected.value?.value || '',
+                nationality: nationalitySelected.value?.value || '',
                 residentialAddress: residentialAddress.value,
                 state: residentialState.value,
                 city: residentialCity.value,
                 countryCode: signupData.value.countryCode,
                 postalCode: postalCode.value,
                 dateOfBirth: dateOfBirth.value,
-                identificationType: identificationTypeSelected.value.value,
-                identificationNumber: identificationNumber.value,
+                identificationType: identificationTypeSelected.value?.value || '',
+                identificationNumber: identificationNumber?.value,
                 issueDate: issueDate.value,
                 expiryDate: expiryDate.value,
                 occupation: occupation.value,
-                employmentStatus: employmentStatusSelected.value.value,
-                employmentIndustry: employmentIndustrySelected.value.value,
-                employmentPosition: employmentPositionSelected.value.value,
+                employmentStatus: employmentStatusSelected.value?.value || '',
+                employmentIndustry: employmentIndustrySelected.value?.value || '',
+                employmentPosition: employmentPositionSelected.value?.value || '',
                 kycRawData: kycData,
+            }
+            console.log("🚀 thinhvq ~ file: InformationAdminForm.vue:506 ~ submitForm ~ data1", data)
+
+            errors.value = {}
+
+            if (!data.title) {
+                errors.value = { ...errors.value, title: "Title is required" }
+            }
+            if (!data.mobileCountryCode) {
+                errors.value = { ...errors.value, mobileCountryCode: "Mobile Country code is required" }
+            }
+            if (!data.mobileNumber) {
+                errors.value = { ...errors.value, mobileNumber: "Mobile number is required" }
+            }
+            if (!data.gender) {
+                errors.value = { ...errors.value, gender: "Gender is required" }
+            }
+            if (!data.countryOfBirth) {
+                errors.value = { ...errors.value, countryOfBirth: "Country of birth is required" }
+            }
+            if (!data.nationality) {
+                errors.value = { ...errors.value, nationality: "Nationality is required" }
+            }
+            if (!data.residentialAddress) {
+                errors.value = { ...errors.value, residentialAddress: "Residential Address is required" }
+            }
+            if (!data.state) {
+                errors.value = { ...errors.value, state: "State Address is required" }
+            }
+            if (!data.city) {
+                errors.value = { ...errors.value, city: "City is required" }
+            }
+            if (!data.countryCode) {
+                errors.value = { ...errors.value, countryCode: "Country code is required" }
+            }
+            if (!data.postalCode) {
+                errors.value = { ...errors.value, postalCode: "Posta code is required" }
+            }
+            if (!data.dateOfBirth) {
+                errors.value = { ...errors.value, dateOfBirth: "Date of birth is required" }
+            }
+            if (!data.identificationType) {
+                errors.value = { ...errors.value, identificationType: "Identification Type is required" }
+            }
+            if (!data.identificationNumber) {
+                errors.value = { ...errors.value, identificationNumber: "Identification Number is required" }
+            }
+            if (!data.issueDate) {
+                errors.value = { ...errors.value, issueDate: "IssueDate is required" }
+            }
+            if (!data.expiryDate) {
+                errors.value = { ...errors.value, expiryDate: "Expiry Date is required" }
+            }
+            if (!data.occupation) {
+                errors.value = { ...errors.value, occupation: "Occupation Date is required" }
+            }
+            if (!data.employmentStatus) {
+                errors.value = { ...errors.value, employmentStatus: "Employment Status Date is required" }
+            }
+            if (!data.employmentIndustry) {
+                errors.value = { ...errors.value, employmentIndustry: "Employment Industry Date is required" }
+            }
+            if (!data.employmentPosition) {
+                errors.value = { ...errors.value, employmentPosition: "Employment Position Date is required" }
+            }
+            if (!data.kycRawData) {
+                errors.value = { ...errors.value, kycRawData: "KycRawData Date is required" }
+            }
+            console.log("🚀 thinhvq ~ file: InformationAdminForm.vue:585 ~ submitForm ~ errors", errors.value)
+
+            if (hasKeyObject(errors.value)) {
+                return false;
             }
 
             const res = await AppApi("patch", "/wallex-business/update-info", localStorage.getItem("rise_token"), data)
@@ -490,9 +605,9 @@ export default {
         }
 
         return {
-            isPhoneFocus, disabledForm, title, countryCodeList, countryCodeSelected, phoneNumber, genderList, genderSelected, countryList, countryBirthSelected, 
-            nationalitySelected, residentialAddress, residentialState, residentialCity, postalCode, dateOfBirth, identificationTypeList, identificationTypeSelected, 
-            identificationNumber, issueDate, expiryDate, occupation, employmentStatusList, employmentStatusSelected, 
+            errors, isPhoneFocus, disabledForm, title, countryCodeList, countryCodeSelected, phoneNumber, genderList, genderSelected, countryList, countryBirthSelected,
+            nationalitySelected, residentialAddress, residentialState, residentialCity, postalCode, dateOfBirth, identificationTypeList, identificationTypeSelected,
+            identificationNumber, issueDate, expiryDate, occupation, employmentStatusList, employmentStatusSelected,
             employmentIndustryList, employmentIndustrySelected, employmentPositionList, employmentPositionSelected, submitForm
         }
     }

@@ -1,3 +1,6 @@
+
+
+
 import InfomationComponent from "./pages/information/index.vue";
 import InfomationlistComponent from "./components/information/InformationList.vue";
 import InformationCompanyForm from "./components/information/InformationCompanyForm.vue";
@@ -10,13 +13,7 @@ import EkycFailComponent from "./pages/ekyc-fail/index.vue";
 import EkycProcessComponent from "./pages/ekyc-process/index.vue";
 import EkycSuccessComponent from "./pages/ekyc-success/index.vue";
 
-import {
-  fetchStatusEkycStart,
-  getQueryVerifyAdmin,
-  fetchStatusEkycFail,
-  fetchStatusEkycSuccess,
-  fetchStatusEkycProcess,
-} from "./utils/GuardUtils";
+import * as Guard from "./utils/GuardUtils";
 import "./index.css";
 
 export default {
@@ -42,7 +39,7 @@ export default {
           path: "verify-admin",
           name: "VerifyAdmin",
           component: InformationAdminForm,
-        //   beforeEnter: [getQueryVerifyAdmin],
+          beforeEnter: [Guard.getQueryVerifyAdmin],
         },
         {
           path: "verify-company",
@@ -56,22 +53,22 @@ export default {
             {
               path: "eKyc-start",
               component: EkycStartComponent,
-              beforeEnter: [fetchStatusEkycStart],
+              beforeEnter: [Guard.fetchStatusEkycStart],
             },
             {
               path: "eKyc-fail",
               component: EkycFailComponent,
-              beforeEnter: [fetchStatusEkycFail],
+              beforeEnter: [Guard.fetchStatusEkycFail],
             },
             {
               path: "eKyc-process",
               component: EkycProcessComponent,
-              beforeEnter: [fetchStatusEkycProcess],
+              beforeEnter: [Guard.fetchStatusEkycProcess],
             },
             {
               path: "eKyc-success",
               component: EkycSuccessComponent,
-              beforeEnter: [fetchStatusEkycSuccess],
+              beforeEnter: [Guard.fetchStatusEkycSuccess],
             },
           ],
         },

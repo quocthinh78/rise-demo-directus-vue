@@ -1,10 +1,8 @@
 import { ref } from "vue";
-import { useRouter } from "vue-router";
 import { UseFetchEkycStatus } from "../hocs/UseFetchEkycStatus";
 import AppApi from "../apiConfig";
 import { hasKeyObject } from "./../utils/commonUtils";
 export const fetchStatusEkycStart = async (to, from, next) => {
-    const router = useRouter();
     try {
         const data = await AppApi(
             "get",
@@ -25,7 +23,6 @@ export const fetchStatusEkycStart = async (to, from, next) => {
 };
 
 export const fetchStatusEkycFail = async (to, from, next) => {
-    const router = useRouter();
     const data = await AppApi(
         "get",
         "/business-auth/kyc/jumio",
@@ -42,7 +39,6 @@ export const fetchStatusEkycFail = async (to, from, next) => {
 };
 
 export const fetchStatusEkycSuccess = async (to, from, next) => {
-    const router = useRouter();
     const data = await AppApi(
         "get",
         "/business-auth/kyc/jumio",
@@ -59,7 +55,6 @@ export const fetchStatusEkycSuccess = async (to, from, next) => {
 };
 
 export const fetchStatusEkycProcess = async (to, from, next) => {
-    const router = useRouter();
     const data = await AppApi(
         "get",
         "/business-auth/kyc/jumio",
@@ -74,14 +69,22 @@ export const fetchStatusEkycProcess = async (to, from, next) => {
         next("/verification/ekyc/eKyc-fail");
     }
 };
-export const getQueryVerifyAdmin = async (to, from, next) => {
-    const router = useRouter();
-    console.log(
-        "🚀 thinhvq ~ file: GuardUtils.js:65 ~ getQueryVerifyAdmin ~ router",
-        router
-    );
-    const { firstName, lastName, countryCode } = router.currentRoute.value.query;
-    console.log("🚀 thinhvq ~ file: GuardUtils.js:84 ~ getQueryVerifyAdmin ~ lastName", lastName)
-    console.log("🚀 thinhvq ~ file: GuardUtils.js:84 ~ getQueryVerifyAdmin ~ countryCode", countryCode)
 
+export const getQueryVerifyAdmin = async (to, from, next) => {
+    let path = "";
+    if(to.href) {
+        path = to.href.slice(to.href.indexOf('?') + 1).split('&');
+    }else {
+        path = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    }
+    const querylist = []
+    path.forEach(key => {
+        const newKey = key.split('=')
+        querylist.push(...newKey)
+    })
+    if (querylist[0] === "firstName" && querylist[2] === "lastName" && querylist[4] === "countryCode") {
+        next()
+    } else {
+        next("/verification/sign-up");
+    }
 };
