@@ -1,6 +1,7 @@
 <template>
     <div class="relative">
-        <button :id="id" :class="inputClass" type="button" @click="openDropdownList" class="justify-between" :disabled="disabled">
+        <button :id="id" :class="inputClass" type="button" @click="openDropdownList" class="justify-between"
+            :disabled="disabled">
             <template v-if="selectedValue === null && placeholder">
                 <slot name="placeholder">
                     <span class="font-normal text-sm items-center text-gray-500">{{ placeholder }}</span>
@@ -14,7 +15,8 @@
                 </div>
             </template>
             <div class="m-0 p-0 flex items-center" v-if="dropdownIcon">
-                <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
             </div>
@@ -24,7 +26,8 @@
             <!-- list -->
             <ul :class="listClass" :aria-labelledby="id">
                 <!-- item -->
-                <li v-for="item in listItem" :key="item.value" :class="itemClass" class="cursor-pointer flex items-center" @click="itemClicked(item)" >
+                <li v-for="item in listItem" :key="item.value" :class="itemClass" class="cursor-pointer flex items-center"
+                    @click="itemClicked(item)">
                     <slot name="item" v-bind:item="item">
                         <span class="text-sm leading-5">{{ item.label }}</span>
                     </slot>
@@ -32,12 +35,7 @@
             </ul>
         </div>
     </div>
-
 </template>
-
-<style scoped>
-
-</style>
 
 <script >
 import { ref } from "vue";
@@ -56,15 +54,15 @@ export default {
             type: String,
             required: true,
             default: '',
-        }, 
+        },
         listClass: {
             type: String,
             default: '',
-        }, 
+        },
         itemClass: {
             type: String,
             default: '',
-        }, 
+        },
         listItem: {
             type: Array,
             default: []
@@ -85,8 +83,8 @@ export default {
             type: String,
             default: null,
         },
-        method: { 
-            type: Function 
+        method: {
+            type: Function
         },
     },
     emits: ['update:selectedValue'],
