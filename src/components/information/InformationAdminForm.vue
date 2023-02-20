@@ -449,9 +449,13 @@ export default {
 
         const signupData = ref(null);
 
+        const ekycData = ref(null);
+
         onMounted(async () => {
-            const data = await AppApi("get", "/business-auth/business-role", localStorage.getItem("rise_token"))
-            signupData.value = router.currentRoute.value.query
+            const data = await AppApi("get", "/business-auth/business-role", localStorage.getItem("rise_token"));
+            signupData.value = router.currentRoute.value.query;
+            const resEKYC = await AppApi("get", "/wallex-business/kyc-raw-data", localStorage.getItem("rise_token"));
+            ekycData.value = resEKYC.data;
         })
 
         var submitForm = async () => {
@@ -479,12 +483,11 @@ export default {
                 employmentStatus: employmentStatusSelected.value.value,
                 employmentIndustry: employmentIndustrySelected.value.value,
                 employmentPosition: employmentPositionSelected.value.value,
-                kycRawData: kycData,
+                kycRawData: ekycData.value,
             }
 
             const res = await AppApi("patch", "/wallex-business/update-info", localStorage.getItem("rise_token"), data)
             if (res.data) {
-                console.log(res.data);
                 router.push("/verification/verify-company");
             }
         }
