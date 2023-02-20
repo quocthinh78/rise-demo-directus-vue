@@ -1,6 +1,3 @@
-
-
-
 import InfomationComponent from "./pages/information/index.vue";
 import InfomationlistComponent from "./components/information/InformationList.vue";
 import InformationCompanyForm from "./components/information/InformationCompanyForm.vue";

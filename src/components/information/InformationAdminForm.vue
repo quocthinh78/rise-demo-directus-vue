@@ -31,7 +31,7 @@
                     </SelectForm>
                     <input type="text" :disabled="disabledForm" id="contact-number" placeholder="Your phone"
                         class="bg-transparent p-2 text-sm rounded-lg h-10 outline-none border-none focus:border-transparent focus:ring-transparent
-                                                disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" @focus="isPhoneFocus = true" @blur="isPhoneFocus = false"
+                                                    disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" @focus="isPhoneFocus = true" @blur="isPhoneFocus = false"
                         v-model="phoneNumber" />
                 </div>
                 <ErrorMessage :message="errors.mobileNumber" v-if="errors.mobileNumber" />
@@ -129,7 +129,7 @@
                     id="identification-number-text" inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10"
                     labelClass="block mb-2 text-sm font-medium" placeholder="Your identification number"
                     label="Identification Number" />
-                    <ErrorMessage :message="errors.identificationNumber" v-if="errors.identificationNumber" />
+                <ErrorMessage :message="errors.identificationNumber" v-if="errors.identificationNumber" />
             </div>
             <div class="mb-4">
                 <DatepickerForm id="issue-date" label="Issue Date" right v-model="issueDate"
@@ -145,7 +145,7 @@
                         </svg>
                     </template>
                 </DatepickerForm>
-                 <ErrorMessage :message="errors.issueDate" v-if="errors.issueDate" />
+                <ErrorMessage :message="errors.issueDate" v-if="errors.issueDate" />
             </div>
             <div class="mb-4">
                 <DatepickerForm id="expiry-date" label="Expiry Date" right v-model="expiryDate"
@@ -167,7 +167,7 @@
                 <InputForm type="text" v-model="occupation" :disabled="disabledForm" id="occupation-text"
                     inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
                     placeholder="Your occupation" label="Occupation" />
-                    <ErrorMessage :message="errors.occupation" v-if="errors.occupation" />
+                <ErrorMessage :message="errors.occupation" v-if="errors.occupation" />
             </div>
             <div class="mb-4">
                 <label for="dropdown-employment-status-button" class="block mb-2 text-sm font-medium">Employment
@@ -214,8 +214,8 @@
         <div class="py-4">
             <button type="button"
                 class="bg-[#1e74fd]
-                                            focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                                            font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                                                focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
+                                                font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 :disabled="disabledForm" @click="submitForm">
                 Submit
             </button>
@@ -230,7 +230,6 @@ import SelectForm from '../common/SelectForm.vue'
 import AppApi from "../../apiConfig"
 import { ref, onMounted } from 'vue'
 import { useRouter } from "vue-router"
-import kycData from "../../utils/kyc"
 import ErrorMessage from "../common/ErrorMessage.vue"
 import { hasKeyObject } from "./../../utils/commonUtils"
 

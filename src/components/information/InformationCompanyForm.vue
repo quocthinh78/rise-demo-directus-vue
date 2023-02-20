@@ -118,10 +118,11 @@
                 <ErrorMessage :message="errors.contentType" v-if="errors.contentType" />
             </div>
             <div class="mb-4">
-                <UploadFileForm v-model="fileUploaded" multiple :disabled="!documentTypeSelected?.value || !contentTypeSelected?.value" id="documents-upload"
+                <UploadFileForm v-model="fileUploaded" multiple
+                    :disabled="!documentTypeSelected?.value || !contentTypeSelected?.value" id="documents-upload"
                     inputClass="bg-transparent text-sm border rounded-lg max-w-sm h-10"
                     labelClass="block mb-2 text-sm font-medium" placeholder="Upload files" label="Documents"
-                    typeAccepted="image/*, .pdf" />
+                    :typeAccepted="contentTypeSelected?.value" />
                 <ErrorMessage :message="errors.fileUploaded" v-if="errors.fileUploaded" />
             </div>
         </div>
@@ -130,8 +131,8 @@
         <div class="py-4">
             <button type="button"
                 class="bg-[#1e74fd]
-                focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                                        focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
+                                        font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 :disabled="disabledForm" @click="submitForm">
                 Submit
             </button>
@@ -151,6 +152,7 @@ import AppApi from "../../apiConfig"
 import { ref, onMounted } from 'vue'
 import { useRouter } from "vue-router"
 import axios from 'axios'
+import { hasKeyObject } from "./../../utils/commonUtils"
 
 const router = useRouter();
 
@@ -502,7 +504,6 @@ var submitForm = async () => {
     errors.value = {}
 
     if (fileUploaded.value) {
-
         for (let i = 0; i < fileUploaded.value.length; i++) {
             const imageData = {
                 documentType: documentTypeSelected.value.value,

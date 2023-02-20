@@ -1,14 +1,16 @@
 <template>
     <label :for="id" :class="labelClass">{{ label }}</label>
-    <input type="file" ref="files" :multiple="multiple" :accept="typeAccepted"
+    <input type="file" ref="files" :multiple="multiple" :accept="acceptType"
         class="disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)]
                     file:rounded-lg file:bg-[var(--fc-button-bg-color)] disabled:file:bg-[var(--v-button-background-color-disabled)] disabled:file:cursor-default" :id="id" :class="inputClass"
-        :placeholder="placeholder" disabled @change="handleFiles" />
+        :placeholder="placeholder" :disabled="disabled" @change="handleFiles" />
 </template>
 
 <style scoped></style>
 
 <script>
+import { ref, computed } from 'vue';
+
 export default {
     name: "UploadFileForm",
     props: {
@@ -47,25 +49,30 @@ export default {
         },
         typeAccepted: {
             type: String,
-            default: 'image/*,.pdf,.csv',
+            default: '',
         }
     },
     emits: ['update:modelValue'],
-    data() {
-        return {
-            fileInput: [],
-        }
-    },
-    methods: {
-        handleFiles() {
-            if (this.$refs.files.files.length > 0) {
-                this.fileInput = [];
-                for (let i = 0; i < this.$refs.files.files.length; i++) {
-                    this.fileInput.push(this.$refs.files.files[i])
+    setup(props, { emit }) {
+        var fileInput = ref([]);
+        const files = ref(null);
+        var handleFiles = () => {
+            if (files.value.files.length > 0) {
+                fileInput.value = [];
+                for (let i = 0; i < files.value.files.length; i++) {
+                    fileInput.value.push(files.value.files[i])
                 }
-                this.$emit('update:modelValue', this.fileInput)
+                emit('update:modelValue', fileInput.value)
             }
         }
-    }
+
+        const acceptType = computed(() => {
+            return '.' + props.typeAccepted.split('/')[1];
+        })
+
+        return {
+            fileInput, handleFiles, files, acceptType
+        }
+    },
 }
 </script>
