@@ -66,8 +66,6 @@ export default {
         }
 
         onUnmounted(() => {
-            console.log("🚀 thinhvq ~ file: Toast.vue:62 ~ onUnmounted ~ id.value:", id.value)
-
             clearTimeout(id.value)
         })
 

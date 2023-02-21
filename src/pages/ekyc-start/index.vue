@@ -40,7 +40,6 @@ export default {
     setup() {
         const ridereactStartLink = async () => {
             const data = await AppApi("post", "/jumio/start")
-            console.log("🚀 thinhvq ~ file: index.vue:43 ~ ridereactStartLink ~ data", data)
             if (data.data.data) {
                 window.location.href = data.data.data.web.href;
                 return false;

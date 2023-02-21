@@ -55,7 +55,7 @@
             </div>
 
             <div class="mb-4">
-                <InputForm v-model="postalCode" :disabled="disabledForm" id="postal-code-text"
+                <InputForm type="number" v-model="postalCode" :disabled="disabledForm" id="postal-code-text"
                     inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
                     placeholder="Company's postal code" label="Postal Code" />
                 <ErrorMessage :message="errors.postalCode" v-if="errors.postalCode" />
@@ -73,7 +73,7 @@
                 <ErrorMessage :message="errors.city" v-if="errors.city" />
             </div>
             <div class="mb-4">
-                <InputForm v-model="registrationNumber" :disabled="disabledForm" id="registration-number-text"
+                <InputForm type="number" v-model="registrationNumber" :disabled="disabledForm" id="registration-number-text"
                     inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
                     placeholder="Company registration number" label="Company Registration Number" />
                 <ErrorMessage :message="errors.registrationNumber" v-if="errors.registrationNumber" />
@@ -131,28 +131,29 @@
         <div class="py-4">
             <button type="button"
                 class="bg-[#1e74fd] focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                    font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center 
-                    disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                            font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center 
+                            disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 :disabled="disabledForm" @click="submitForm">
                 Submit
             </button>
         </div>
-
+        <Loading v-if="loading" />
 
     </div>
 </template>
 
 <script setup>
+import { ref, watch } from 'vue'
+import { useRouter } from "vue-router"
+import axios from 'axios'
+import AppApi from "../../apiConfig"
+import { hasKeyObject } from "./../../utils/commonUtils"
 import InputForm from '../common/InputForm.vue'
 import UploadFileForm from '../common/UploadFileForm.vue'
 import DatepickerForm from '../common/DatepickerForm.vue'
 import SelectForm from '../common/SelectForm.vue'
 import ErrorMessage from "../common/ErrorMessage.vue"
-import AppApi from "../../apiConfig"
-import { ref, watch } from 'vue'
-import { useRouter } from "vue-router"
-import axios from 'axios'
-import { hasKeyObject } from "./../../utils/commonUtils"
+import Loading from "../common/Loading.vue"
 
 const router = useRouter();
 
@@ -509,7 +510,6 @@ const get_file_array = (file) => {
 var submitForm = async () => {
     var fileFlag = false;
     var dataFlag = false;
-
     errors.value = {}
 
     if (fileUploaded.value) {
@@ -588,11 +588,12 @@ var submitForm = async () => {
         errors.value = { ...errors.value, companyName: "Company name is required" }
     }
 
-    console.log("🚀 thinhvq ~ file: InformationAdminForm.vue:585 ~ submitForm ~ errors", errors.value)
-
     if (hasKeyObject(errors.value)) {
         return false;
     }
+
+
+    loading.value = false;
 
 
     const resCompanyDetails = await AppApi("patch", "/wallex-business/update-company-details", data)
@@ -612,11 +613,12 @@ var submitForm = async () => {
         if (res.data) {
             console.log(res.data);
             router.push("/verification");
-
         } else {
             console.log(res.msg.message);
         }
     }
+    loading.value = false;
+
 
 
 

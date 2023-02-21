@@ -173,14 +173,12 @@ const submitForm = async () => {
     const resEKYC = ref(null);
     try {
         resEKYC.value = await AppApi("get", "/wallex-business/kyc-raw-data")
-        console.log("🚀 thinhvq ~ file: SignUpForm.vue:178 ~ submitForm ~ resEKYC:", resEKYC)
     } catch (error) {
         console.log(error);
         loading.value = false
         disabledForm.value = true;
         alertEKYC.value = true;
     }
-    console.log("🚀 thinhvq ~ file: SignUpForm.vue:176 ~ submitForm ~ resEKYC:", resEKYC)
 
     if (resEKYC.value) {
         const payload = {
@@ -214,13 +212,10 @@ const submitForm = async () => {
                 })
             }
         } catch (error) {
-            console.log("🚀 thinhvq ~ file: SignUpForm.vue:217 ~ submitForm ~ error:", error)
             loading.value = false
             showToast.value = true;
             ToastRef.value.setValue({ message: error.response.data.msg , status: "error"})
         }
-
-
     }
 
 }

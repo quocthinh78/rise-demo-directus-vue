@@ -31,7 +31,7 @@
                     </SelectForm>
                     <input type="text" :disabled="disabledForm" id="contact-number" placeholder="Your phone"
                         class="bg-transparent p-2 text-sm rounded-lg h-10 outline-none border-none focus:border-transparent focus:ring-transparent
-                                            disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" @focus="isPhoneFocus = true" @blur="isPhoneFocus = false"
+                                                disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" @focus="isPhoneFocus = true" @blur="isPhoneFocus = false"
                         @keypress="onlyNumber" v-model="phoneNumber" />
                 </div>
                 <ErrorMessage :message="errors.mobileNumber" v-if="errors.mobileNumber" />
@@ -90,7 +90,7 @@
                 <ErrorMessage :message="errors.city" v-if="errors.city" />
             </div>
             <div class="mb-4">
-                <InputForm v-model="postalCode" :disabled="disabledForm" id="postal-code-text"
+                <InputForm type="number" v-model="postalCode" :disabled="disabledForm" id="postal-code-text"
                     inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
                     placeholder="Your postal code" label="Postal Code" />
                 <ErrorMessage :message="errors.postalCode" v-if="errors.postalCode" />
@@ -125,10 +125,10 @@
                 <ErrorMessage :message="errors.identificationType" v-if="errors.identificationType" />
             </div>
             <div class="mb-4">
-                <InputForm v-model="identificationNumber" :modelValue="identificationNumber" :disabled="disabledForm"
-                    id="identification-number-text" inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10"
-                    labelClass="block mb-2 text-sm font-medium" placeholder="Your identification number"
-                    label="Identification Number" />
+                <InputForm type="number" v-model="identificationNumber" :modelValue="identificationNumber"
+                    :disabled="disabledForm" id="identification-number-text"
+                    inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
+                    placeholder="Your identification number" label="Identification Number" />
                 <ErrorMessage :message="errors.identificationNumber" v-if="errors.identificationNumber" />
             </div>
             <div class="mb-4">
@@ -213,12 +213,14 @@
         <!-- Submit Button -->
         <div class="py-4">
             <button type="button" class="bg-[#1e74fd] focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                                font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] 
-                                disabled:cursor-default disabled:text-[var(--foreground-subdued)]" :disabled="disabledForm"
-                @click="submitForm">
+                                    font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] 
+                                    disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                :disabled="disabledForm" @click="submitForm">
                 Submit
             </button>
         </div>
+
+        <Loading v-if="loading" />
     </div>
 </template>
 
@@ -230,6 +232,7 @@ import SelectForm from '../common/SelectForm.vue'
 import AppApi from "../../apiConfig"
 import { useRouter } from "vue-router"
 import ErrorMessage from "../common/ErrorMessage.vue"
+import Loading from "../common/Loading.vue"
 import { hasKeyObject } from "./../../utils/commonUtils"
 
 export default {
@@ -238,13 +241,9 @@ export default {
     },
     setup() {
         var isPhoneFocus = ref(false);                              //variable to get input focus event
-
         var disabledForm = ref(false);                               //disable form
-
         const router = useRouter();
-
         const title = ref('');
-
         const errors = ref({})
         const loading = ref(false)
         const countryCodeList = ref([
@@ -373,11 +372,6 @@ export default {
                 value: 'Self-Employed',
             },
         ]);
-
-        console.log("🚀 thinhvq ~ file: InformationAdminForm.vue:50r435434  ~ identificationNumber:", identificationNumber)
-        console.log("🚀 thinhvq ~ file: phoneNumber.vue:50r435phoneNumber434  ~ phoneNumber:", phoneNumber)
-
-
         const employmentStatusSelected = ref(null);
 
         const employmentIndustryList = ref([
@@ -504,7 +498,6 @@ export default {
         }
 
         var submitForm = async () => {
-
             const data = {
                 title: title.value,
                 firstName: signupData.value.firstName,
@@ -530,7 +523,6 @@ export default {
                 employmentPosition: employmentPositionSelected.value?.value || '',
                 kycRawData: ekycData.value,
             }
-            console.log("🚀 thinhvq ~ file: InformationAdminForm.vue:506 ~ submitForm ~ data1", data)
 
             errors.value = {}
 
@@ -597,16 +589,19 @@ export default {
             if (!data.kycRawData) {
                 errors.value = { ...errors.value, kycRawData: "KycRawData Date is required" }
             }
-            console.log("🚀 thinhvq ~ file: InformationAdminForm.vue:585 ~ submitForm ~ errors", errors.value)
-
+            
             if (hasKeyObject(errors.value)) {
                 return false;
             }
 
+            loading.value = true;
+
             const res = await AppApi("patch", "/wallex-business/update-info", data)
             if (res.data) {
+                loading.value = false;
                 router.push("/verification/verify-company");
             }
+            loading.value = false;
         }
 
         return {
