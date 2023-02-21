@@ -55,7 +55,7 @@
             </div>
 
             <div class="mb-4">
-                <InputForm type="number" v-model="postalCode" :disabled="disabledForm" id="postal-code-text"
+                <InputForm v-model="postalCode" :disabled="disabledForm" id="postal-code-text"
                     inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
                     placeholder="Company's postal code" label="Postal Code" />
                 <ErrorMessage :message="errors.postalCode" v-if="errors.postalCode" />
@@ -73,7 +73,7 @@
                 <ErrorMessage :message="errors.city" v-if="errors.city" />
             </div>
             <div class="mb-4">
-                <InputForm type="number" v-model="registrationNumber" :disabled="disabledForm" id="registration-number-text"
+                <InputForm v-model="registrationNumber" :disabled="disabledForm" id="registration-number-text"
                     inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
                     placeholder="Company registration number" label="Company Registration Number" />
                 <ErrorMessage :message="errors.registrationNumber" v-if="errors.registrationNumber" />
@@ -131,8 +131,8 @@
         <div class="py-4">
             <button type="button"
                 class="bg-[#1e74fd]
-                                                            focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                                                            font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                                                                    focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
+                                                                    font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 :disabled="disabledForm" @click="submitForm">
                 Submit
             </button>
@@ -149,7 +149,7 @@ import DatepickerForm from '../common/DatepickerForm.vue'
 import SelectForm from '../common/SelectForm.vue'
 import ErrorMessage from "../common/ErrorMessage.vue"
 import AppApi from "../../apiConfig"
-import { ref, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 import { useRouter } from "vue-router"
 import axios from 'axios'
 import { hasKeyObject } from "./../../utils/commonUtils"
@@ -483,6 +483,15 @@ const contentTypeSelected = ref(null);
 var disabledForm = ref(false);                               //disable form
 
 var fileUploaded = ref(null)
+
+watch(registrationNumber, async (newQuestion) => {
+    registrationNumber.value = newQuestion.toString().replace(/[^0-9]/g, '');
+})
+
+watch(postalCode, async (newQuestion) => {
+    postalCode.value = newQuestion.toString().replace(/[^0-9]/g, '');
+})
+
 
 const get_file_array = (file) => {
     return new Promise((resolve, reject) => {

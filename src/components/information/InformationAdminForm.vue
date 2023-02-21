@@ -29,9 +29,10 @@
                             <span class="text-sm leading-5" v-html="item.label"></span>
                         </template>
                     </SelectForm>
-                    <input type="number" :disabled="disabledForm" id="contact-number" placeholder="Your phone"
+                    <input :disabled="disabledForm" id="contact-number" placeholder="Your phone"
                         class="bg-transparent p-2 text-sm rounded-lg h-10 outline-none border-none focus:border-transparent focus:ring-transparent
-                            disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" @focus="isPhoneFocus = true" @blur="isPhoneFocus = false" v-model="phoneNumber" />
+                                                disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" @focus="isPhoneFocus = true"
+                        @blur="isPhoneFocus = false" v-model="phoneNumber" />
                 </div>
                 <ErrorMessage :message="errors.mobileNumber" v-if="errors.mobileNumber" />
             </div>
@@ -89,7 +90,7 @@
                 <ErrorMessage :message="errors.city" v-if="errors.city" />
             </div>
             <div class="mb-4">
-                <InputForm type="number" v-model="postalCode" :disabled="disabledForm" id="postal-code-text"
+                <InputForm v-model="postalCode" :disabled="disabledForm" id="postal-code-text"
                     inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
                     placeholder="Your postal code" label="Postal Code" />
                 <ErrorMessage :message="errors.postalCode" v-if="errors.postalCode" />
@@ -124,7 +125,7 @@
                 <ErrorMessage :message="errors.identificationType" v-if="errors.identificationType" />
             </div>
             <div class="mb-4">
-                <InputForm type="number" v-model="identificationNumber" :disabled="disabledForm"
+                <InputForm v-model="identificationNumber" :modelValue="identificationNumber" :disabled="disabledForm"
                     id="identification-number-text" inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10"
                     labelClass="block mb-2 text-sm font-medium" placeholder="Your identification number"
                     label="Identification Number" />
@@ -213,8 +214,8 @@
         <div class="py-4">
             <button type="button"
                 class="bg-[#1e74fd]
-                                                    focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                                                    font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                                                                        focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
+                                                                        font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 :disabled="disabledForm" @click="submitForm">
                 Submit
             </button>
@@ -223,11 +224,11 @@
 </template>
 
 <script>
+import { ref, onMounted, watch } from 'vue'
 import InputForm from '../common/InputForm.vue'
 import DatepickerForm from '../common/DatepickerForm.vue'
 import SelectForm from '../common/SelectForm.vue'
 import AppApi from "../../apiConfig"
-import { ref, onMounted } from 'vue'
 import { useRouter } from "vue-router"
 import ErrorMessage from "../common/ErrorMessage.vue"
 import { hasKeyObject } from "./../../utils/commonUtils"
@@ -352,7 +353,9 @@ export default {
         const issueDate = ref(null);
         const expiryDate = ref(null);
         const occupation = ref(null);
-
+        const employmentPositionSelected = ref(null);
+        const signupData = ref(null);
+        const ekycData = ref(null);
         const employmentStatusList = ref([
             {
                 label: 'Employed',
@@ -371,6 +374,10 @@ export default {
                 value: 'Self-Employed',
             },
         ]);
+
+        console.log("🚀 thinhvq ~ file: InformationAdminForm.vue:50r435434  ~ identificationNumber:", identificationNumber)
+        console.log("🚀 thinhvq ~ file: phoneNumber.vue:50r435phoneNumber434  ~ phoneNumber:", phoneNumber)
+
 
         const employmentStatusSelected = ref(null);
 
@@ -486,14 +493,31 @@ export default {
             },
         ]);
 
-        const employmentPositionSelected = ref(null);
 
-        const signupData = ref(null);
+        watch(phoneNumber, async (newQuestion) => {
+            console.log("🚀 thinhvq ~ file: phoneNumber.vue:50r435phoneNumber434  ~ phoneNumber:", phoneNumber)
+            console.log("🚀 thinhvq ~ file: InformationAdminForm.vue:494 ~ watch ~ newQuestion:", newQuestion)
+            phoneNumber.value = newQuestion.toString().replace(/[^0-9]/g, '');
+            console.log("🚀 thinhvq ~ file: InformationAdminForm.vue:5022222  ~ identificationNumber:", phoneNumber)
 
-        const ekycData = ref(null);
+        })
+
+        watch(postalCode, async (newQuestion) => {
+            console.log("🚀 thinhvq ~ file: InformationAdminForm.vue:498 ~ watch ~ newQuestion:", newQuestion)
+            postalCode.value = newQuestion.toString().replace(/[^0-9]/g, '');
+        })
+
+        watch(identificationNumber, async (newQuestion) => {
+            console.log("🚀 thinhvq ~ file:509 ~ identificationNumber:", identificationNumber)
+
+            console.log("🚀 thinhvq ~ file: InformationAdminForm.vue:502 ~ watch ~ newQuestion:", newQuestion)
+            identificationNumber.value = newQuestion.toString().replace(/[^0-9]/g, '');
+            console.log("🚀 thinhvq ~ file: InformationAdminForm.vue:513  ~ identificationNumber:", identificationNumber)
+
+        })
 
         onMounted(async () => {
-            const data = await AppApi("get", "/business-auth/business-role");
+            await AppApi("get", "/business-auth/business-role");
             signupData.value = router.currentRoute.value.query;
             const resEKYC = await AppApi("get", "/wallex-business/kyc-raw-data");
             ekycData.value = resEKYC.data;
@@ -506,7 +530,7 @@ export default {
                 firstName: signupData.value.firstName,
                 lastName: signupData.value.lastName,
                 mobileCountryCode: countryCodeSelected.value.value,
-                mobileNumber: phoneNumber.value,
+                mobileNumber: Number(phoneNumber.value),
                 gender: genderSelected.value?.value || '',
                 countryOfBirth: countryBirthSelected.value?.value || '',
                 nationality: nationalitySelected.value?.value || '',
