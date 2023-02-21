@@ -6,8 +6,7 @@ export const fetchStatusEkycStart = async (to, from, next) => {
     try {
         const data = await AppApi(
             "get",
-            "/business-auth/kyc/jumio",
-            localStorage.getItem("rise_token")
+            "/business-auth/kyc/jumio"
         );
         const { user_kyc_state } = data.data.data;
         if (user_kyc_state === "PASSED") {
@@ -25,8 +24,7 @@ export const fetchStatusEkycStart = async (to, from, next) => {
 export const fetchStatusEkycFail = async (to, from, next) => {
     const data = await AppApi(
         "get",
-        "/business-auth/kyc/jumio",
-        localStorage.getItem("rise_token")
+        "/business-auth/kyc/jumio"
     );
     const { user_kyc_state } = data.data.data;
     if (user_kyc_state === "REJECTED" || user_kyc_state === "WARNING") {
@@ -41,8 +39,7 @@ export const fetchStatusEkycFail = async (to, from, next) => {
 export const fetchStatusEkycSuccess = async (to, from, next) => {
     const data = await AppApi(
         "get",
-        "/business-auth/kyc/jumio",
-        localStorage.getItem("rise_token")
+        "/business-auth/kyc/jumio"
     );
     const { user_kyc_state } = data.data.data;
     if (user_kyc_state === "PASSED") {
@@ -57,8 +54,7 @@ export const fetchStatusEkycSuccess = async (to, from, next) => {
 export const fetchStatusEkycProcess = async (to, from, next) => {
     const data = await AppApi(
         "get",
-        "/business-auth/kyc/jumio",
-        localStorage.getItem("rise_token")
+        "/business-auth/kyc/jumio"
     );
     const { user_kyc_state } = data.data.data;
     if (user_kyc_state === "PASSED") {

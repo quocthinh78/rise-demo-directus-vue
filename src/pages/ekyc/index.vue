@@ -26,26 +26,6 @@ export default {
         const backHome = () => {
             router.push({ name: "homepage" })
         }
-        // onBeforeMount(async () => {
-        //     try {
-        //         const data = await AppApi("get", "/business-auth/kyc/jumio", localStorage.getItem("rise_token"))
-        //         const { user_kyc_state } = data.data.data
-        //         if (user_kyc_state === "PASSED") {
-        //             router.replace("/verification/ekyc/eKyc-success")
-        //         } else if (user_kyc_state === "PROCESSING") {
-        //             router.replace("/verification/ekyc/eKyc-process")
-        //         } else if (user_kyc_state === "REJECTED" || user_kyc_state === "WARNING") {
-        //             router.replace("/verification/ekyc/eKyc-fail")
-        //         }
-        //         else {
-        //             router.replace("/verification/eKyc")
-        //         }
-        //         loading.value = true
-        //     } catch (error) {
-        //         router.replace("/verification/ekyc/eKyc-start")
-        //         loading.value = true
-        //     }
-        // })
         return { backHome, loading }
     }
 }

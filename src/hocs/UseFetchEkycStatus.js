@@ -20,7 +20,7 @@ export function UseFetchEkycStatus(url, options) {
   const fetchData = async () => {
     state.loading = true;
     try {
-      const res = await AppApi(method, url, localStorage.getItem("rise_token"), optionData);
+      const res = await AppApi(method, url, optionData);
       const { user_kyc_state } = res.data.data
       if (!user_kyc_state) {
         state.status = 1

@@ -38,7 +38,7 @@ export default {
     },
     setup() {
         const ridereactUpdateLink = async () => {
-            const data = await AppApi("post", "/jumio/update", localStorage.getItem("rise_token"))
+            const data = await AppApi("post", "/jumio/update")
             if (data.data.data) {
                 window.location.href = data.data.data.web.href;
                 return false;

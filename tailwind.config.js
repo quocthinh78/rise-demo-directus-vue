@@ -16,6 +16,32 @@ module.exports = {
           DEFAULT: "#f00",
         },
       },
+      keyframes: {
+        fadeIn: {
+          '0%': {
+            opacity: '0',
+            bottom: '0px',
+          },
+          '100%': {
+            opacity: '1',
+            bottom: "42px",
+          }
+        },
+        fadeOut: {
+          '0%': {
+            opacity: '1',
+            bottom: "42px",
+          },
+          '100%': {
+            opacity: '0',
+            bottom: '0px',
+          }
+        },
+      },
+      animation: {
+        fadeIn: 'fadeIn 0.4s ease-out',
+        fadeOut: 'fadeOut 0.4s ease-out'
+      }
     },
     borderWidth: {
       DEFAULT: "1px",

@@ -118,7 +118,7 @@
                 <ErrorMessage :message="errors.contentType" v-if="errors.contentType" />
             </div>
             <div class="mb-4">
-                <UploadFileForm v-model="fileUploaded" multiple :disabled="!documentTypeSelected?.value || !contentTypeSelected?.value" id="documents-upload"
+                <UploadFileForm v-model="fileUploaded" multiple  id="documents-upload"
                     inputClass="bg-transparent text-sm border rounded-lg max-w-sm h-10"
                     labelClass="block mb-2 text-sm font-medium" placeholder="Upload files" label="Documents"
                     typeAccepted="image/*, .pdf" />
@@ -510,7 +510,7 @@ var submitForm = async () => {
                 contentType: contentTypeSelected.value.value,
                 contentLength: fileUploaded.value[i].size
             }
-            const res = await AppApi("post", "/wallex-business/generate-upload-url", localStorage.getItem("rise_token"), imageData)
+            const res = await AppApi("post", "/wallex-business/generate-upload-url", imageData)
             if (res.data) {
                 const fileBuffer = get_file_array(fileUploaded.value[i]);
                 const resUploaded = await axios.put(res.data.uploadURL, fileBuffer, {
@@ -585,7 +585,7 @@ var submitForm = async () => {
     }
 
 
-    const resCompanyDetails = await AppApi("patch", "/wallex-business/update-company-details", localStorage.getItem("rise_token"), data)
+    const resCompanyDetails = await AppApi("patch", "/wallex-business/update-company-details", data)
     if (resCompanyDetails.data.status.value === 'completed') {
         console.log("Update company details successfully");
         dataFlag = true;
@@ -598,7 +598,7 @@ var submitForm = async () => {
 
 
     if (fileFlag && dataFlag) {
-        const res = await AppApi("post", "/wallex-business/submit-doc", localStorage.getItem("rise_token"))
+        const res = await AppApi("post", "/wallex-business/submit-doc")
         if (res.data) {
             console.log(res.data);
             router.push("/verification");

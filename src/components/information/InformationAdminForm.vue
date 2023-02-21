@@ -495,9 +495,9 @@ export default {
         const ekycData = ref(null);
 
         onMounted(async () => {
-            const data = await AppApi("get", "/business-auth/business-role", localStorage.getItem("rise_token"));
+            const data = await AppApi("get", "/business-auth/business-role");
             signupData.value = router.currentRoute.value.query;
-            const resEKYC = await AppApi("get", "/wallex-business/kyc-raw-data", localStorage.getItem("rise_token"));
+            const resEKYC = await AppApi("get", "/wallex-business/kyc-raw-data");
             ekycData.value = resEKYC.data;
         })
 
@@ -601,7 +601,7 @@ export default {
                 return false;
             }
 
-            const res = await AppApi("patch", "/wallex-business/update-info", localStorage.getItem("rise_token"), data)
+            const res = await AppApi("patch", "/wallex-business/update-info", data)
             if (res.data) {
                 router.push("/verification/verify-company");
             }
