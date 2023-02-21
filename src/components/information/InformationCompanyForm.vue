@@ -131,8 +131,8 @@
         <div class="py-4">
             <button type="button"
                 class="bg-[#1e74fd] focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                                font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center 
-                                disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                                    font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center 
+                                    disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 :disabled="disabledForm" @click="submitForm">
                 Submit
             </button>
@@ -514,40 +514,6 @@ var submitForm = async () => {
     var fileFlag = false;
     var dataFlag = false;
     errors.value = {}
-    loading.value = true;
-
-    try {
-        if (fileUploaded.value) {
-            for (let i = 0; i < fileUploaded.value.length; i++) {
-                const imageData = {
-                    documentType: documentTypeSelected.value.value,
-                    documentName: fileUploaded.value[i].name,
-                    contentType: contentTypeSelected.value.value,
-                    contentLength: fileUploaded.value[i].size
-                }
-                const res = await AppApi("post", "/wallex-business/generate-upload-url", imageData)
-                if (res.data) {
-                    const fileBuffer = get_file_array(fileUploaded.value[i]);
-                    const resUploaded = await axios.put(res.data.uploadURL, fileBuffer, {
-                        headers: {
-                            "x-amz-storage-class": "STANDARD",
-                            "Content-Type": imageData.contentType,
-                        },
-                    });
-                    if (resUploaded.statusText === 'OK') {
-                        console.log(`File "${imageData.documentName}" uploaded successfully`);
-                        fileFlag = true;
-                    } else {
-
-                        console.log(`File "${imageData.documentName}" uploaded failed`);
-                        fileFlag = false;
-                    }
-                }
-            }
-        }
-    } catch (error) {
-        loading.value = false;
-    }
 
 
 
@@ -599,6 +565,42 @@ var submitForm = async () => {
     if (hasKeyObject(errors.value)) {
         return false;
     }
+
+    loading.value = true;
+
+    try {
+        if (fileUploaded.value) {
+            for (let i = 0; i < fileUploaded.value.length; i++) {
+                const imageData = {
+                    documentType: documentTypeSelected.value.value,
+                    documentName: fileUploaded.value[i].name,
+                    contentType: contentTypeSelected.value.value,
+                    contentLength: fileUploaded.value[i].size
+                }
+                const res = await AppApi("post", "/wallex-business/generate-upload-url", imageData)
+                if (res.data) {
+                    const fileBuffer = get_file_array(fileUploaded.value[i]);
+                    const resUploaded = await axios.put(res.data.uploadURL, fileBuffer, {
+                        headers: {
+                            "x-amz-storage-class": "STANDARD",
+                            "Content-Type": imageData.contentType,
+                        },
+                    });
+                    if (resUploaded.statusText === 'OK') {
+                        console.log(`File "${imageData.documentName}" uploaded successfully`);
+                        fileFlag = true;
+                    } else {
+
+                        console.log(`File "${imageData.documentName}" uploaded failed`);
+                        fileFlag = false;
+                    }
+                }
+            }
+        }
+    } catch (error) {
+        loading.value = false;
+    }
+
 
 
 
