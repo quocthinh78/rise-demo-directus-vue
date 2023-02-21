@@ -523,11 +523,6 @@ export default {
         })
 
         onMounted(async () => {
-<<<<<<< HEAD
-            await AppApi("get", "/business-auth/business-role");
-            signupData.value = router.currentRoute.value.query;
-=======
->>>>>>> 23b1c15e5f38e6b296dfd2fbc01102154440bc75
             const resEKYC = await AppApi("get", "/wallex-business/kyc-raw-data");
             ekycData.value = resEKYC.data;
             signupData.value = router.currentRoute.value.query;
