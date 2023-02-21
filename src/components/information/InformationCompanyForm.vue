@@ -130,8 +130,8 @@
         <div class="py-4">
             <button type="button"
                 class="bg-[#1e74fd] focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                                            font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center 
-                                            disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                                                    font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center 
+                                                    disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 :disabled="disabledForm" @click="submitForm">
                 Submit
             </button>
@@ -563,8 +563,11 @@ var submitForm = async () => {
     if (!contentTypeSelected.value) {
         errors.value = { ...errors.value, contentType: "Content type is required" }
     }
-    if (!fileUploaded.value || fileUploaded.value?.length < 2) {
-        errors.value = { ...errors.value, fileUploaded: "Back and front image" }
+    if (!fileUploaded.value) {
+        errors.value = { ...errors.value, fileUploaded: "File is required" }
+    }
+    if (fileUploaded.value?.length < 2) {
+        errors.value = { ...errors.value, fileUploaded: "You need to upload both back and front images" }
     }
 
     if (hasKeyObject(errors.value)) {
