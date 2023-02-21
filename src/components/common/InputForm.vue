@@ -1,8 +1,8 @@
 <template>
     <label :for="id" :class="labelClass">{{ label }}</label>
-    <input :type="type" class="disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] rounded-md"
+    <input type="text" class="disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] rounded-md"
         :id="id" :class="inputClass" :placeholder="placeholder" :disabled="disabled" :multiple="multiple"
-        :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" />
+        :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" @keypress="onlyNumber" />
 </template>
 
 <style scoped></style>
@@ -54,5 +54,16 @@ export default {
         }
     },
     emits: ['update:modelValue'],
+    setup(props) {
+        const onlyNumber = (evt) => {
+            if (props.type === 'number') {
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                if (charCode > 31 && (charCode < 48 || charCode > 57)) evt.preventDefault();
+            }
+        }
+        return {
+            onlyNumber
+        }
+    }
 }
 </script>

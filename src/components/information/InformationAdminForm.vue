@@ -29,9 +29,9 @@
                             <span class="text-sm leading-5" v-html="item.label"></span>
                         </template>
                     </SelectForm>
-                    <input type="number" :disabled="disabledForm" id="contact-number" placeholder="Your phone"
+                    <input type="text" :disabled="disabledForm" id="contact-number" placeholder="Your phone"
                         class="bg-transparent p-2 text-sm rounded-lg h-10 outline-none border-none focus:border-transparent focus:ring-transparent
-                                    disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" @focus="isPhoneFocus = true" @blur="isPhoneFocus = false"
+                            disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" @focus="isPhoneFocus = true" @blur="isPhoneFocus = false" @keypress="onlyNumber"
                         v-model="phoneNumber" />
                 </div>
                 <ErrorMessage :message="errors.mobileNumber" v-if="errors.mobileNumber" />
@@ -213,8 +213,8 @@
         <!-- Submit Button -->
         <div class="py-4">
             <button type="button" class="bg-[#1e74fd] focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                        font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] 
-                        disabled:cursor-default disabled:text-[var(--foreground-subdued)]" :disabled="disabledForm"
+                    font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] 
+                    disabled:cursor-default disabled:text-[var(--foreground-subdued)]" :disabled="disabledForm"
                 @click="submitForm">
                 Submit
             </button>
@@ -498,6 +498,11 @@ export default {
             signupData.value = router.currentRoute.value.query;
         })
 
+        const onlyNumber = (evt) => {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) evt.preventDefault();
+        }
+
         var submitForm = async () => {
 
             const data = {
@@ -608,7 +613,7 @@ export default {
             errors, isPhoneFocus, disabledForm, title, countryCodeList, countryCodeSelected, phoneNumber, genderList, genderSelected, countryList, countryBirthSelected,
             nationalitySelected, residentialAddress, residentialState, residentialCity, postalCode, dateOfBirth, identificationTypeList, identificationTypeSelected,
             identificationNumber, issueDate, expiryDate, occupation, employmentStatusList, employmentStatusSelected,
-            employmentIndustryList, employmentIndustrySelected, employmentPositionList, employmentPositionSelected, submitForm
+            employmentIndustryList, employmentIndustrySelected, employmentPositionList, employmentPositionSelected, submitForm, onlyNumber
         }
     }
 }
