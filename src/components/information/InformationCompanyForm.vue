@@ -118,8 +118,7 @@
                 <ErrorMessage :message="errors.contentType" v-if="errors.contentType" />
             </div>
             <div class="mb-4">
-                <UploadFileForm v-model="fileUploaded" multiple
-                    :disabled="!documentTypeSelected?.value || !contentTypeSelected?.value" id="documents-upload"
+                <UploadFileForm v-model="fileUploaded" multiple :disabled="disabledForm" id="documents-upload"
                     inputClass="bg-transparent text-sm border rounded-lg max-w-sm h-10"
                     labelClass="block mb-2 text-sm font-medium" placeholder="Upload files" label="Documents"
                     :typeAccepted="contentTypeSelected?.value" />
@@ -131,8 +130,8 @@
         <div class="py-4">
             <button type="button"
                 class="bg-[#1e74fd] focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                                    font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center 
-                                    disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                                            font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center 
+                                            disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 :disabled="disabledForm" @click="submitForm">
                 Submit
             </button>
@@ -561,12 +560,19 @@ var submitForm = async () => {
     if (!data.companyName) {
         errors.value = { ...errors.value, companyName: "Company name is required" }
     }
+    if (!contentTypeSelected.value) {
+        errors.value = { ...errors.value, contentType: "Content type is required" }
+    }
+    if (!fileUploaded.value || fileUploaded.value?.length < 2) {
+        errors.value = { ...errors.value, fileUploaded: "Back and front image" }
+    }
 
     if (hasKeyObject(errors.value)) {
         return false;
     }
 
     loading.value = true;
+
 
     try {
         if (fileUploaded.value) {
