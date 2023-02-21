@@ -29,17 +29,10 @@
                             <span class="text-sm leading-5" v-html="item.label"></span>
                         </template>
                     </SelectForm>
-<<<<<<< HEAD
                     <input :disabled="disabledForm" id="contact-number" placeholder="Your phone"
                         class="bg-transparent p-2 text-sm rounded-lg h-10 outline-none border-none focus:border-transparent focus:ring-transparent
                                                 disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" @focus="isPhoneFocus = true"
                         @blur="isPhoneFocus = false" v-model="phoneNumber" />
-=======
-                    <input type="text" :disabled="disabledForm" id="contact-number" placeholder="Your phone"
-                        class="bg-transparent p-2 text-sm rounded-lg h-10 outline-none border-none focus:border-transparent focus:ring-transparent
-                            disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" @focus="isPhoneFocus = true" @blur="isPhoneFocus = false" @keypress="onlyNumber"
-                        v-model="phoneNumber" />
->>>>>>> 23b1c15e5f38e6b296dfd2fbc01102154440bc75
                 </div>
                 <ErrorMessage :message="errors.mobileNumber" v-if="errors.mobileNumber" />
             </div>
