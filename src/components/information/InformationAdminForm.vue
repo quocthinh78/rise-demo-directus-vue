@@ -31,7 +31,11 @@
                     </SelectForm>
                     <input type="text" :disabled="disabledForm" id="contact-number" placeholder="Your phone"
                         class="bg-transparent p-2 text-sm rounded-lg h-10 outline-none border-none focus:border-transparent focus:ring-transparent
+<<<<<<< HEAD
                                                                 disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" @focus="isPhoneFocus = true"
+=======
+                                                        disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" @focus="isPhoneFocus = true"
+>>>>>>> f71b94ef388f510496c482cb7957297a9d5c6120
                         @blur="isPhoneFocus = false" @keypress="onlyNumber" v-model="phoneNumber" />
                 </div>
                 <ErrorMessage :message="errors.mobileNumber" v-if="errors.mobileNumber" />
@@ -188,7 +192,7 @@
                 <SelectForm id="dropdown-employment-industry-button" class="w-full"
                     placeholder="Select your employment industry" dropdownIcon
                     inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
-                    listContainerClass="rounded-lg shadow absolute z-10 w-full"
+                    listContainerClass="rounded-lg shadow absolute z-10 w-full h-[110px] overflow-y-scroll"
                     listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
                     itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
                     :listItem="employmentIndustryList" v-model:selected-value="employmentIndustrySelected">
@@ -213,9 +217,9 @@
         <!-- Submit Button -->
         <div class="py-4">
             <button type="button" class="bg-[#1e74fd] focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                                                    font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] 
-                                                    disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
-                :disabled="disabledForm" @click="submitForm">
+                        font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] 
+                        disabled:cursor-default disabled:text-[var(--foreground-subdued)]" :disabled="disabledForm"
+                @click="submitForm">
                 Submit
             </button>
         </div>

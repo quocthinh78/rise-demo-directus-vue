@@ -94,7 +94,7 @@
                 </DatepickerForm>
                 <ErrorMessage :message="errors.incorporationDate" v-if="errors.incorporationDate" />
             </div>
-            <div class="mb-4">
+            <!-- <div class="mb-4">
                 <label for="dropdown-document-type-button" class="block mb-2 text-sm font-medium">Document Type</label>
                 <SelectForm id="dropdown-document-type-button" class="w-full" placeholder="Select document type"
                     dropdownIcon
@@ -105,7 +105,7 @@
                     :listItem="documentTypeList" v-model:selected-value="documentTypeSelected">
                 </SelectForm>
                 <ErrorMessage :message="errors.documentType" v-if="errors.documentType" />
-            </div>
+            </div> -->
             <div class="mb-4">
                 <label for="dropdown-content-type-button" class="block mb-2 text-sm font-medium">Content Type</label>
                 <SelectForm id="dropdown-content-type-button" class="w-full" placeholder="Select content type" dropdownIcon
@@ -131,8 +131,8 @@
         <div class="py-4">
             <button type="button"
                 class="bg-[#1e74fd] focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                                                                                font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center 
-                                                                                disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                                font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center 
+                                disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 :disabled="disabledForm" @click="submitForm">
                 Submit
             </button>
@@ -453,7 +453,10 @@ const documentTypeList = ref([
     },
 ]);
 
-const documentTypeSelected = ref(null);
+const documentTypeSelected = ref({
+    label: 'Photo',
+    value: 'photo'
+});
 
 const contentTypeList = ref([
     {
