@@ -31,11 +31,7 @@
                     </SelectForm>
                     <input type="text" :disabled="disabledForm" id="contact-number" placeholder="Your phone"
                         class="bg-transparent p-2 text-sm rounded-lg h-10 outline-none border-none focus:border-transparent focus:ring-transparent
-<<<<<<< HEAD
-                                                                disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" @focus="isPhoneFocus = true"
-=======
                                                         disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" @focus="isPhoneFocus = true"
->>>>>>> f71b94ef388f510496c482cb7957297a9d5c6120
                         @blur="isPhoneFocus = false" @keypress="onlyNumber" v-model="phoneNumber" />
                 </div>
                 <ErrorMessage :message="errors.mobileNumber" v-if="errors.mobileNumber" />
