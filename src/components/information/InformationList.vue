@@ -1,7 +1,7 @@
 <template>
     <div class="pt-8 px-8">
         <CardBusiness title="Upload business documents and information" description="Unlock all Rise features now"
-            link="/verification/sign-up">
+            link="/verification/sign-up" :disabled="!adminRole">
             <template v-slot:icon>
                 <!-- <img :src="require(`@/assets/icon/upload_business_blue.svg`)" alt="image" /> -->
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -119,8 +119,8 @@
             <p class="text-base mb-6 max-w-[310px] w-auto">There are no items in this collection yet.</p>
             <button type="button"
                 class="justify-center relative flex items-center min-w-[var(--v-button-min-width)] h-11 px-5 text-sm bg-[var(--v-button-background-color)] rounded-md w-auto
-                                                                focus:outline-none hover:bg-[var(--v-button-background-color-hover)] hover:border-[var(--v-button-background-color-hover)] text-[var(--v-button-color)] no-underline border
-                                                                font-semibold text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                                                                                            focus:outline-none hover:bg-[var(--v-button-background-color-hover)] hover:border-[var(--v-button-background-color-hover)] text-[var(--v-button-color)] no-underline border
+                                                                                            font-semibold text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 style="transition: var(--fast) var(--transition);">
                 Submit
             </button>
@@ -133,13 +133,14 @@
 
 <script>
 
-import { ref } from "vue"
+import { ref, onMounted } from 'vue'
 import CardBusiness from '../common/BusinessCard.vue';
 import Badge from '../common/Badge.vue';
 import Modal from '../common/Modal.vue';
 import Alert from '../common/Alert.vue';
 import { UseFetchEkycStatus } from "../../hocs/UseFetchEkycStatus"
-import { useRouter } from "vue-router"
+import AppApi from "../../apiConfig"
+
 
 export default {
     name: "InformationList",
@@ -150,14 +151,21 @@ export default {
         Alert,
     },
     setup() {
-        const router = useRouter()
         const showModal = ref(false)
         const { error, loading, status, statusString } = UseFetchEkycStatus("/business-auth/kyc/jumio", { method: "get" })
         const toggleModal = () => {
             showModal.value = !showModal.value
         }
+        var adminRole = ref(false);
 
-        return { showModal, toggleModal, status, statusString, error, loading }
+        onMounted(async () => {
+            const data = await AppApi("get", "/business-auth/business-role");
+            console.log(data.data);
+            adminRole.value = data.data.busUser.roles.split(',').includes('admin_role');
+            adminRole.value = false;
+        })
+
+        return { showModal, toggleModal, status, statusString, error, loading, adminRole }
     },
 
 }

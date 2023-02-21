@@ -1,29 +1,26 @@
 <template>
-    <div class="cursor-pointer">
-        <div
-            class="flex items-center justify-between gap-4 max-w-2xl p-4 font-normal mb-6 mt-2 bg-[#6C7C94]  rounded-lg shadow  text-white">
-            <div class="flex items-center justify-between gap-4">
-                <div class=" w-12 h-12 flex justify-center items-center rounded-lg bg-white">
-                    <!-- <img :src="require(`@/assets/icon/upload_business_blue.svg`)" alt="image" /> -->
-                    <slot name="icon"></slot>
-                </div>
-                <div class="max-w-md">
-                    <h5 class="mb-1 text-[16px] hover:text-red cursor-pointer" @click="riderectPage">{{ title }}</h5>
-                    <p class="text-[11px]">{{ description }}</p>
-                </div>
+    <div class="flex items-center justify-between gap-4 max-w-2xl p-4 font-normal mb-6 mt-2 rounded-lg"
+        :class="`${disabled ? 'cursor-default bg-blue-50 text-[#c9d1d9]' : 'text-white cursor-pointer hover:text-red bg-gray-500 shadow'}`"
+        @click="redirectPage">
+        <div class="flex items-center justify-between gap-4">
+            <div class=" w-12 h-12 flex justify-center items-center rounded-lg bg-white">
+                <!-- <img :src="require(`@/assets/icon/upload_business_blue.svg`)" alt="image" /> -->
+                <slot name="icon"></slot>
             </div>
-            <div class="rounded-lg" :style="{ backgroundColor: statusObjectRef.bg }" v-if="statusObjectRef">
-                <div class="text-[10px] px-2 py-1 leading-[14px]" :style="{ color: statusObjectRef.color }">{{
-                    statusObjectRef.value
-                }}</div>
+            <div class="max-w-md">
+                <h5 class="mb-1 text-[16px]">{{ title }}</h5>
+                <p class="text-[11px]">{{ description }}</p>
             </div>
+        </div>
+        <div class="rounded-lg" :style="{ backgroundColor: statusObjectRef.bg }" v-if="statusObjectRef">
+            <div class="text-[10px] px-2 py-1 leading-[14px]" :style="{ color: statusObjectRef.color }">{{
+                statusObjectRef.value
+            }}</div>
         </div>
     </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
 
 <script >
 import { useRouter } from "vue-router";
@@ -35,7 +32,7 @@ export default {
             type: String,
             required: true,
         },
-        loading : {
+        loading: {
             required: true,
             type: Boolean,
         },
@@ -50,11 +47,15 @@ export default {
             type: String,
             default: '#',
         },
+        disabled: {
+            type: Boolean,
+        }
     },
     setup(props) {
         const router = useRouter()
-        const riderectPage = () => {
-            router.push(props.link)
+        const redirectPage = (e) => {
+            if (props.disabled) e.preventDefault()
+            else router.push(props.link)
         }
         const statusRef = ref([
             { id: 1, value: "DRAFT", color: "#1E74FD", bg: "#E9F1FF" },
@@ -66,11 +67,11 @@ export default {
         onMounted(() => {
             statusObjectRef.value = statusRef.value.find((item) => item.id === props.status)
         })
-        watch(props , () => {
+        watch(props, () => {
             statusObjectRef.value = statusRef.value.find((item) => item.id === props.status)
-            
+
         })
-        return { statusRef, statusObjectRef, riderectPage };
+        return { statusRef, statusObjectRef, redirectPage };
     },
 
 }
