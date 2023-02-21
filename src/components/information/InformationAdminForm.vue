@@ -29,10 +29,10 @@
                             <span class="text-sm leading-5" v-html="item.label"></span>
                         </template>
                     </SelectForm>
-                    <input :disabled="disabledForm" id="contact-number" placeholder="Your phone"
+                    <input type="text" :disabled="disabledForm" id="contact-number" placeholder="Your phone"
                         class="bg-transparent p-2 text-sm rounded-lg h-10 outline-none border-none focus:border-transparent focus:ring-transparent
-                                                disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" @focus="isPhoneFocus = true"
-                        @blur="isPhoneFocus = false" v-model="phoneNumber" />
+                                            disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" @focus="isPhoneFocus = true" @blur="isPhoneFocus = false"
+                        @keypress="onlyNumber" v-model="phoneNumber" />
                 </div>
                 <ErrorMessage :message="errors.mobileNumber" v-if="errors.mobileNumber" />
             </div>
@@ -213,8 +213,8 @@
         <!-- Submit Button -->
         <div class="py-4">
             <button type="button" class="bg-[#1e74fd] focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                    font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] 
-                    disabled:cursor-default disabled:text-[var(--foreground-subdued)]" :disabled="disabledForm"
+                                font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] 
+                                disabled:cursor-default disabled:text-[var(--foreground-subdued)]" :disabled="disabledForm"
                 @click="submitForm">
                 Submit
             </button>
@@ -491,29 +491,6 @@ export default {
                 value: 'Owner',
             },
         ]);
-
-
-        watch(phoneNumber, async (newQuestion) => {
-            console.log("🚀 thinhvq ~ file: phoneNumber.vue:50r435phoneNumber434  ~ phoneNumber:", phoneNumber)
-            console.log("🚀 thinhvq ~ file: InformationAdminForm.vue:494 ~ watch ~ newQuestion:", newQuestion)
-            phoneNumber.value = newQuestion.toString().replace(/[^0-9]/g, '');
-            console.log("🚀 thinhvq ~ file: InformationAdminForm.vue:5022222  ~ identificationNumber:", phoneNumber)
-
-        })
-
-        watch(postalCode, async (newQuestion) => {
-            console.log("🚀 thinhvq ~ file: InformationAdminForm.vue:498 ~ watch ~ newQuestion:", newQuestion)
-            postalCode.value = newQuestion.toString().replace(/[^0-9]/g, '');
-        })
-
-        watch(identificationNumber, async (newQuestion) => {
-            console.log("🚀 thinhvq ~ file:509 ~ identificationNumber:", identificationNumber)
-
-            console.log("🚀 thinhvq ~ file: InformationAdminForm.vue:502 ~ watch ~ newQuestion:", newQuestion)
-            identificationNumber.value = newQuestion.toString().replace(/[^0-9]/g, '');
-            console.log("🚀 thinhvq ~ file: InformationAdminForm.vue:513  ~ identificationNumber:", identificationNumber)
-
-        })
 
         onMounted(async () => {
             const resEKYC = await AppApi("get", "/wallex-business/kyc-raw-data");
