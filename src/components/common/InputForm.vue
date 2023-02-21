@@ -1,11 +1,11 @@
 <template>
     <label :for="id" :class="labelClass">{{ label }}</label>
-    <input :type="type" class="disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] rounded-md" :id="id" :class="inputClass" :placeholder="placeholder" :disabled="disabled" :multiple="multiple" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"/>
+    <input :type="type" class="disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] rounded-md"
+        :id="id" :class="inputClass" :placeholder="placeholder" :disabled="disabled" :multiple="multiple"
+        :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
 
 <script>
 
@@ -53,7 +53,6 @@ export default {
             default: false,
         }
     },
-    emits: ['update:modelValue']
-
+    emits: ['update:modelValue'],
 }
 </script>

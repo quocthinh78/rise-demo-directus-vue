@@ -17,7 +17,7 @@
                     inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
                     listContainerClass="rounded-lg shadow absolute z-10 w-full"
                     listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
-                    itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
+                    itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start my-1"
                     :listItem="countryList" v-model:selected-value="countryOfIncorporationSelected">
                 </SelectForm>
                 <ErrorMessage :message="errors.countryOfIncorporation" v-if="errors.countryOfIncorporation" />
@@ -30,7 +30,7 @@
                     inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
                     listContainerClass="rounded-lg shadow absolute z-10 w-full"
                     listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
-                    itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
+                    itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start my-1"
                     :listItem="countryList" v-model:selected-value="countryOfOperationsSelected">
                 </SelectForm>
                 <ErrorMessage :message="errors.countryOfOperations" v-if="errors.countryOfOperations" />
@@ -40,9 +40,9 @@
                 <SelectForm id="dropdown-business-type-button" class="w-full" placeholder="Select business type"
                     dropdownIcon
                     inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
-                    listContainerClass="rounded-lg shadow absolute z-10 w-full"
+                    listContainerClass="rounded-lg shadow absolute z-10 w-full h-[110px] overflow-y-scroll"
                     listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
-                    itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
+                    itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start my-1"
                     :listItem="businessTypeList" v-model:selected-value="businessTypeSelected">
                 </SelectForm>
                 <ErrorMessage :message="errors.businessType" v-if="errors.businessType" />
@@ -55,7 +55,7 @@
             </div>
 
             <div class="mb-4">
-                <InputForm type="text" v-model="postalCode" :disabled="disabledForm" id="postal-code-text"
+                <InputForm type="number" v-model="postalCode" :disabled="disabledForm" id="postal-code-text"
                     inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
                     placeholder="Company's postal code" label="Postal Code" />
                 <ErrorMessage :message="errors.postalCode" v-if="errors.postalCode" />
@@ -73,7 +73,7 @@
                 <ErrorMessage :message="errors.city" v-if="errors.city" />
             </div>
             <div class="mb-4">
-                <InputForm type="text" v-model="registrationNumber" :disabled="disabledForm" id="registration-number-text"
+                <InputForm type="number" v-model="registrationNumber" :disabled="disabledForm" id="registration-number-text"
                     inputClass="bg-transparent text-sm rounded-lg max-w-sm h-10" labelClass="block mb-2 text-sm font-medium"
                     placeholder="Company registration number" label="Company Registration Number" />
                 <ErrorMessage :message="errors.registrationNumber" v-if="errors.registrationNumber" />
@@ -99,9 +99,9 @@
                 <SelectForm id="dropdown-document-type-button" class="w-full" placeholder="Select document type"
                     dropdownIcon
                     inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
-                    listContainerClass="rounded-lg shadow absolute z-10 w-full"
+                    listContainerClass="rounded-lg shadow absolute z-10 w-full h-[110px] overflow-y-scroll"
                     listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
-                    itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
+                    itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start my-1"
                     :listItem="documentTypeList" v-model:selected-value="documentTypeSelected">
                 </SelectForm>
                 <ErrorMessage :message="errors.documentType" v-if="errors.documentType" />
@@ -112,16 +112,17 @@
                     inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
                     listContainerClass="rounded-lg shadow absolute z-10 w-full"
                     listClass="p-2 text-sm bg-[var(--background-normal)]" :disabled="disabledForm"
-                    itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start mb-2"
+                    itemClass="px-1 flex flex-shrink flex-wrap text-center overflow-hidden justify-start my-1"
                     :listItem="contentTypeList" v-model:selected-value="contentTypeSelected">
                 </SelectForm>
                 <ErrorMessage :message="errors.contentType" v-if="errors.contentType" />
             </div>
             <div class="mb-4">
-                <UploadFileForm v-model="fileUploaded" multiple  id="documents-upload"
+                <UploadFileForm v-model="fileUploaded" multiple
+                    :disabled="!documentTypeSelected?.value || !contentTypeSelected?.value" id="documents-upload"
                     inputClass="bg-transparent text-sm border rounded-lg max-w-sm h-10"
                     labelClass="block mb-2 text-sm font-medium" placeholder="Upload files" label="Documents"
-                    typeAccepted="image/*, .pdf" />
+                    :typeAccepted="contentTypeSelected?.value" />
                 <ErrorMessage :message="errors.fileUploaded" v-if="errors.fileUploaded" />
             </div>
         </div>
@@ -130,8 +131,8 @@
         <div class="py-4">
             <button type="button"
                 class="bg-[#1e74fd]
-                focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                                                            focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
+                                                            font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 :disabled="disabledForm" @click="submitForm">
                 Submit
             </button>
@@ -151,6 +152,7 @@ import AppApi from "../../apiConfig"
 import { ref, onMounted } from 'vue'
 import { useRouter } from "vue-router"
 import axios from 'axios'
+import { hasKeyObject } from "./../../utils/commonUtils"
 
 const router = useRouter();
 
@@ -502,7 +504,6 @@ var submitForm = async () => {
     errors.value = {}
 
     if (fileUploaded.value) {
-
         for (let i = 0; i < fileUploaded.value.length; i++) {
             const imageData = {
                 documentType: documentTypeSelected.value.value,
