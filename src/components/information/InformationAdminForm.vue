@@ -31,8 +31,8 @@
                     </SelectForm>
                     <input type="text" :disabled="disabledForm" id="contact-number" placeholder="Your phone"
                         class="bg-transparent p-2 text-sm rounded-lg h-10 outline-none border-none focus:border-transparent focus:ring-transparent
-                                                disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" @focus="isPhoneFocus = true" @blur="isPhoneFocus = false"
-                        @keypress="onlyNumber" v-model="phoneNumber" />
+                                                                disabled:bg-[var(--background-subdued)] disabled:text-[var(--foreground-subdued)] contact-number" @focus="isPhoneFocus = true"
+                        @blur="isPhoneFocus = false" @keypress="onlyNumber" v-model="phoneNumber" />
                 </div>
                 <ErrorMessage :message="errors.mobileNumber" v-if="errors.mobileNumber" />
             </div>
@@ -213,19 +213,20 @@
         <!-- Submit Button -->
         <div class="py-4">
             <button type="button" class="bg-[#1e74fd] focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                                    font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] 
-                                    disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                                                    font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center disabled:bg-[var(--v-button-background-color-disabled)] 
+                                                    disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 :disabled="disabledForm" @click="submitForm">
                 Submit
             </button>
         </div>
 
         <Loading v-if="loading" />
+        <!-- <Toast ref="ToastRef" :isShow="showToast" @setShowToast="setShowToast" /> -->
     </div>
 </template>
 
 <script>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted } from 'vue'
 import InputForm from '../common/InputForm.vue'
 import DatepickerForm from '../common/DatepickerForm.vue'
 import SelectForm from '../common/SelectForm.vue'
@@ -237,7 +238,7 @@ import { hasKeyObject } from "./../../utils/commonUtils"
 
 export default {
     components: {
-        InputForm, DatepickerForm, SelectForm, ErrorMessage
+        InputForm, DatepickerForm, SelectForm, ErrorMessage, Loading,
     },
     setup() {
         var isPhoneFocus = ref(false);                              //variable to get input focus event
@@ -589,23 +590,25 @@ export default {
             if (!data.kycRawData) {
                 errors.value = { ...errors.value, kycRawData: "KycRawData Date is required" }
             }
-            
+
             if (hasKeyObject(errors.value)) {
                 return false;
             }
 
-            loading.value = true;
-
-            const res = await AppApi("patch", "/wallex-business/update-info", data)
-            if (res.data) {
+            try {
+                loading.value = true;
+                const res = await AppApi("patch", "/wallex-business/update-info", data)
+                if (res.data) {
+                    loading.value = false;
+                    router.push("/verification/verify-company");
+                }
+            } catch (error) {
                 loading.value = false;
-                router.push("/verification/verify-company");
             }
-            loading.value = false;
         }
 
         return {
-            errors, isPhoneFocus, disabledForm, title, countryCodeList, countryCodeSelected, phoneNumber, genderList, genderSelected, countryList, countryBirthSelected,
+            errors, loading, isPhoneFocus, disabledForm, title, countryCodeList, countryCodeSelected, phoneNumber, genderList, genderSelected, countryList, countryBirthSelected,
             nationalitySelected, residentialAddress, residentialState, residentialCity, postalCode, dateOfBirth, identificationTypeList, identificationTypeSelected,
             identificationNumber, issueDate, expiryDate, occupation, employmentStatusList, employmentStatusSelected,
             employmentIndustryList, employmentIndustrySelected, employmentPositionList, employmentPositionSelected, submitForm, onlyNumber

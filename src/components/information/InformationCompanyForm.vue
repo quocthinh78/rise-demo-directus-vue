@@ -131,8 +131,8 @@
         <div class="py-4">
             <button type="button"
                 class="bg-[#1e74fd] focus:outline-none focus:ring-1 focus:ring-[#1e74fd] focus:border-[#1e74fd] text-[var(--v-button-color)]
-                            font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center 
-                            disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                                                                                font-medium rounded-lg text-sm px-5 py-2.5 w-full items-center text-center 
+                                                                                disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 :disabled="disabledForm" @click="submitForm">
                 Submit
             </button>
@@ -511,34 +511,39 @@ var submitForm = async () => {
     var fileFlag = false;
     var dataFlag = false;
     errors.value = {}
+    loading.value = true;
 
-    if (fileUploaded.value) {
-        for (let i = 0; i < fileUploaded.value.length; i++) {
-            const imageData = {
-                documentType: documentTypeSelected.value.value,
-                documentName: fileUploaded.value[i].name,
-                contentType: contentTypeSelected.value.value,
-                contentLength: fileUploaded.value[i].size
-            }
-            const res = await AppApi("post", "/wallex-business/generate-upload-url", imageData)
-            if (res.data) {
-                const fileBuffer = get_file_array(fileUploaded.value[i]);
-                const resUploaded = await axios.put(res.data.uploadURL, fileBuffer, {
-                    headers: {
-                        "x-amz-storage-class": "STANDARD",
-                        "Content-Type": imageData.contentType,
-                    },
-                });
-                if (resUploaded.statusText === 'OK') {
-                    console.log(`File "${imageData.documentName}" uploaded successfully`);
-                    fileFlag = true;
-                } else {
+    try {
+        if (fileUploaded.value) {
+            for (let i = 0; i < fileUploaded.value.length; i++) {
+                const imageData = {
+                    documentType: documentTypeSelected.value.value,
+                    documentName: fileUploaded.value[i].name,
+                    contentType: contentTypeSelected.value.value,
+                    contentLength: fileUploaded.value[i].size
+                }
+                const res = await AppApi("post", "/wallex-business/generate-upload-url", imageData)
+                if (res.data) {
+                    const fileBuffer = get_file_array(fileUploaded.value[i]);
+                    const resUploaded = await axios.put(res.data.uploadURL, fileBuffer, {
+                        headers: {
+                            "x-amz-storage-class": "STANDARD",
+                            "Content-Type": imageData.contentType,
+                        },
+                    });
+                    if (resUploaded.statusText === 'OK') {
+                        console.log(`File "${imageData.documentName}" uploaded successfully`);
+                        fileFlag = true;
+                    } else {
 
-                    console.log(`File "${imageData.documentName}" uploaded failed`);
-                    fileFlag = false;
+                        console.log(`File "${imageData.documentName}" uploaded failed`);
+                        fileFlag = false;
+                    }
                 }
             }
         }
+    } catch (error) {
+        loading.value = false;
     }
 
 
@@ -593,34 +598,33 @@ var submitForm = async () => {
     }
 
 
-    loading.value = false;
+
+    try {
+        const resCompanyDetails = await AppApi("patch", "/wallex-business/update-company-details", data)
+        if (resCompanyDetails.data.status.value === 'completed') {
+            dataFlag = true;
+
+            if (fileFlag && dataFlag) {
+                const res = await AppApi("post", "/wallex-business/submit-doc")
+                if (res.data) {
+                    console.log(res.data);
+                    router.push("/verification");
+                } else {
+                    console.log(res.msg.message);
+                }
+            }
+            loading.value = false;
 
 
-    const resCompanyDetails = await AppApi("patch", "/wallex-business/update-company-details", data)
-    if (resCompanyDetails.data.status.value === 'completed') {
-        console.log("Update company details successfully");
-        dataFlag = true;
-
-    } else {
-        console.log("Update company details failed");
-        console.log(resCompanyDetails.data.status);
-        dataFlag = false;
-    }
-
-
-    if (fileFlag && dataFlag) {
-        const res = await AppApi("post", "/wallex-business/submit-doc")
-        if (res.data) {
-            console.log(res.data);
-            router.push("/verification");
         } else {
-            console.log(res.msg.message);
+            console.log(resCompanyDetails.data.status);
+            dataFlag = false;
+            loading.value = false;
+
         }
+    } catch (error) {
+        loading.value = false;
     }
-    loading.value = false;
-
-
-
 
 }
 </script>
