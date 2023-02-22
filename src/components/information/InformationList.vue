@@ -118,9 +118,7 @@
             <h2 class="mb-2 text-2xl font-bold line" style="outline: none; box-sizing: border-box;">No Items</h2>
             <p class="text-base mb-6 max-w-[310px] w-auto">There are no items in this collection yet.</p>
             <button type="button"
-                class="justify-center relative flex items-center min-w-[var(--v-button-min-width)] h-11 px-5 text-sm bg-[var(--v-button-background-color)] rounded-md w-auto
-                    focus:outline-none hover:bg-[var(--v-button-background-color-hover)] hover:border-[var(--v-button-background-color-hover)] text-[var(--v-button-color)] no-underline border
-                    font-semibold text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
+                class="justify-center relative flex items-center min-w-[var(--v-button-min-width)] h-11 px-5 text-sm bg-[var(--v-button-background-color)] rounded-md w-auto focus:outline-none hover:bg-[var(--v-button-background-color-hover)] hover:border-[var(--v-button-background-color-hover)] text-[var(--v-button-color)] no-underline border font-semibold text-center disabled:bg-[var(--v-button-background-color-disabled)] disabled:cursor-default disabled:text-[var(--foreground-subdued)]"
                 style="transition: var(--fast) var(--transition);">
                 Submit
             </button>
@@ -160,7 +158,6 @@ export default {
 
         onMounted(async () => {
             const data = await AppApi("get", "/business-auth/business-role");
-            console.log(data.data);
             adminRole.value = data.data.busUser.roles.split(',').includes('admin_role');
         })
 
