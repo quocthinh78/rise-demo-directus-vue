@@ -106,7 +106,7 @@
                 </SelectForm>
                 <ErrorMessage :message="errors.documentType" v-if="errors.documentType" />
             </div> -->
-            <div class="mb-4">
+            <!-- <div class="mb-4">
                 <label for="dropdown-content-type-button" class="block mb-2 text-sm font-medium">Content Type</label>
                 <SelectForm id="dropdown-content-type-button" class="w-full" placeholder="Select content type" dropdownIcon
                     inputClass="flex items-center p-2 text-sm font-medium rounded-lg bg-transparent h-10 w-full border border-solid border-gray-500"
@@ -123,7 +123,7 @@
                     labelClass="block mb-2 text-sm font-medium" placeholder="Upload files" label="Documents"
                     :typeAccepted="contentTypeSelected?.value" />
                 <ErrorMessage :message="errors.fileUploaded" v-if="errors.fileUploaded" />
-            </div>
+            </div> -->
         </div>
 
         <!-- Submit Button -->
@@ -508,11 +508,9 @@ const get_file_array = (file) => {
 };
 
 var submitForm = async () => {
-    var fileFlag = false;
-    var dataFlag = false;
+    // var fileFlag = false;
+    // var dataFlag = false;
     errors.value = {}
-
-
 
     const data = {
         countryOfIncorporation: countryOfIncorporationSelected.value?.value || "",
@@ -555,58 +553,58 @@ var submitForm = async () => {
     if (!data.incorporationDate) {
         errors.value = { ...errors.value, incorporationDate: "Incorporation date is required" }
     }
-    if (!data.companyName) {
-        errors.value = { ...errors.value, companyName: "Company name is required" }
-    }
-    if (!contentTypeSelected.value) {
-        errors.value = { ...errors.value, contentType: "Content type is required" }
-    }
-    if (!fileUploaded.value) {
-        errors.value = { ...errors.value, fileUploaded: "File is required" }
-    }
-    if (fileUploaded.value?.length < 2) {
-        errors.value = { ...errors.value, fileUploaded: "You need to upload both back and front images" }
-    }
+    // if (!data.companyName) {
+    //     errors.value = { ...errors.value, companyName: "Company name is required" }
+    // }
+    // if (!contentTypeSelected.value) {
+    //     errors.value = { ...errors.value, contentType: "Content type is required" }
+    // }
+    // if (!fileUploaded.value) {
+    //     errors.value = { ...errors.value, fileUploaded: "File is required" }
+    // }
+    // if (fileUploaded.value?.length < 2) {
+    //     errors.value = { ...errors.value, fileUploaded: "You need to upload both back and front images" }
+    // }
 
-    if (hasKeyObject(errors.value)) {
-        return false;
-    }
+    // if (hasKeyObject(errors.value)) {
+    //     return false;
+    // }
 
     loading.value = true;
 
 
-    try {
-        if (fileUploaded.value) {
-            for (let i = 0; i < fileUploaded.value.length; i++) {
-                const imageData = {
-                    documentType: documentTypeSelected.value.value,
-                    documentName: fileUploaded.value[i].name,
-                    contentType: contentTypeSelected.value.value,
-                    contentLength: fileUploaded.value[i].size
-                }
-                const res = await AppApi("post", "/wallex-business/generate-upload-url", imageData)
-                if (res.data) {
-                    const fileBuffer = get_file_array(fileUploaded.value[i]);
-                    const resUploaded = await axios.put(res.data.uploadURL, fileBuffer, {
-                        headers: {
-                            "x-amz-storage-class": "STANDARD",
-                            "Content-Type": imageData.contentType,
-                        },
-                    });
-                    if (resUploaded.statusText === 'OK') {
-                        console.log(`File "${imageData.documentName}" uploaded successfully`);
-                        fileFlag = true;
-                    } else {
+    // try {
+    //     if (fileUploaded.value) {
+    //         for (let i = 0; i < fileUploaded.value.length; i++) {
+    //             const imageData = {
+    //                 documentType: documentTypeSelected.value.value,
+    //                 documentName: fileUploaded.value[i].name,
+    //                 contentType: contentTypeSelected.value.value,
+    //                 contentLength: fileUploaded.value[i].size
+    //             }
+    //             const res = await AppApi("post", "/wallex-business/generate-upload-url", imageData)
+    //             if (res.data) {
+    //                 const fileBuffer = get_file_array(fileUploaded.value[i]);
+    //                 const resUploaded = await axios.put(res.data.uploadURL, fileBuffer, {
+    //                     headers: {
+    //                         "x-amz-storage-class": "STANDARD",
+    //                         "Content-Type": imageData.contentType,
+    //                     },
+    //                 });
+    //                 if (resUploaded.statusText === 'OK') {
+    //                     console.log(`File "${imageData.documentName}" uploaded successfully`);
+    //                     fileFlag = true;
+    //                 } else {
 
-                        console.log(`File "${imageData.documentName}" uploaded failed`);
-                        fileFlag = false;
-                    }
-                }
-            }
-        }
-    } catch (error) {
-        loading.value = false;
-    }
+    //                     console.log(`File "${imageData.documentName}" uploaded failed`);
+    //                     fileFlag = false;
+    //                 }
+    //             }
+    //         }
+    //     }
+    // } catch (error) {
+    //     loading.value = false;
+    // }
 
 
 
@@ -614,17 +612,17 @@ var submitForm = async () => {
     try {
         const resCompanyDetails = await AppApi("patch", "/wallex-business/update-company-details", data)
         if (resCompanyDetails.data.status.value === 'completed') {
-            dataFlag = true;
+            // dataFlag = true;
 
-            if (fileFlag && dataFlag) {
-                const res = await AppApi("post", "/wallex-business/submit-doc")
-                if (res.data) {
-                    console.log(res.data);
-                    router.push("/verification");
-                } else {
-                    console.log(res.msg.message);
-                }
+            // if (fileFlag && dataFlag) {
+            const res = await AppApi("post", "/wallex-business/submit-doc")
+            if (res.data) {
+                console.log(res.data);
+                router.push("/verification");
+            } else {
+                console.log(res.msg.message);
             }
+            // }
             loading.value = false;
 
 
