@@ -615,7 +615,7 @@ var submitForm = async () => {
             // dataFlag = true;
 
             // if (fileFlag && dataFlag) {
-            const res = await AppApi("post", "/wallex-business/submit-doc")
+            const res = await AppApi("post", "/jumio/upload-wallex-docs")
             if (res.data) {
                 console.log(res.data);
                 router.push("/verification");

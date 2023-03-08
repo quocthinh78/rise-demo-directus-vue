@@ -5,7 +5,7 @@ const dataStatusEkyc = {
   PASSED: 4,
   PROCESSING: 2,
   REJECTED: 3,
-  WARNING: 3,
+  FAILED: 3,
 }
 
 export function UseFetchEkycStatus(url, options) {
